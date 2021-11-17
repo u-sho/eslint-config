@@ -1,0 +1,13 @@
+{
+  "name": "@u-sho/eslint-config-format",
+  "scripts": {
+    "lint": "eslint --ext .js,.json ."
+  },
+  "peerDependencies": {
+    "eslint": "^8.2.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0"
+  }
+}
