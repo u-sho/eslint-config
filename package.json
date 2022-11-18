@@ -1,0 +1,27 @@
+{
+  "name": "@u-sho/eslint-config-format",
+  "version": "0.0.1",
+  "description": "Rules of ESLint as a formatter by u-sho",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix --ext .js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/u-sho/eslint-config-format.git"
+  },
+  "keywords": [
+    "eslint",
+    "formatter",
+    "eslintconfig"
+  ],
+  "author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/u-sho/eslint-config-format/issues"
+  },
+  "homepage": "https://github.com/u-sho/eslint-config-format#readme",
+  "peerDependencies": {
+    "eslint": "^7.30.0"
+  }
+}
