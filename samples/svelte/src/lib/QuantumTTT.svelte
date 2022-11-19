@@ -1,7 +1,7 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-	  Copyright (C) 2021  Shouhei Uechi
-	  Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
+		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
+		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
 
@@ -19,13 +19,13 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import type { MaxLengthArray } from '../typescript/types/generics';
-import { toAbbrOrdinalSafely } from '../typescript/utils/ordinalNumerals';
+import type { MaxLengthArray } from '$ts/types/generics';
+import { toAbbrOrdinalSafely } from '$ts/utils/ordinalNumerals';
 
 import GameBoard from './GameBoard.svelte';
 import GameInfo from './GameInfo.svelte';
-import type { MarkType, SquareType } from '../typescript/games/QuantumTTT.type';
-import Game from '../typescript/games/QuantumTTT';
+import type { MarkType, SquareType } from '$ts/games/QuantumTTT.type';
+import Game from '$ts/games/QuantumTTT';
 
 let game = new Game();
 game.setStatus('プレイヤーXのターンです');
@@ -38,7 +38,7 @@ $: choices =
 	state.collapseSquare !== null
 		? (state.qSquares[state.collapseSquare]?.filter((choice) =>
 				state.cycleMarks?.includes(choice)
-		  ) as MaxLengthArray<MarkType, 3> | undefined)
+			) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
 function handleSquareClick(i: SquareType) {

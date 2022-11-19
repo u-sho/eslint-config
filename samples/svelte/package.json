@@ -4,7 +4,7 @@
   "version": "0.6.0-beta.0",
   "description": "Svelte code sample",
   "author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "repository": {
     "url": "git+https://github.com/u-sho/quantum-game-arena.git",
     "type": "git"

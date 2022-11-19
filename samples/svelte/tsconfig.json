@@ -8,6 +8,11 @@
     "allowJs": true,
     "checkJs": true,
     "isolatedModules": true,
+
+    "paths": {
+      "$lib/*": ["./src/lib/*"],
+      "$ts/*": ["../typescript/*"],
+    }
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.svelte"],
   "references": [{ "path": "./tsconfig.node.json" }]

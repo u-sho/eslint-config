@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi
+		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -21,7 +21,7 @@
 <script lang="ts">
 import QuantumMarks from './MarkQuantums.svelte';
 import ClassicalMark from './MarkClassical.svelte';
-import type { StateType } from '../../typescript/games/QuantumTTT.type';
+import type { StateType } from '$ts/games/QuantumTTT.type';
 
 export let cMark: StateType['cSquares'][0];
 export let qMarks: StateType['qSquares'][0];

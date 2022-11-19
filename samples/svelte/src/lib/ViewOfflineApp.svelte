@@ -19,13 +19,13 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-	import type { MaxLengthArray } from '../typescript/types/generics';
-	import { toOrdinalSafely } from '../typescript/utils/ordinalNumerals';
+	import type { MaxLengthArray } from '$ts/types/generics';
+	import { toOrdinalSafely } from '$ts/utils/ordinalNumerals';
 	
-	import GameBoard from './GameBoard.svelte';
-	import GameInfo from './GameInfo.svelte';
-	import type { MarkType, SquareType } from '../typescript/games/QuantumTTT.type';
-	import Game from '../typescript/games/QuantumTTT';
+	import GameBoard from '$lib/GameBoard.svelte';
+	import GameInfo from '$lib/GameInfo.svelte';
+	import type { MarkType, SquareType } from '$ts/games/QuantumTTT.type';
+	import Game from '$ts/games/QuantumTTT';
 	
 	let game = new Game();
 	game.setStatus('プレイヤーXのターンです');

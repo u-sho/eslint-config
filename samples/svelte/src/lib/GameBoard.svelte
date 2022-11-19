@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi
+		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -20,7 +20,7 @@
 -->
 <script lang="ts">
 import BoardSquare from './GameBoardSquare/index.svelte';
-import type { SquareType, StateType } from '../typescript/games/QuantumTTT.type';
+import type { SquareType, StateType } from '$ts/games/QuantumTTT.type';
 
 export let cSquares: StateType['cSquares'];
 export let qSquares: StateType['qSquares'];

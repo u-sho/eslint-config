@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi
+		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -19,9 +19,9 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import type { MaxLengthArray } from '../typescript/types/generics';
+import type { MaxLengthArray } from '$ts/types/generics';
 
-import type { MarkType } from '../typescript/games/QuantumTTT.type';
+import type { MarkType } from '$ts/games/QuantumTTT.type';
 
 // Contains marks in selected square if collapse ongoing
 export let choices: MaxLengthArray<MarkType, 3> | undefined;
