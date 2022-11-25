@@ -1,4 +1,4 @@
-import { DigitCharFrom4To9 } from '../types/numbers';
+import type { DigitCharFrom4To9 } from '../types/numbers';
 import type {
 	AbbrPositive2PlusDigitsOrdinal,
 	PositiveOneDigitOrdinal,
