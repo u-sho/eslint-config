@@ -4,6 +4,7 @@
   "description": "Rules of ESLint as a formatter by u-sho",
   "main": "index.js",
   "scripts": {
+    "format": "eslint --format stylish --ext .js .",
     "lint": "eslint --fix --ext .js ."
   },
   "repository": {
@@ -22,6 +23,6 @@
   },
   "homepage": "https://github.com/u-sho/eslint-config-format#readme",
   "peerDependencies": {
-    "eslint": "^7.30.0"
+    "eslint": "^8.31.0"
   }
 }
