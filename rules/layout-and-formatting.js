@@ -5,7 +5,7 @@ const LOG_LEVEL = WARN;
 
 const prettierrc = require('../prettierrc');
 
-/** @type {import('eslint').Linter.RulesRecord} */
+/** @type {import('eslint/rules').ESLintRules} */
 module.exports = {
 	// Enforce linebreaks after opening and before closing array brackets.
 	'array-bracket-newline': LOG_LEVEL,
@@ -17,37 +17,24 @@ module.exports = {
 	'array-element-newline': LOG_LEVEL,
 
 	// Require parentheses around arrow function arguments.
-	'arrow-parens': [
-		LOG_LEVEL,
-		prettierrc.arrowParens,
-	],
+	'arrow-parens': [LOG_LEVEL, prettierrc.arrowParens],
 
 	// Enforce consistent spacing before and after the arrow in arrow functions.
-	'arrow-spacing': [
-		LOG_LEVEL,
+	'arrow-spacing': [LOG_LEVEL,
 		prettierrc.arrowParens === 'always'
 			? {before: false, after: false}
-			: {before: true, after: true},
-	],
+			: {before: true, after: true}],
 
 	// Enforce spaces; after opening block and before closing block
-	'block-spacing': [
-		LOG_LEVEL,
-		prettierrc.bracketSpacing ? 'always' : 'never',
-	],
+	'block-spacing': [LOG_LEVEL, prettierrc.bracketSpacing ? 'always' : 'never'],
 
 	// Consistent brace style for blocks
-	'brace-style': [
-		LOG_LEVEL,
+	'brace-style': [LOG_LEVEL,
 		'1tbs',
-		{allowSingleLine: true},
-	],
+		{allowSingleLine: true}],
 
 	// Require or disallow trailing commas
-	'comma-dangle': [
-		LOG_LEVEL,
-		prettierrc.trailingCommas === 'es5' ? 'always-multiline' : 'never',
-	],
+	'comma-dangle': [LOG_LEVEL, prettierrc.trailingCommas === 'es5' ? 'always-multiline' : 'never'],
 
 	// Enforce consistent spacing before and after commas
 	'comma-spacing': LOG_LEVEL,
@@ -62,19 +49,13 @@ module.exports = {
 	'dot-location': LOG_LEVEL,
 
 	// Require or disallow newline at the end of files
-	'eol-last': [
-		LOG_LEVEL,
-		'never',
-	],
+	'eol-last': [LOG_LEVEL, 'never'],
 
 	// Disallow spacing between function identifiers and their invocations
 	'func-call-spacing': LOG_LEVEL,
 
 	// Enforce line breaks between arguments of a function call
-	'function-call-argument-newline': [
-		LOG_LEVEL,
-		'consistent',
-	],
+	'function-call-argument-newline': [LOG_LEVEL, 'consistent'],
 
 	// Enforce consistent line breaks inside function parentheses
 	'function-paren-newline': LOG_LEVEL,
@@ -86,50 +67,33 @@ module.exports = {
 	'implicit-arrow-linebreak': LOG_LEVEL,
 
 	// Enforce consistent indentation
-	'indent': [
-		LOG_LEVEL,
+	'indent': [LOG_LEVEL,
 		prettierrc.useTabs ? 'tab' : prettierrc.tabWidth,
-		{SwitchCase: 1, offsetTernaryExpressions: true},
-	],
+		{SwitchCase: 1, offsetTernaryExpressions: true}],
 
 	// Enforce the consistent use of either " or ' quotes in JSX attributes
-	'jsx-quotes': [
-		LOG_LEVEL,
-		prettierrc.jsxSingleQuote ? 'prefer-single' : 'prefer-double',
-	],
+	'jsx-quotes': [LOG_LEVEL, prettierrc.jsxSingleQuote ? 'prefer-single' : 'prefer-double'],
 
 	// Enforce consistent spacing in every key-value object literal properties
-	'key-spacing': [
-		LOG_LEVEL,
-		{align: 'colon'},
-	],
+	'key-spacing': [LOG_LEVEL, {align: 'colon'}],
 
 	// Enforce consistent spacing before and after keywords
-	'keyword-spacing': [
-		LOG_LEVEL,
+	'keyword-spacing': [LOG_LEVEL,
 		{
 			overrides: {
 				for  : {after: false},
 				while: {after: false},
 			},
-		},
-	],
+		}],
 
 	// Enforce position of line comments
-	'line-comment-position': [
-		LOG_LEVEL,
-		{ignorePattern: 'webpackChunkName:\\s.+', applyDefaultIgnorePatterns: false},
-	],
+	'line-comment-position': [LOG_LEVEL, {ignorePattern: 'webpackChunkName:\\s.+', applyDefaultIgnorePatterns: false}],
 
 	// Enforce consistent linebreak style
-	'linebreak-style': [
-		LOG_LEVEL,
-		prettierrc.endOfLine === 'lf' ? 'unix' : 'windows',
-	],
+	'linebreak-style': [LOG_LEVEL, prettierrc.endOfLine === 'lf' ? 'unix' : 'windows'],
 
 	// Require empty lines around comments
-	'lines-around-comment': [
-		LOG_LEVEL,
+	'lines-around-comment': [LOG_LEVEL,
 		{
 			allowArrayEnd   : true,
 			allowArrayStart : true,
@@ -139,18 +103,16 @@ module.exports = {
 			allowObjectStart: true,
 
 			/*
-			 * BeforeBlockComment: true,
+			 * 'beforeBlockComment': true,
 			 * beforeLineComment : false
 			 */
-		},
-	],
+		}],
 
 	// Require or disallow an empty line between class members
 	'lines-between-class-members': LOG_LEVEL,
 
 	// Enforce a maximum line length
-	'max-len': [
-		LOG_LEVEL,
+	'max-len': [LOG_LEVEL,
 		{
 			code                  : prettierrc.printWidth,
 			tabWidth              : prettierrc.tabWidth,
@@ -158,26 +120,19 @@ module.exports = {
 			ignoreStrings         : true,
 			ignoreTemplateLiterals: true,
 			ignoreRegExpLiterals  : true,
-		},
-	],
+		}],
 
 	// Enforce a maximum number of statements allowed per line
 	'max-statements-per-line': LOG_LEVEL,
 
 	// Enforce newlines between operands of ternary expressions
-	'multiline-ternary': [
-		LOG_LEVEL,
-		'always-multiline',
-	],
+	'multiline-ternary': [LOG_LEVEL, 'always-multiline'],
 
 	// Disallow parentheses when invoking a constructor with no arguments
 	'new-parens': LOG_LEVEL,
 
 	// Require a newline after each call in a method chain
-	'newline-per-chained-call': [
-		LOG_LEVEL,
-		{ignoreChainWithDepth: 1},
-	],
+	'newline-per-chained-call': [LOG_LEVEL, {ignoreChainWithDepth: 1}],
 
 	// Disallow unnecessary parentheses
 	'no-extra-parens': LOG_LEVEL,
@@ -186,31 +141,23 @@ module.exports = {
 	'no-mixed-spaces-and-tabs': LOG_LEVEL,
 
 	// Disallow multiple spaces
-	'no-multi-spaces': [
-		LOG_LEVEL,
+	'no-multi-spaces': [LOG_LEVEL,
 		{
 			exceptions: {
 				VariableDeclarator: true,
 				ImportDeclaration : true,
 				// Property: true
 			},
-		},
-	],
+		}],
 
 	// Disallow multiple empty lines
-	'no-multiple-empty-lines': [
-		LOG_LEVEL,
-		{max: 1, maxBOF: 0, maxEOF: 0},
-	],
+	'no-multiple-empty-lines': [LOG_LEVEL, {max: 1, maxBOF: 0, maxEOF: 0}],
 
 	// Disallow all tabs
-	'no-tabs': [
-		LOG_LEVEL,
-		{allowIndentationTabs: prettierrc.useTabs},
-	],
+	'no-tabs': prettierrc.useTabs ? OFF : LOG_LEVEL,
 
 	// Disallow trailing whitespace at the end of lines
-	'no-trailing-spaces': WARN,
+	'no-trailing-spaces': LOG_LEVEL,
 
 	// Disallow whitespace before properties
 	'no-whitespace-before-property': LOG_LEVEL,
@@ -219,90 +166,53 @@ module.exports = {
 	'nonblock-statement-body-position': LOG_LEVEL,
 
 	// Enforce consistent line breaks after opening and before closing braces
-	'object-curly-newline': [
-		LOG_LEVEL,
-		{multiline: true},
-	],
+	'object-curly-newline': [LOG_LEVEL, {multiline: true}],
 
 	// Enforce consistent spacing inside braces
-	'object-curly-spacing': [
-		LOG_LEVEL,
+	'object-curly-spacing': [LOG_LEVEL,
 		prettierrc.bracketSpacing ? 'always' : 'never',
 		{
 			arraysInObjects : prettierrc.bracketSpacing,
 			objectsInObjects: prettierrc.bracketSpacing,
-		},
-	],
+		}],
 
 	// Enforce placing object properties on separate lines
-	'object-property-newline': [
-		LOG_LEVEL,
-		{allowAllPropertiesOnSameLine: true},
-	],
+	'object-property-newline': [LOG_LEVEL, {allowAllPropertiesOnSameLine: true}],
 
 	// Enforce consistent linebreak style for operators
-	'operator-linebreak': [
-		LOG_LEVEL,
-		'before',
-	],
+	'operator-linebreak': [LOG_LEVEL, 'before'],
 
 	// Require or disallow padding within blocks
-	'padded-blocks': [
-		LOG_LEVEL,
-		'never',
-	],
+	'padded-blocks': [LOG_LEVEL, 'never'],
 
 	// Require or disallow padding lines between statements
-	'padding-line-between-statements': [
-		LOG_LEVEL,
+	'padding-line-between-statements': [LOG_LEVEL,
 		{blankLine: 'always', prev: 'directive', next: '*'},
 		{blankLine: 'any', prev: 'directive', next: 'directive'},
+
 		{blankLine: 'always', prev: 'import', next: '*'},
 		{blankLine: 'any', prev: 'import', next: 'import'},
+
 		{blankLine: 'never', prev: 'singleline-let', next: '*'},
-		{
-			blankLine: 'always',
-			prev     : [
-				'case',
-				'default',
-			],
-			next: '*',
-		},
-		{
-			blankLine: 'never',
-			prev     : 'case',
-			next     : [
-				'case',
-				'default',
-			],
-		},
-		{blankLine: 'always', prev: '*', next: 'return'},
-	],
+
+		{blankLine: 'always', prev: ['case', 'default'], next: '*'},
+		{blankLine: 'never', prev: 'case', next: ['case', 'default']},
+
+		{blankLine: 'always', prev: '*', next: 'return'}],
 
 	// Enforce the consistent use of either double, or single quotes
-	'quotes': [
-		LOG_LEVEL,
+	'quotes': [LOG_LEVEL,
 		prettierrc.singleQuote ? 'single' : 'double',
-		{allowTemplateLiterals: false, avoidEscape: true},
-	],
+		{allowTemplateLiterals: false, avoidEscape: true}],
 
 	// Enforce spacing between rest and spread operators and their expressions
 	'rest-spread-spacing': LOG_LEVEL,
 
 	// Require or disallow semicolons instead of ASI
-	'semi': [
-		LOG_LEVEL,
+	'semi': [LOG_LEVEL,
 		...prettierrc.semi
-			? [
-					'always',
-					{omitLastInOneLineBlock: true},
-				]
-			: [
-					'never',
-					{beforeStatementContinuationChars: 'never'},
-				],
-
-	],
+			? ['always', {omitLastInOneLineBlock: true}]
+			: ['never', {beforeStatementContinuationChars: 'never'}]],
 
 	// Enforce consistent spacing before and after semicolons
 	'semi-spacing': LOG_LEVEL,
@@ -311,23 +221,15 @@ module.exports = {
 	'semi-style': LOG_LEVEL,
 
 	// Enforce consistent spacing before blocks
-	'space-before-blocks': [
-		LOG_LEVEL,
-		{functions: 'never'},
-	],
+	'space-before-blocks': [LOG_LEVEL, {functions: 'never'}],
 
 	// Enforce consistent spacing before `function` definition opening parens
-	'space-before-function-paren': [
-		LOG_LEVEL,
-		{anonymous: 'never', named: 'never', asyncArrow: 'always'},
-	],
+	'space-before-function-paren': [LOG_LEVEL, {anonymous: 'never', named: 'never', asyncArrow: 'always'}],
 
 	// Enforce consistent spacing inside parentheses
-	'space-in-parens': [
-		LOG_LEVEL,
+	'space-in-parens': [LOG_LEVEL,
 		'never',
-		{exceptions: ['()']},
-	],
+		{exceptions: ['()']}],
 
 	// Require spacing around infix operators
 	'space-infix-ops': LOG_LEVEL,
@@ -348,11 +250,9 @@ module.exports = {
 	'unicode-bom': ERROR,
 
 	// Require parentheses around immediate `function` invocations
-	'wrap-iife': [
-		LOG_LEVEL,
+	'wrap-iife': [LOG_LEVEL,
 		'inside',
-		{functionPrototypeMethods: true},
-	],
+		{functionPrototypeMethods: true}],
 
 	// Require parenthesis around regex literals
 	'wrap-regex': OFF,
