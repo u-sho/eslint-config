@@ -24,5 +24,8 @@
   "homepage": "https://github.com/u-sho/eslint-config-format#readme",
   "peerDependencies": {
     "eslint": "^8.31.0"
+  },
+  "dependencies": {
+    "eslint-plugin-smarter-tabs": "^1.2.0"
   }
 }

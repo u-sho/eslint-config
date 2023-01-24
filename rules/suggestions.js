@@ -5,7 +5,8 @@ const LOG_LEVEL = WARN;
 
 // Const prettierrc = require('../prettierrc');
 
-/** @type {import('eslint').Linter.RulesRecord} */
+/** @type {import('eslint/rules').ESLintRules} */
+// eslint-disable-next-line object-curly-newline
 module.exports = {
 	// Enforce getter and setter pairs in objects and classes
 	'accessor-pairs': LOG_LEVEL,
@@ -449,5 +450,4 @@ module.exports = {
 	'vars-on-top': LOG_LEVEL,
 
 	// Require or disallow "Yoda" conditions
-	'yoda': LOG_LEVEL,
-};
+	'yoda': LOG_LEVEL};

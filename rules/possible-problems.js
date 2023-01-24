@@ -5,7 +5,8 @@ const LOG_LEVEL = WARN;
 
 // Const prettierrc = require('../prettierrc');
 
-/** @type {import('eslint').Linter.RulesRecord} */
+/** @type {import('eslint/rules').ESLintRules} */
+// eslint-disable-next-line object-curly-newline
 module.exports = {
 	// Enforce return statements in callbacks of array methods
 	'array-callback-return': LOG_LEVEL,
@@ -179,5 +180,4 @@ module.exports = {
 	'use-isnan': LOG_LEVEL,
 
 	// Enforce comparing `typeof` expressions against valid strings
-	'valid-typeof': LOG_LEVEL,
-};
+	'valid-typeof': LOG_LEVEL};

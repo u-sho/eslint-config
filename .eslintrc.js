@@ -6,6 +6,7 @@ const prettierrc = require('./prettierrc');
 const layoutAndFormattingRules = require('./rules/layout-and-formatting');
 
 /** @type {import('eslint').Linter.Config} */
+// eslint-disable-next-line object-curly-newline
 module.exports = {
 	// eslint-disable-next-line array-bracket-newline
 	ignorePatterns: [
@@ -16,17 +17,18 @@ module.exports = {
 		'*.local'],
 
 	root: true,
-	env : {
-		browser: true,
-		node   : true,
-	},
-	parserOptions: {
-		ecmaFeatures: {impliedStrict: true},
-		ecmaVersion : 'latest',
-		sourceType  : 'module',
-	},
+	env : {browser: true,
+	       node   : true},
+	parserOptions: {ecmaFeatures: {impliedStrict: true},
+	                ecmaVersion : 'latest',
+	                sourceType  : 'module'},
+	plugins: prettierrc.useTabs ? ['smarter-tabs'] : [],
 
+	// eslint-disable-next-line object-curly-newline
 	rules: {
+		// Enforce the usage of smart tabs, as defined in the emacs wiki
+		'smarter-tabs/smarter-tabs': WARN,
+
 		...layoutAndFormattingRules,
 
 		// Enforce camelcase naming convention
@@ -43,10 +45,8 @@ module.exports = {
 		 * to which they are assigned
 		 */
 		'func-name-matching': [ERROR,
-			{
-				considerPropertyDescriptor  : true,
-				includeCommonJSModuleExports: true,
-			}],
+		                       {considerPropertyDescriptor  : true,
+		                        includeCommonJSModuleExports: true}],
 
 		// Require or disallow named `function` expressions
 		'func-names': [ERROR, 'as-needed'],
@@ -69,12 +69,7 @@ module.exports = {
 		// Enforce a maximum number of lines per file
 		'max-lines': prettierrc.rangeEnd === Infinity
 			? OFF
-			: [ERROR,
-					{
-						max           : prettierrc.rangeEnd,
-						skipBlankLines: true,
-						skipComments  : true,
-					}],
+			: [ERROR, {max: prettierrc.rangeEnd, skipBlankLines: true, skipComments: true}],
 
 		// Enforce a maximum number of lines of code in a function
 		'max-lines-per-function': [ERROR, {max: 20, skipBlankLines: true, skipComments: true}],
@@ -132,22 +127,14 @@ module.exports = {
 
 		// Disallow specified syntax
 		'no-restricted-syntax': [ERROR,
-			{
-				selector: 'FunctionExpression',
-				message : 'Function expressions are not allowed.',
-			},
-			{
-				selector: 'WithStatement',
-				message : 'With statements are not allowed.',
-			},
-			{
-				selector: "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
-				message : 'setTimeout must always be invoked with two arguments.',
-			},
-			{
-				selector: 'TemplateLiteral[expressions.length=0]',
-				message : 'In this case, back quotes are not allowed. Use single quotes.',
-			}],
+		  {selector: 'FunctionExpression',
+		                          message : 'Function expressions are not allowed.'},
+		                         {selector: 'WithStatement',
+		                          message : 'With statements are not allowed.'},
+		                         {selector: "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
+		                          message : 'setTimeout must always be invoked with two arguments.'},
+		                         {selector: 'TemplateLiteral[expressions.length=0]',
+		                          message : 'In this case, back quotes are not allowed. Use single quotes.'}],
 
 		// Disallow ternary operators
 		'no-ternary': OFF,
@@ -180,50 +167,56 @@ module.exports = {
 		'quote-props': [ERROR, prettierrc.quoteProps],
 
 		// Require object keys to be sorted
-		'sort-keys': [ERROR,
-			'asc',
-			{caseSensitive: false, natural: true}],
+		'sort-keys': [WARN,
+		              'asc',
+		              {allowLineSeparatedGroups: true, caseSensitive: false, natural: true}],
 
 		// Require variables within the same declaration block to be sorted
 		'sort-vars': [ERROR, {ignoreCase: true}],
 
 		// Enforce consistent spacing after the `//` or `/*` in a comment
 		'spaced-comment': [ERROR,
-			'always',
-			{line: {markers: ['/']}}],
+		                   'always',
+		                   {line: {markers: ['/']}}],
 
 		// Custom rules
 		// eslint-disable-next-line sort-keys
 		'complexity': [ERROR, {max: 2}],
 		'curly'     : [ERROR,
-			'multi-or-nest',
-			'consistent'],
+		               'multi-or-nest',
+		               'consistent'],
 		'grouped-accessor-pairs': [ERROR, 'getBeforeSet'],
 		'object-shorthand'      : [ERROR,
-			'always',
-			{avoidExplicitReturnArrows: true}],
+		                           'always',
+		                           {avoidExplicitReturnArrows: true}],
 
 		// Off rules
 		// eslint-disable-next-line sort-keys
 		'no-useless-computed-key': OFF,
-		'sort-imports'           : OFF,
-	},
-	overrides: [{
-		// eslint-disable-next-line array-element-newline
-		files: ['.eslintrc.*', 'rules/*.js', 'prettierrc.*'],
-		rules: {
-			// To emphasise warning level of each rule
-			'array-bracket-newline'   : [WARN, 'never'],
-			'array-element-newline'   : [WARN, {multiline: true, minItems: 3}],
-			'camelcase'               : OFF,
-			'no-mixed-spaces-and-tabs': prettierrc.useTabs ? [WARN, 'smart-tabs'] : WARN,
-			'no-restricted-globals'   : [ERROR,
-				'document',
-				'window',
-				'navigator'],
-			'sort-keys': [ERROR,
-				'asc',
-				{minKeys: 20}],
-		},
-	}],
-};
+		'sort-imports'           : OFF},
+
+	// eslint-disable-next-line array-bracket-newline
+	overrides: [
+		// eslint-disable-next-line object-curly-newline
+		{
+			// eslint-disable-next-line array-element-newline
+			files: ['.eslintrc.*', 'rules/*.js'],
+			// eslint-disable-next-line object-curly-newline
+			rules: {
+				// To emphasise warning level of each rule
+				'array-bracket-newline': [WARN, 'never'],
+				'array-element-newline': [WARN, {multiline: true, minItems: 3}],
+				'camelcase'            : OFF,
+				'object-curly-newline' : [WARN, 'never']}},
+
+		// eslint-disable-next-line object-curly-newline
+		{
+			// eslint-disable-next-line array-element-newline
+			files: ['.eslintrc.*', 'rules/*.js', 'prettierrc.*'],
+			// eslint-disable-next-line object-curly-newline
+			rules: {
+				// eslint-disable-next-line array-element-newline
+				'no-restricted-globals': [ERROR, 'document', 'window', 'navigator'],
+				'sort-keys'            : [ERROR,
+				                       'asc',
+				                       {caseSensitive: false, natural: true, minKeys: 20}]}}]};

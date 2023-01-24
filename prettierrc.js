@@ -1,11 +1,12 @@
+/* eslint-disable lines-around-comment */
 const defaultOptions = require('./prettierrc.default');
 
 module.exports = {
 	...defaultOptions,
 	printWidth : 100,
-	// .tabWidth: 2,
+	// ,tabWidth: 2,
 	useTabs    : true,
-	// .semi: true,
+	// ,semi: true,
 	singleQuote: true,
 	quoteProps : 'consistent',
 
@@ -16,19 +17,19 @@ module.exports = {
 	bracketSpacing: false,
 
 	/*
-	 * .bracketSameLine           : false,
-	 * .arrowParens               : 'always',
-	 * .rangeStart                : 0,
-	 * .rangeEnd                  : Infinity,
-	 * .parser                    : undefined,
-	 * .filePath                  : undefined,
-	 * .requirePragma             : false,
-	 * .insertPragma              : false,
-	 * .proseWrap                 : 'preserve',
-	 * .htmlWhitespaceSensitivity : 'css',
-	 * .vueIndentScriptAndStyle   : false,
-	 * .endOfLine                 : 'lf',
-	 * .embeddedLanguageFormatting: 'auto',
-	 * .singleAttributePerLine    : true
+	 * ,bracketSameLine           : false,
+	 * ,arrowParens               : 'always',
+	 * ,rangeStart                : 0,
+	 * ,rangeEnd                  : Infinity,
+	 * ,parser                    : undefined,
+	 * ,filePath                  : undefined,
+	 * ,requirePragma             : false,
+	 * ,insertPragma              : false,
+	 * ,proseWrap                 : 'preserve',
+	 * ,htmlWhitespaceSensitivity : 'css',
+	 * ,vueIndentScriptAndStyle   : false,
+	 * ,endOfLine                 : 'lf',
+	 * ,embeddedLanguageFormatting: 'auto',
+	 * ,singleAttributePerLine    : true
 	 */
 };
