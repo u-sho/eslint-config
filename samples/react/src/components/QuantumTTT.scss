@@ -1,0 +1,19 @@
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.game-footer {
+  width: 100%;
+  margin-top: 50px;
+  text-align: center;
+  background-color: var(--theme-color);
+  color: var(--bg-color);
+  a {
+    color: var(--bg-light-color);
+    text-decoration-line: underline;
+  }
+}

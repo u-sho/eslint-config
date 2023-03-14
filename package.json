@@ -1,7 +1,7 @@
 {
   "name": "@u-sho/eslint-config-format",
   "scripts": {
-    "lint": "eslint --ext .js,.json ."
+    "lint": "eslint --ext .js ."
   },
   "peerDependencies": {
     "eslint": "^8.26.0"

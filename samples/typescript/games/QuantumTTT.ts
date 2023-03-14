@@ -19,7 +19,7 @@
  * along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { ConstArray, MaxLengthArray, RequiredAtLeastOne } from '../types/generics';
+import type { ConstArray, ImmutableArray, MaxLengthArray, RequiredAtLeastOne } from '../types/generics';
 import type {
   MarkType,
   PlayerType,
@@ -118,10 +118,10 @@ export default class QuantumTTT {
 
   // adds quantum mark to square that was clicked on then checks if that created a cycle
   private _handleNormalMove(i: SquareType): StatusType {
-    const qSquares = [...this.state.qSquares];
+    const qSquares: typeof this.state.qSquares = [...this.state.qSquares];
     const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
-    if (qSquares[i].length >= 1) qSquares[i].push(marker);
+    if (qSquares[i].length >= 1) (qSquares[i] as Array<MarkType>).push(marker);
     else qSquares[i] = [marker];
 
     if (!this.g.hasNode(i)) this.g.addNode(i);
@@ -154,9 +154,8 @@ export default class QuantumTTT {
 
   // selects square to be collapse point
   private _handleCyclicEntanglement(i: SquareType): StatusType {
-    // HACK: https://github.com/snyk/vscode-extension/issues/200
-    // deepcode ignore AttrAccessOnNull: snyk cannot recognize optional chaining.
-    if (!this.state.cycleSquares?.includes(i))
+    // `as` は敗北の証
+    if (!(this.state.cycleSquares as Array<SquareType>)?.includes(i))
       return '循環もつれに関係してるマスを選択してください！';
 
     this.setState({ collapseSquare: i });
@@ -247,7 +246,7 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 
 type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
 function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
-  const lines: ConstArray<ConstArray<SquareType, 3>, 8> = [
+  const lines = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -256,7 +255,7 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6]
-  ];
+  ] satisfies Array<ImmutableArray<SquareType, 3>>;
 
   const winners: WinnersType = [];
 
