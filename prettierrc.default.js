@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 // Prettier options
 module.exports = {
 	printWidth                : 80,

@@ -1,11 +1,11 @@
-const OFF = 0;
 const WARN = 1;
 const ERROR = 2;
-const LOG_LEVEL = WARN;
+const LOG_LEVEL = ERROR;
 
-// Const prettierrc = require('../prettierrc');
-
-/** @type {import('eslint/rules').ESLintRules} */
+/**
+ * @see https://eslint.org/docs/latest/rules/#possible-problems
+ * @type {import('eslint/rules').ESLintRules}
+ */
 // eslint-disable-next-line object-curly-newline
 module.exports = {
 	// Enforce return statements in callbacks of array methods
@@ -144,7 +144,7 @@ module.exports = {
 	'no-unexpected-multiline': LOG_LEVEL,
 
 	// Disallow unmodified loop conditions
-	'no-unmodified-loop-condition': LOG_LEVEL,
+	'no-unmodified-loop-condition': WARN,
 
 	// Disallow unreachable code after `return`, `throw`, `continue`, and `break` statements
 	'no-unreachable': LOG_LEVEL,
@@ -162,10 +162,16 @@ module.exports = {
 	'no-unsafe-optional-chaining': LOG_LEVEL,
 
 	// Disallow unused private class members
-	'no-unused-private-class-members': LOG_LEVEL,
+	'no-unused-private-class-members': WARN,
 
 	// Disallow unused variables
-	'no-unused-vars': LOG_LEVEL,
+	'no-unused-vars': [WARN,
+	                  {'vars'                          : 'all',
+	                   'args'                          : 'all',
+	                   'caughtErrors'                  : 'all',
+	                   'caughtErrorsIgnorePattern'     : '^_',
+	                   'destructuredArrayIgnorePattern': '^_',
+	                   'ignoreRestSiblings'            : false}],
 
 	// Disallow the use of variables before they are defined
 	'no-use-before-define': LOG_LEVEL,

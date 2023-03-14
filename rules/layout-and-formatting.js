@@ -5,7 +5,10 @@ const LOG_LEVEL = WARN;
 
 const prettierrc = require('../prettierrc');
 
-/** @type {import('eslint/rules').ESLintRules} */
+/**
+ * @see https://eslint.org/docs/latest/rules/#layout--formatting
+ * @type {import('eslint/rules').ESLintRules}
+ */
 // eslint-disable-next-line object-curly-newline
 module.exports = {
 	// Enforce linebreaks after opening and before closing array brackets.
@@ -22,7 +25,7 @@ module.exports = {
 
 	// Enforce consistent spacing before and after the arrow in arrow functions.
 	'arrow-spacing': [LOG_LEVEL,
-	                  prettierrc.arrowParens === 'always'
+	                  'always' === prettierrc.arrowParens
 	                    ? {before: false, after: false}
 	                    : {before: true, after: true}],
 
@@ -36,7 +39,7 @@ module.exports = {
 	                {allowSingleLine: true}],
 
 	// Require or disallow trailing commas
-	'comma-dangle': [LOG_LEVEL, prettierrc.trailingCommas === 'es5' ? 'always-multiline' : 'never'],
+	'comma-dangle': [LOG_LEVEL, 'es5' === prettierrc.trailingCommas ? 'always-multiline' : 'never'],
 
 	// Enforce consistent spacing before and after commas
 	'comma-spacing': LOG_LEVEL,
@@ -95,7 +98,7 @@ module.exports = {
 	'line-comment-position': [LOG_LEVEL, {ignorePattern: 'webpackChunkName:\\s.+', applyDefaultIgnorePatterns: false}],
 
 	// Enforce consistent linebreak style
-	'linebreak-style': [LOG_LEVEL, prettierrc.endOfLine === 'lf' ? 'unix' : 'windows'],
+	'linebreak-style': [LOG_LEVEL, 'lf' === prettierrc.endOfLine ? 'unix' : 'windows'],
 
 	// Require empty lines around comments
 	'lines-around-comment': [LOG_LEVEL,
@@ -249,4 +252,4 @@ module.exports = {
 	'wrap-regex': OFF,
 
 	// Require or disallow spacing around the `*` in `yield*` expressions
-	'yield-star-spacing': LOG_LEVEL};
+	'yield-star-spacing': [LOG_LEVEL, 'after']};
