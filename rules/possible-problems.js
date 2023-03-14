@@ -166,12 +166,12 @@ module.exports = {
 
 	// Disallow unused variables
 	'no-unused-vars': [WARN,
-	                  {'vars'                          : 'all',
-	                   'args'                          : 'all',
-	                   'caughtErrors'                  : 'all',
-	                   'caughtErrorsIgnorePattern'     : '^_',
-	                   'destructuredArrayIgnorePattern': '^_',
-	                   'ignoreRestSiblings'            : false}],
+	                  {vars                          : 'all',
+	                   args                          : 'all',
+	                   caughtErrors                  : 'all',
+	                   caughtErrorsIgnorePattern     : '^_',
+	                   destructuredArrayIgnorePattern: '^_',
+	                   ignoreRestSiblings            : false}],
 
 	// Disallow the use of variables before they are defined
 	'no-use-before-define': LOG_LEVEL,
