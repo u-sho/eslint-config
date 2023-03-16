@@ -1,4 +1,4 @@
-# @u-sho/eslint-config-formatter
+# @u-sho/eslint-config-format
 
 Rules of ESLint as a formatter by u-sho.
 

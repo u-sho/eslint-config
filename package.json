@@ -4,8 +4,8 @@
   "description": "Rules of ESLint as a formatter by u-sho",
   "main": "index.js",
   "scripts": {
-    "format": "eslint --format stylish --ext .js .",
-    "lint": "eslint --fix --ext .js ."
+    "lint": "eslint --ext .js .",
+    "lint-fix": "eslint --fix --ext .js ."
   },
   "repository": {
     "type": "git",
