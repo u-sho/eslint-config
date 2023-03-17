@@ -1,11 +1,10 @@
 {
-  "name": "@u-sho/eslint-config-format",
-  "version": "0.0.1",
-  "description": "Rules of ESLint as a formatter by u-sho",
+  "name": "@u-sho/eslint-config",
+  "version": "1.0.0-alpha.0",
+  "description": "ESLint config for @u-sho",
   "main": "index.js",
   "scripts": {
-    "format": "eslint --format stylish --ext .js .",
-    "lint": "eslint --fix --ext .js ."
+    "lint": "eslint --ext .js ."
   },
   "repository": {
     "type": "git",
