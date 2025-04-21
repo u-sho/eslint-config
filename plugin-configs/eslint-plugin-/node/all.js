@@ -1,3 +1,8 @@
+/**
+ * @see https://github.com/eslint-community/eslint-plugin-n#eslintconfigjs-requires-eslintv8230
+ * @author u-sho (Shouhei Uechi)
+ */
+
 'use strict';
 
 const { globals } = require('globals');
@@ -8,7 +13,7 @@ const nodeWithoutRecommendedRules = require('./rules/without-recommended');
 const nodeDeprecatedRules         = require('./rules/deprecated');
 
 
-const { getPackageJson } = require('../../utils/get-package-json');
+const { getPackageJson } = require('../../../lib/util/get-package-json');
 const packageJson = getPackageJson();
 const isModule = packageJson != null
                  && typeof packageJson === 'object'
