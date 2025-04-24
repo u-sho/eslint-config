@@ -1,6 +1,7 @@
 /**
  * @see https://eslint.style/packages/default
  * @author u-sho (Shouhei Uechi)
+ * @license MIT See LICENSE file in the root directory for full license.
  */
 
 'use strict';

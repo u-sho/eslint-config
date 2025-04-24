@@ -22,12 +22,13 @@ const isModule = packageJson != null
                  && packageJson.type === 'module';
 
 /**
+ * @typedef {import('eslint').Linter} Linter
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
  *
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
+ * @param {Linter.RuleSeverity} [logLevel='error']
+ * @param {Linter.RuleSeverity} [formatLogLevel='warn']
  * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}} [options]
- * @returns {import('eslint').Linter.Config} 
+ * @returns {Linter.Config<import('eslint/rules').ESLintRules>} 
  */
 module.exports = (
 	logLevel = 'error',

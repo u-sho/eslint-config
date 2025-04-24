@@ -189,7 +189,7 @@ module.exports = () => ({
 	// Replaced by no-restricted-require in eslint-plugin-n
 	'no-restricted-modules': 0,
 
-	'no-return-await': 0,
+	'no-return-await': 'warn',
 
 	// Replaced by function-call-spacing in @stylistic/eslint-plugin-js
 	'no-spaced-func': 0,
