@@ -3,6 +3,7 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 const eslintCommentsPlugin = require('@eslint-community/eslint-plugin-eslint-comments');
@@ -11,11 +12,11 @@ const   bestPracticeRules = require('./rules/best-practices');
 const stylisticIssueRules = require('./rules/stylistic-issues');
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{pluginName?: string}} [options]
+ * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
+ * @param {{pluginName?: string}} options default:`{pluginName:'@eslint-community/eslint-comments'}`
  * @returns {import('eslint').Linter.Config} 
  */
-module.exports = (logLevel = 'error', {pluginName = '@eslint-community/eslint-comments'}) => {
+module.exports = (logLevel = 'error', {pluginName = '@eslint-community/eslint-comments'} = {}) => {
 	let rules = {
 		...bestPracticeRules(logLevel),
       ...stylisticIssueRules(logLevel),
