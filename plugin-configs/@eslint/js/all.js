@@ -6,15 +6,15 @@
 // @ts-check
 'use strict';
 
-const globals = require('globals');
-const eslintJs = require('@eslint/js');
+import globals from 'globals';
+import eslintJs from '@eslint/js';
 
-const eslintPossibleProblems    = require('./rules/possible-problems');
-const eslintLayoutAndFormatting = require('./rules/layout-and-formatting');
-const eslintSuggestions         = require('./rules/suggestions');
-const eslintDeprecated          = require('./rules/deprecated');
+import eslintPossibleProblems    from './rules/possible-problems.js';
+import eslintLayoutAndFormatting from './rules/layout-and-formatting.js';
+import eslintSuggestions         from './rules/suggestions.js';
+import eslintDeprecated          from './rules/deprecated.js';
 
-const { getPackageJson } = require('../../../lib/util/get-package-json');
+import { getPackageJson } from '../../../lib/util/get-package-json.cjs';
 const packageJson = getPackageJson();
 const isModule = packageJson != null
                  && typeof packageJson === 'object'
@@ -27,10 +27,10 @@ const isModule = packageJson != null
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default:`'warn'`
  * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'>
- *         & {complexityDepth?: number}} options default:`{semi:true,jsx:false,complexityDepth:2}`
+ *         & {complexityDepth?: number}} options default:`{semi:true, jsx:false, complexityDepth:2}`
  * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
  */
-module.exports = (
+export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
 	{semi = true, jsx = false, complexityDepth = 2} = {}

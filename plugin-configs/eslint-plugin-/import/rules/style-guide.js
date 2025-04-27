@@ -4,15 +4,20 @@
  * @copyright 2025 @u-sho
  */
 
+// @ts-check
 'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; ts?: boolean; jsx?: boolean; webpack?: boolean}} [options]
+ * @param {{short?: boolean; ts?: boolean; jsx?: boolean; webpack?: boolean}} [option={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error', formatLogLevel = 'warn', {short = false, ts = false, webpack = false}) => ({
+export default (
+	logLevel = 'error',
+	formatLogLevel = 'warn',
+	{short = false, ts = false, webpack = false} = {}
+) => ({
 	// Enforce or ban the use of inline type-only markers for named imports.
 	'import/consistent-type-specifier-style': 0, // I'm using TypeScript 4.5+.
 

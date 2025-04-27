@@ -6,8 +6,8 @@
 // @ts-check
 'use strict';
 
-const markdownPlugin = require('@eslint/markdown');
-const markdownPluginRules = require('./rules/all');
+import markdownPlugin from '@eslint/markdown';
+import markdownPluginRules from './rules/all.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
@@ -16,7 +16,10 @@ const markdownPluginRules = require('./rules/all');
  *          pluginName?: string}} options default:`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
  * @returns {import('eslint').Linter.Config} 
  */
-module.exports = (logLevel = 'error', {language = 'gfm', frontMatter = false, pluginName = 'markdown'} = {}) => {
+export default (
+	logLevel = 'error',
+	{language = 'gfm', frontMatter = false, pluginName = 'markdown'} = {}
+) => {
 	let rules = markdownPluginRules(logLevel);
 	if (pluginName !== 'markdown') {
 		rules = Object.fromEntries(

@@ -10,7 +10,7 @@
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (formatLogLevel = 'warn') => ({
+export default (formatLogLevel = 'warn') => ({
 	// Require a `eslint-enable` comment for every `eslint-disable` comment
 	'eslint-comments/disable-enable-pair': [formatLogLevel, {allowWholeFile: false}],
 

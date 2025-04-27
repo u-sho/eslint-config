@@ -9,7 +9,7 @@
 /**
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
-module.exports = () => ({
+export default () => ({
 	// Replaced by array-bracket-newline in @stylistic/eslint-plugin-js
 	'array-bracket-newline': 0,
 

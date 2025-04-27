@@ -3,17 +3,18 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-const preferGlobal   = require('./prefer-global');
-const preferPromises = require('./prefer-promises');
+import preferGlobal   from  './prefer-global.js';
+import preferPromises from  './prefer-promises.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{short?: boolean}} [option]
+ * @param {{short?: boolean}} [option={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error', {short = false}) => ({
+export default (logLevel = 'error', {short = false} = {}) => ({
 	// Require `return` statements after callbacks
 	'n/callback-return': 0, // I think this is too strict.
 

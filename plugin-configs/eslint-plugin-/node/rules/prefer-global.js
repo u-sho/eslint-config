@@ -3,13 +3,14 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+export default (logLevel = 'error') => ({
 	// Enforce either `Buffer` or `require("buffer").Buffer`
 	'n/prefer-global/buffer': logLevel,
 

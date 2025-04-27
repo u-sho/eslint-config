@@ -3,19 +3,20 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-const promisePlugin = require('eslint-plugin-promise');
+import promisePlugin from 'eslint-plugin-promise';
 
-const promiseRules = require('./rules/all');
+import promiseRules from './rules/all.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='error']
- * @param {{pluginName?: string}} [options]
+ * @param {{pluginName?: string}} [options={}]
  * @returns {import('eslint').Linter.Config}
  */
-module.exports = (logLevel = 'error', formatLogLevel = 'warn', {pluginName = 'promise'}) => {
+export default (logLevel = 'error', formatLogLevel = 'warn', {pluginName = 'promise'} = {}) => {
 	let rules = promiseRules(logLevel, formatLogLevel);
 	if (pluginName !== 'promise') {
 		rules = Object.fromEntries(
@@ -29,9 +30,8 @@ module.exports = (logLevel = 'error', formatLogLevel = 'warn', {pluginName = 'pr
 	}
 
 	return {
-		plugins: {
-			[pluginName]: promisePlugin
-		},
+		// @ts-ignore `eslint-plugin-promise` has old config?
+		plugins: { [pluginName]: promisePlugin },
 		rules
 	};
 };

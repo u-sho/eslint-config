@@ -10,7 +10,7 @@
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default: `'error'`
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+export default (logLevel = 'error') => ({
 	// Require languages for fenced code blocks	yes
 	'markdown/fenced-code-language': logLevel,
 	

@@ -4,10 +4,11 @@
  * @copyright 2025 @u-sho
  */
 
+// @ts-check
 'use strict';
 
 
-const { getPackageJson } = require('../../../../lib/util/get-package-json');
+import { getPackageJson } from '../../../../lib/util/get-package-json.cjs';
 const packageJson = getPackageJson();
 const isModule = packageJson != null
                  && typeof packageJson === 'object'
@@ -18,7 +19,7 @@ const isModule = packageJson != null
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+export default (logLevel = 'error') => ({
 	// Forbid AMD `require` and `define` calls.
 	'import/no-amd': 0, // I'm not using AMD.
 

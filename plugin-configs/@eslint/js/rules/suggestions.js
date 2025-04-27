@@ -12,7 +12,7 @@
  * @param {{complexityDepth?: number}} options default: `{complexityDepth: 2}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
-module.exports = (
+export default (
 	      logLevel = 'error',
 	formatLogLevel = 'warn',
 	{complexityDepth = 2} = {}

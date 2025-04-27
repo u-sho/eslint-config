@@ -3,14 +3,14 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{short?: boolean}} [option]
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+export default (logLevel = 'error') => ({
 	// Enforce `require("dns").promises`
 	'n/prefer-promises/dns': logLevel,
 

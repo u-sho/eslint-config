@@ -12,7 +12,7 @@
  * @param formatLogLevel - default is `'warn'`
  * @param options        - default is `{ short: false, indent: 'tab' }`
  */
-module.exports = (
+export default (
 	formatLogLevel = 'warn',
 	{short = false, indent = 'tab'} = {}
 ) => ({

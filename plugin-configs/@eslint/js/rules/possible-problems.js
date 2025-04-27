@@ -14,7 +14,7 @@
  * @param {Pick<StylisticCustomizeOptions, 'semi'>} options default is `{semi: true}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
-module.exports = (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {}) => ({
+export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {}) => ({
 	// Enforce return statements in callbacks of array methods
 	'array-callback-return': logLevel,
 

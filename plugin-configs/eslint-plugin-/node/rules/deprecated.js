@@ -3,10 +3,11 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /** @returns {import('eslint').Linter.RulesRecord} */
-module.exports = () => ({
+export default () => ({
 	// Disallow third-party modules which are hiding core modules
 	'n/no-hide-core-modules': 0, // due to https://github.com/mysticatea/eslint-plugin-node/issues/69
 

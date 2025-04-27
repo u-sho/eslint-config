@@ -24,7 +24,7 @@
  * }
  * ```
  */
-module.exports = (
+export default (
 	formatLogLevel = 'warn',
 	{
 		short        = false,

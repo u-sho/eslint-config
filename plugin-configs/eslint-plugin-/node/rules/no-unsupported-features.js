@@ -3,10 +3,11 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /** @returns {import('eslint').Linter.RulesRecord} */
-module.exports = () => ({
+export default () => ({
 	// Disallow unsupported ECMAScript built-ins on the specified version
 	'n/no-unsupported-features/es-builtins': 'error',
 

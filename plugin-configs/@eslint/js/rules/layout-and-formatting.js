@@ -10,7 +10,7 @@
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default: `'warn'`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
-module.exports = (formatLogLevel = 'warn') => ({
+export default (formatLogLevel = 'warn') => ({
 	// Require or disallow Unicode byte order mark (BOM)
 	'unicode-bom': [formatLogLevel, 'never']
 });

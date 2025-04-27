@@ -3,6 +3,7 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /**
@@ -10,7 +11,7 @@
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error', formatLogLevel = 'warn') => ({
+export default (logLevel = 'error', formatLogLevel = 'warn') => ({
 	// Require returning inside each `then()` to create readable and reusable Promise chains.
 	'promise/always-return': [logLevel, {ignoreLastCallback: true}],
 

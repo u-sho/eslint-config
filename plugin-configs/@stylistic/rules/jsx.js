@@ -12,7 +12,7 @@
  * @param formatLogLevel - default: `'warn'`
  * @param options - defaults:`{ short: false, blockSpacing: true }`
  */
-module.exports = (
+export default (
 	formatLogLevel = 'warn',
 	{
 		short = false,

@@ -3,15 +3,16 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-const noUnsupportedFeatures = require('./no-unsupported-features');
+import noUnsupportedFeatures from './no-unsupported-features.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+export default (logLevel = 'error') => ({
 	// Require correct usage of hashbang
 	'n/hashbang': logLevel,
 

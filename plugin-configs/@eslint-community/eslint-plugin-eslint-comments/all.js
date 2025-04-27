@@ -6,17 +6,17 @@
 // @ts-check
 'use strict';
 
-const eslintCommentsPlugin = require('@eslint-community/eslint-plugin-eslint-comments');
+import eslintCommentsPlugin from '@eslint-community/eslint-plugin-eslint-comments';
 
-const   bestPracticeRules = require('./rules/best-practices');
-const stylisticIssueRules = require('./rules/stylistic-issues');
+import   bestPracticeRules from './rules/best-practices.js';
+import stylisticIssueRules from './rules/stylistic-issues.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @param {{pluginName?: string}} options default:`{pluginName:'@eslint-community/eslint-comments'}`
  * @returns {import('eslint').Linter.Config} 
  */
-module.exports = (formatLogLevel = 'warn', {pluginName = '@eslint-community/eslint-comments'} = {}) => {
+export default (formatLogLevel = 'warn', {pluginName = '@eslint-community/eslint-comments'} = {}) => {
 	/** @type {import('eslint').Linter.StringSeverity} */
 	const logLevel = formatLogLevel === 0
 	               ? 'off'

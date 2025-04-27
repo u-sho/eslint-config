@@ -4,10 +4,11 @@
  * @copyright 2025 @u-sho
  */
 
+// @ts-check
 'use strict';
 
 
-const { getPackageJson } = require('../../../../lib/util/get-package-json');
+import { getPackageJson } from '../../../../lib/util/get-package-json.cjs';
 const packageJson = getPackageJson();
 const isModule = packageJson != null
                  && typeof packageJson === 'object'
@@ -17,10 +18,14 @@ const isModule = packageJson != null
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; ts?: boolean; webpack?: boolean}} [options]
+ * @param {{short?: boolean; ts?: boolean; webpack?: boolean}} [options={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error', formatLogLevel = 'warn', {short = false, ts = false, webpack = false}) => ({
+export default (
+	logLevel = 'error',
+	formatLogLevel = 'warn',
+	{short = false, ts = false, webpack = false} = {}
+) => ({
 	// Ensure a default export is present, given a default import.
 	'import/default': isModule ? logLevel : 0,
 

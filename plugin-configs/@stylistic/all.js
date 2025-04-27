@@ -8,8 +8,8 @@
 // @ts-check
 'use strict';
 
-const stylisticPlugin = require('@stylistic/eslint-plugin');
-const stylisticDefaultRules = require('./rules/default');
+import stylisticPlugin from '@stylistic/eslint-plugin';
+import stylisticDefaultRules from './rules/default.js';
 
 /** get stylistic default (`@stylistic/eslint-plugin`) rules config
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
@@ -37,7 +37,7 @@ const stylisticDefaultRules = require('./rules/default');
  * ```
  * @returns {import('eslint').Linter.Config}
  */
-module.exports = (
+export default (
 	formatLogLevel = 'warn',
 	{
 		short        = false,

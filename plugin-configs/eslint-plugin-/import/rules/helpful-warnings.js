@@ -4,13 +4,14 @@
  * @copyright 2025 @u-sho
  */
 
+// @ts-check
 'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+export default (logLevel = 'error') => ({
 	// Forbid any invalid exports, i.e. re-export of the same name.
 	'import/export': logLevel,
 

@@ -3,17 +3,18 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-const { globals } = require('globals');
-const nodePlugin = require('eslint-plugin-n');
+import globals from 'globals';
+import nodePlugin from 'eslint-plugin-n';
 
-const nodeRecommendedRules        = require('./rules/recommended');
-const nodeWithoutRecommendedRules = require('./rules/without-recommended');
-const nodeDeprecatedRules         = require('./rules/deprecated');
+import nodeRecommendedRules        from './rules/recommended.js';
+import nodeWithoutRecommendedRules from './rules/without-recommended.js';
+import nodeDeprecatedRules         from './rules/deprecated.js';
 
 
-const { getPackageJson } = require('../../../lib/util/get-package-json');
+import { getPackageJson } from '../../../lib/util/get-package-json.cjs';
 const packageJson = getPackageJson();
 const isModule = packageJson != null
                  && typeof packageJson === 'object'
@@ -25,11 +26,11 @@ const isModule = packageJson != null
  * @param {{short?: boolean; pluginName?: string}} [options]
  * @returns {import('eslint').Linter.Config} 
  */
-module.exports = (logLevel = 'error', {short = false, pluginName = 'n'}) => {
+export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
 	let rules = {
 		...nodeRecommendedRules(logLevel),
 		...nodeWithoutRecommendedRules(logLevel, {short}),
-		...nodeDeprecatedRules(logLevel),
+		...nodeDeprecatedRules(),
 	};
 	if (pluginName !== 'n') {
 		rules = Object.fromEntries(
@@ -48,11 +49,11 @@ module.exports = (logLevel = 'error', {short = false, pluginName = 'n'}) => {
 			globals: {
 				...globals.node,
 				...globals.es2021,
-				__dirname:  isModule ? 'off' : 'readonly',
+				__dirname : isModule ? 'off' : 'readonly',
 				__filename: isModule ? 'off' : 'readonly',
-				exports:    isModule ? 'off' : 'writable',
-				module:     isModule ? 'off' : 'readonly',
-				require:    isModule ? 'off' : 'readonly',
+				exports   : isModule ? 'off' : 'writable',
+				module    : isModule ? 'off' : 'readonly',
+				require   : isModule ? 'off' : 'readonly',
 			}
 		},
 		plugins: {
