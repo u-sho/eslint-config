@@ -3,17 +3,18 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
  * 
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Pick<StylisticCustomizeOptions, 'semi'>} [options]
+ * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default is `'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default is `'warn'`
+ * @param {Pick<StylisticCustomizeOptions, 'semi'>} options default is `{semi: true}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
-module.exports = (logLevel = 'error', formatLogLevel = 'warn', {semi =  true}) => ({
+module.exports = (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {}) => ({
 	// Enforce return statements in callbacks of array methods
 	'array-callback-return': logLevel,
 

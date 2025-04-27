@@ -3,18 +3,19 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{complexityDepth?: number}} [options={complexityDepth: 2}]
+ * @param {import('eslint').Linter.RuleSeverity} [      logLevel = 'error'] default: `'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel = 'warn']  default: `'warn'`
+ * @param {{complexityDepth?: number}} options default: `{complexityDepth: 2}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 module.exports = (
-	logLevel = 'error',
+	      logLevel = 'error',
 	formatLogLevel = 'warn',
-	{complexityDepth = 2}
+	{complexityDepth = 2} = {}
 ) => ({
 	// Enforce getter and setter pairs in objects and classes
 	'accessor-pairs': 'warn',

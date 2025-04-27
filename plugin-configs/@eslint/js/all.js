@@ -3,10 +3,10 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-const { globals } = require('globals');
-
+const globals = require('globals');
 const eslintJs = require('@eslint/js');
 
 const eslintPossibleProblems    = require('./rules/possible-problems');
@@ -22,18 +22,18 @@ const isModule = packageJson != null
                  && packageJson.type === 'module';
 
 /**
- * @typedef {import('eslint').Linter} Linter
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
  *
- * @param {Linter.RuleSeverity} [logLevel='error']
- * @param {Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}} [options]
- * @returns {Linter.Config<import('eslint/rules').ESLintRules>} 
+ * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default:`'warn'`
+ * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'>
+ *         & {complexityDepth?: number}} options default:`{semi:true,jsx:false,complexityDepth:2}`
+ * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
  */
 module.exports = (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{semi = true, jsx = false, complexityDepth = 2}
+	{semi = true, jsx = false, complexityDepth = 2} = {}
 ) => ({
 	languageOptions: {
 		ecmaVersion: 'latest',
@@ -41,7 +41,7 @@ module.exports = (
 		globals: {
 			...globals.browser,
 			...globals.node,
-			...globals.ex2021,
+			...globals.es2021,
 			__dirname:  isModule ? 'off' : 'readonly',
 			__filename: isModule ? 'off' : 'readonly',
 			exports:    isModule ? 'off' : 'writable',

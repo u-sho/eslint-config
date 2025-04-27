@@ -3,10 +3,11 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default: `'warn'`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 module.exports = (formatLogLevel = 'warn') => ({

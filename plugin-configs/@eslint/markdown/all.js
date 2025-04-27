@@ -3,19 +3,20 @@
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
 const markdownPlugin = require('@eslint/markdown');
 const markdownPluginRules = require('./rules/all');
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
+ * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
  * @param {{language?: 'commonmark'|'gfm';
  *          frontMatter?: false|'yaml'|'toml';
- *          pluginName?: string}} [options]
+ *          pluginName?: string}} options default:`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
  * @returns {import('eslint').Linter.Config} 
  */
-module.exports = (logLevel = 'error', {language = 'gfm', frontMatter = false, pluginName = 'markdown'}) => {
+module.exports = (logLevel = 'error', {language = 'gfm', frontMatter = false, pluginName = 'markdown'} = {}) => {
 	let rules = markdownPluginRules(logLevel);
 	if (pluginName !== 'markdown') {
 		rules = Object.fromEntries(
@@ -30,9 +31,8 @@ module.exports = (logLevel = 'error', {language = 'gfm', frontMatter = false, pl
 
 	return {
 		files: ['**/*.md'],
-		plugins: {
-			[pluginName]: markdownPlugin
-		},
+		// @ts-ignore
+		plugins: { [pluginName]: markdownPlugin },
 		language: `${pluginName}/${language}`,
 		...frontMatter ? { languageOptions: { frontMatter } } : {},
 		rules
