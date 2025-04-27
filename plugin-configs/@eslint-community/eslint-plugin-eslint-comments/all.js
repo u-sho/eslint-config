@@ -12,14 +12,23 @@ const   bestPracticeRules = require('./rules/best-practices');
 const stylisticIssueRules = require('./rules/stylistic-issues');
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @param {{pluginName?: string}} options default:`{pluginName:'@eslint-community/eslint-comments'}`
  * @returns {import('eslint').Linter.Config} 
  */
-module.exports = (logLevel = 'error', {pluginName = '@eslint-community/eslint-comments'} = {}) => {
+module.exports = (formatLogLevel = 'warn', {pluginName = '@eslint-community/eslint-comments'} = {}) => {
+	/** @type {import('eslint').Linter.StringSeverity} */
+	const logLevel = formatLogLevel === 0
+	               ? 'off'
+	               : formatLogLevel === 1
+	               ? 'warn'
+	               : formatLogLevel === 2
+	               ? 'error'
+	               : formatLogLevel;
+
 	let rules = {
-		...bestPracticeRules(logLevel),
-      ...stylisticIssueRules(logLevel),
+		...bestPracticeRules(formatLogLevel),
+      ...stylisticIssueRules(formatLogLevel),
 	};
 	if (pluginName !== 'eslint-comments') {
 		rules = Object.fromEntries(
@@ -33,6 +42,11 @@ module.exports = (logLevel = 'error', {pluginName = '@eslint-community/eslint-co
 	}
 
 	return {
+		linterOptions: {
+			noInlineConfig: logLevel !== 'off',
+			reportUnusedDisableDirectives: logLevel,
+			reportUnusedInlineConfigs: logLevel,
+		},
 		plugins: {
 			[pluginName]: eslintCommentsPlugin,
 		},

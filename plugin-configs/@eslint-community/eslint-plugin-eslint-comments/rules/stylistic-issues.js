@@ -7,16 +7,16 @@
 'use strict';
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @returns {import('eslint').Linter.RulesRecord}
  */
-module.exports = (logLevel = 'error') => ({
+module.exports = (formatLogLevel = 'warn') => ({
 	// Disallow `eslint-disable` comments about specific rules
-	'eslint-comments/no-restricted-disable': [logLevel, '*', '!no-console'],
+	'eslint-comments/no-restricted-disable': [formatLogLevel, '*', '!no-console'],
 
 	// Disallow ESLint directive-comments
-	'eslint-comments/no-use': logLevel,
+	'eslint-comments/no-use': formatLogLevel,
 
 	// Require include descriptions in ESLint directive-comments
-	'eslint-comments/require-description': logLevel
+	'eslint-comments/require-description': formatLogLevel
 });
