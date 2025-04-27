@@ -1,23 +1,33 @@
 /**
+ * @description `@stylistic/eslint-plugin-js` rules by @u-sho.
  * @see https://eslint.style/packages/js
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-/**
- * @typedef {import('@stylistic/eslint-plugin-js/dist/dts/rule-options').RuleOptions} RuleOptions
- * @typedef {RuleOptions['@stylistic/js/comma-dangle']} CommaDangleRuleOptions
- * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
+/** get stylistic js (`@stylistic/eslint-plugin-js`) rules.
+ * @type {import('./types').GetRulesJs}
  *
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Omit<StylisticCustomizeOptions, 'commaDangle'|'pluginName'>
- *         & {short?: boolean;
- *            printWidth?: number;
- *            tabWidth?: number;
- *            commaDangle?: CommaDangleRuleOptions;
- *           }} options
- * @returns {RuleOptions}
+ * @param formatLogLevel - default:`'warn'`
+ * @param options        - defaults:
+ * ```javascript
+ * {
+ * 	short       : false,
+ * 	printWidth  : 100,
+ * 	tabWidth    : 3,
+ * 	arrowParens : true,
+ * 	blockSpacing: true,
+ * 	braceStyle  : '1tbs',
+ * 	commaDangle : 'never',
+ * 	indent      : 'tab',
+ * 	jsx         : false,
+ * 	quoteProps  : 'consistent-as-needed',
+ * 	quotes      : 'single',
+ * 	semi        : true
+ * }
+ * ```
  */
 module.exports = (
 	formatLogLevel = 'warn',
@@ -27,14 +37,14 @@ module.exports = (
 		tabWidth     = 3,
 		arrowParens  = true,
 		blockSpacing = true,
-		braceStyle   = "1tbs",
+		braceStyle   = '1tbs',
 		commaDangle  = 'never',
 		indent       = 'tab',
-		jsx          = true,
-		quoteProps   = "consistent-as-needed",
-		quotes       = "single",
-		semi         = false
-	}
+		jsx          = false,
+		quoteProps   = 'consistent-as-needed',
+		quotes       = 'single',
+		semi         = true
+	} = {}
 ) => ({
 	// Enforce linebreaks after opening and before closing array brackets
 	'array-bracket-newline': 0,
@@ -363,12 +373,6 @@ module.exports = (
 	'padding-line-between-statements': 0,
 	'@stylistic/padding-line-between-statements': 0,
 	'@stylistic/js/padding-line-between-statements': [formatLogLevel,
-		...ts ? [
-			{blankLine: 'always', prev: '*', next: ['enum', 'interface']},
-			{blankLine: 'always', next: '*', prev: ['enum', 'interface']},
-			{blankLine: 'never', prev: 'function-overload', next: 'function'},
-		] : [],
-
 		{blankLine: 'always',                prev: 'directive', next: '*'},
 		{blankLine: short ? 'never' : 'any', prev: 'directive', next: 'directive'},
 		{blankLine: 'always',                prev: 'import', next: '*'},
@@ -378,7 +382,15 @@ module.exports = (
 		{blankLine: 'never',                  prev: ['case', 'default'], next: ['case', 'default']},
 
 		{blankLine: short ? 'any' : 'always', prev: '*', next: ['try', 'switch']},
-		{blankLine: short ? 'any' : 'always', prev: '*', next: ['return', 'multiline-export', 'singleline-export']},
+		{blankLine: short ? 'any' : 'always', prev: '*', next: ['return',
+		                                                        'multiline-export',
+		                                                        'singleline-export']},
+		// @ts-ignore type checker is weak... 
+		...ts ? [
+			{blankLine: 'always', prev: '*', next: ['enum', 'interface']},
+			{blankLine: 'always', next: '*', prev: ['enum', 'interface']},
+			{blankLine: 'never', prev: 'function-overload', next: 'function'}
+		] : []
 	],
 
 	// Require quotes around object literal, type literal, interfaces and enums property names
@@ -403,10 +415,9 @@ module.exports = (
 	// Require or disallow semicolons instead of ASI
 	'semi': 0,
 	'@stylistic/semi': 0,
-	'@stylistic/js/semi': [formatLogLevel,
-	                       ...semi
-	                       ? ['always', {omitLastInOneLineBlock: !!short}]
-	                       : ['never', {beforeStatementContinuationChars: short ? 'any': 'always'}]],
+	'@stylistic/js/semi': semi
+		? [formatLogLevel, 'always', {omitLastInOneLineBlock: !!short}]
+		: [formatLogLevel, 'never', {beforeStatementContinuationChars: short ? 'any' : 'always'}],
 
 	// Enforce consistent spacing before and after semicolons
 	'semi-spacing': 0,

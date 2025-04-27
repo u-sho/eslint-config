@@ -1,24 +1,23 @@
 /**
+ * @description `@stylistic/eslint-plugin-jsx` rules by @u-sho.
  * @see https://eslint.style/packages/jsx
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-/**
- * @typedef {import('@stylistic/eslint-plugin-jsx/dist/dts/rule-options').RuleOptions} RuleOptions
- * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- *
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Pick<StylisticCustomizeOptions, 'blockSpacing'> & {short?: boolean}} options
- * @returns {RuleOptions}
+/** get js (`@stylistic/eslint-plugin-js`) rules
+ * @type {import('./types').GetRulesJsx}
+ * @param formatLogLevel - default: `'warn'`
+ * @param options - defaults:`{ short: false, blockSpacing: true }`
  */
 module.exports = (
 	formatLogLevel = 'warn',
 	{
 		short = false,
 		blockSpacing = true
-	}
+	} = {}
 ) => ({
 	// Enforce or disallow spaces inside of curly braces in JSX attributes and expressions
 	'react/jsx-child-element-spacing': 0,
@@ -84,7 +83,7 @@ module.exports = (
 	// Enforce maximum of props on a single line in JSX
 	'react/jsx-max-props-per-line': 0,
 	'@stylistic/jsx-max-props-per-line': 0,
-	'@stylistic/jsx/jsx-max-props-per-line': [formatLogLevel, 1, {when: 'multiline'}],
+	'@stylistic/jsx/jsx-max-props-per-line': [formatLogLevel, {maximum: 1, when: 'multiline'}],
 
 	// Require or prevent a new line after jsx elements and expressions.
 	'react/jsx-newline': 0,

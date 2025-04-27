@@ -1,34 +1,41 @@
 /**
+ * @description `@stylistic/eslint-plugin-ts` rules by @u-sho.
  * @see https://eslint.style/packages/ts
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-/**
- * @typedef {import('@stylistic/eslint-plugin-ts/dist/dts/rule-options').RuleOptions} RuleOptions
- * @typedef {RuleOptions['@stylistic/ts/comma-dangle']} CommaDangleRuleOptions
- * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- *
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Omit<StylisticCustomizeOptions, 'arrowParens'|'commaDangle'|'pluginName'|'jsx'>
- *         & {short?: boolean;
- *            commaDangle?: CommaDangleRuleOptions;
- *           }} options
- * @returns {RuleOptions}
+/** get ts (`@stylistic/eslint-plugin-ts`) rules
+ * @type {import('./types').GetRulesTs}
+ * @param formatLogLevel - default: `'warn'`
+ * @param options - defaults:
+ * ```javascript
+ * {
+ * 	short       : false,
+ * 	blockSpacing: true,
+ * 	braceStyle  : '1tbs',
+ * 	commaDangle : 'never',
+ * 	indent      : 'tab',
+ * 	quoteProps  : 'consistent-as-needed',
+ * 	quotes      : 'single',
+ * 	semi        : true
+ * }
+ * ```
  */
 module.exports = (
 	formatLogLevel = 'warn',
 	{
-		short = false,
+		short        = false,
 		blockSpacing = true,
-		braceStyle = "1tbs",
-		commaDangle = 'never',
-		indent = 'tab',
-		quoteProps = "consistent-as-needed",
-		quotes = "single",
-		semi = false
-	}
+		braceStyle   = '1tbs',
+		commaDangle  = 'never',
+		indent       = 'tab',
+		quoteProps   = "consistent-as-needed",
+		quotes       = 'single',
+		semi         = true
+	} = {}
 ) => ({
 	// Disallow or enforce spaces inside of blocks after opening block and before closing block
 	'block-spacing': 0,

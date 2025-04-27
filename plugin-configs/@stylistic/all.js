@@ -1,28 +1,40 @@
 /**
+ * @description `@stylistic/eslint-plugin` rules config by @u-sho.
  * @see https://eslint.style/packages/default
  * @author u-sho (Shouhei Uechi)
  * @license MIT See LICENSE file in the root directory for full license.
  */
 
+// @ts-check
 'use strict';
 
 const stylisticPlugin = require('@stylistic/eslint-plugin');
 const stylisticDefaultRules = require('./rules/default');
 
-/**
- * @typedef {import('@stylistic/eslint-plugin/dist/dts/rule-options').RuleOptions} RuleOptions
- * @typedef {RuleOptions['@stylistic/comma-dangle']} CommaDangleRuleOptions
- * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- *
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Omit<StylisticCustomizeOptions, 'commaDangle'>
- *         & {short?: boolean;
- *            printWidth?: number;
- *            tabWidth?:   number;
- *            commaDangle?: CommaDangleRuleOptions;
- *            tsPluginName?:    string;
- *            reactPluginName?: string;
- *           }} options
+/** get stylistic default (`@stylistic/eslint-plugin`) rules config
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
+ * @param {import('./rules/types').CustomizeOptions
+ *         & {tsPluginName?: string, reactPluginName?: string}} [options = {}] - defaults:
+ * ```javascript
+ * {
+ * 	short       : false,
+ * 	printWidth  : 100,
+ * 	tabWidth    : 3,
+ * 	arrowParens : true,
+ * 	blockSpacing: true,
+ * 	braceStyle  : '1tbs',
+ * 	commaDangle : 'never',
+ * 	indent      : 'tab',
+ * 	jsx         : false,
+ * 	quoteProps  : 'consistent-as-needed',
+ * 	quotes      : 'single',
+ * 	semi        : true,
+ * 	
+ * 	pluginName     : '@stylistic',
+ * 	tsPluginName   : '@typescript-eslint',
+ * 	reactPluginName: 'react'
+ * }
+ * ```
  * @returns {import('eslint').Linter.Config}
  */
 module.exports = (
@@ -33,18 +45,20 @@ module.exports = (
 		tabWidth     = 3,
 		arrowParens  = true,
 		blockSpacing = true,
-		braceStyle   = "1tbs",
+		braceStyle   = '1tbs',
 		commaDangle  = 'never',
 		indent       = 'tab',
-		jsx          = true,
-		quoteProps   = "consistent-as-needed",
-		quotes       = "single",
-		semi         = false,
+		jsx          = false,
+		quoteProps   = 'consistent-as-needed',
+		quotes       = 'single',
+		semi         = true,
+
 		pluginName      = '@stylistic',
 		tsPluginName    = '@typescript-eslint',
 		reactPluginName = 'react'
-	}
+	} = {}
 ) => {
+	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = stylisticDefaultRules(formatLogLevel, {
 		short,
 		printWidth,
@@ -91,6 +105,7 @@ module.exports = (
 	}
 
 	return {
+		// @ts-ignore `configs` type of `@stylistic/eslint-plugin` doesn't apply
 		plugins: { [pluginName]: stylisticPlugin },
 		rules
 	}

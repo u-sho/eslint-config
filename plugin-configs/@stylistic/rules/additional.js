@@ -1,49 +1,47 @@
 /**
+ * @description `@stylistic/eslint-plugin-plus` rules by @u-sho.
  * @see https://eslint.style/packages/plus
  * @author u-sho (Shouhei Uechi)
  */
 
+// @ts-check
 'use strict';
 
-/**
- * @typedef {import('@stylistic/eslint-plugin-plus/dist/dts/rule-options').RuleOptions} RuleOptions
- * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- *
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Pick<StylisticCustomizeOptions, 'indent'> & {short?: boolean;}} options
- * @returns {RuleOptions}
+/** get stylistic additional (`@stylistic/eslint-plugin-plus`) rules
+ * @type {import('./types').GetRulesAdditional}
+ * @param formatLogLevel - default is `'warn'`
+ * @param options        - default is `{ short: false, indent: 'tab' }`
  */
 module.exports = (
 	formatLogLevel = 'warn',
-	{
-		short  = false,
-		indent = 'tab'
-	}
+	{short = false, indent = 'tab'} = {}
 ) => ({
 	// Enforce consistent line breaks after opening and before closing braces
 	'@stylistic/curly-newline': 0,
-	'@stylistic/plus/curly-newline': [formatLogLevel,
-	                                  {IfStatement: {multiline: true, consistent: true},
-	                                   ForStatement    : 'always',
-	                                   ForInStatement  : 'always',
-	                                   ForOfStatement  : 'always',
-	                                   WhileStatement  : 'always',
-	                                   DoWhileStatement: 'always',
-	                                   SwitchStatement : 'always',
-	                                   SwitchCase      : 'always',
-	                                   TryStatementBlock    : short ? {multiline: true} : 'always',
-	                                   TryStatementHandler  : short ? {multiline: true} : 'always',
-	                                   TryStatementFinalizer: short ? {multiline: true} : 'always',
-	                                   BlockStatement     : {multiline: true},
-	                                   FunctionDeclaration: {multiline: true},
-	                                   FunctionExpression : {multiline: true},
-	                                   Property           : {multiline: true},
-	                                   ClassBody: short ? {multiline: true} : 'always',
-	                                   StaticBlock        : {multiline: true},
-	                                   WithStatement      : {multiline: true},
-	                                   TSEnumBody     : 'always',
-	                                   TSInterfaceBody: short ? {consistent: true} : {multiline: true},
-	                                   TSModuleBlock  : {multiline: true}}],
+	'@stylistic/plus/curly-newline': [formatLogLevel, {
+		// @ts-ignore IfStatement replaced to IfStatementConsequent or IfStatementAlternative
+		IfStatement: {multiline: true, consistent: true},
+		ForStatement    : 'always',
+		ForInStatement  : 'always',
+		ForOfStatement  : 'always',
+		WhileStatement  : 'always',
+		DoWhileStatement: 'always',
+		SwitchStatement : 'always',
+		SwitchCase      : 'always',
+		TryStatementBlock    : short ? {multiline: true} : 'always',
+		TryStatementHandler  : short ? {multiline: true} : 'always',
+		TryStatementFinalizer: short ? {multiline: true} : 'always',
+		BlockStatement     : {multiline: true},
+		FunctionDeclaration: {multiline: true},
+		FunctionExpression : {multiline: true},
+		Property           : {multiline: true},
+		ClassBody: short ? {multiline: true} : 'always',
+		StaticBlock        : {multiline: true},
+		WithStatement      : {multiline: true},
+		TSEnumBody     : 'always',
+		TSInterfaceBody: short ? {consistent: true} : {multiline: true},
+		TSModuleBlock  : {multiline: true}
+	}],
 
 	// Indentation for binary operators
 	'@stylistic/indent-binary-ops': 0,
