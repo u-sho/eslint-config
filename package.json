@@ -1,35 +1,50 @@
 {
-  "name": "@u-sho/eslint-config-format",
-  "version": "0.0.1",
-  "description": "Rules of ESLint as a formatter by u-sho",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint --ext .js .",
-    "lint-fix": "eslint --fix --ext .js ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/u-sho/eslint-config-format.git"
-  },
-  "keywords": [
-    "eslint",
-    "formatter",
-    "eslintconfig"
-  ],
-  "author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/u-sho/eslint-config-format/issues"
-  },
-  "homepage": "https://github.com/u-sho/eslint-config-format#readme",
-  "peerDependencies": {
-    "eslint": "^8.31.0"
-  },
-  "dependencies": {
-    "eslint-plugin-smarter-tabs": "^1.2.0"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0"
-  }
+	"name": "@u-sho/eslint-config-format",
+	"version": "0.0.1",
+	"description": "Rules of ESLint as a formatter by u-sho",
+	"main": "index.js",
+	"scripts": {
+		"lint": "eslint --ext .js .",
+		"lint-fix": "eslint --fix --ext .js ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/u-sho/eslint-config.git"
+	},
+	"keywords": [
+		"eslint",
+		"formatter",
+		"eslintconfig"
+	],
+	"author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
+	"license": "./LICENSE",
+	"bugs": {
+		"url": "https://github.com/u-sho/eslint-config/issues"
+	},
+	"homepage": "https://github.com/u-sho/eslint-config#readme",
+	"peerDependencies": {
+		"eslint": "^9.20.0"
+	},
+	"dependencies": {
+		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+		"@eslint/js": "^9.25.1",
+		"eslint-plugin-import": "^2.31.0",
+		"@stylistic/eslint-plugin": "^4.2.0",
+		"eslint-plugin-n": "^17.17.0",
+		"eslint-plugin-promise": "^7.2.1"
+	},
+	"optionalDependencies": {
+		"@eslint/markdown": "^6.4.0",
+		"@stylistic/eslint-plugin-js": "^4.2.0",
+		"@stylistic/eslint-plugin-jsx": "^4.2.0",
+		"@stylistic/eslint-plugin-plus": "^4.2.0",
+		"@stylistic/eslint-plugin-ts": "^4.2.0",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"typescript-eslint": "^8.30.1"
+	},
+	"devDependencies": {
+		"eslint": "^9.25.1",
+		"@eslint/markdown": "^6.4.0"
+	}
 }
