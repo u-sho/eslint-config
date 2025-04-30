@@ -5,7 +5,6 @@
  */
 
 // @ts-check
-'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
@@ -15,7 +14,7 @@ export default (logLevel = 'error') => ({
 	// Forbid any invalid exports, i.e. re-export of the same name.
 	'import/export': logLevel,
 
-	// Forbid imported names marked with 
+	// Forbid imported names marked with
 	'import/no-deprecated': logLevel,
 
 	// Forbid empty named import blocks.

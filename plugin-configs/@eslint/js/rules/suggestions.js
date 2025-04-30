@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel = 'error'] default: `'error'`
@@ -13,7 +13,7 @@
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 export default (
-	      logLevel = 'error',
+	logLevel = 'error',
 	formatLogLevel = 'warn',
 	{complexityDepth = 2} = {}
 ) => ({
@@ -44,8 +44,8 @@ export default (
 	// Enforce consistent naming when capturing the current execution context
 	'consistent-this': [logLevel, 'self'],
 
-	// Enforce consistent brace style for all control statements
-	// @ts-ignore
+	/* Enforce consistent brace style for all control statements
+	   @ts-ignore -- One of type definition or document is wrong. */
 	'curly': [formatLogLevel, 'multi-or-nest', 'consistent'],
 
 	// Require default cases in switch statements
@@ -61,15 +61,17 @@ export default (
 	'dot-notation': [logLevel, {allowPattern: '^[a-z]+((_|-).+)+$'}],
 
 	// Require the use of === and !==
-	'eqeqeq': logLevel,
+	'eqeqeq': [logLevel, 'smart'],
 
-	// Require function names to match the name of the variable or property to which they are assigned
+	/* Require function names to match the name of the variable or property
+	   to which they are assigned */
 	'func-name-matching': [logLevel, 'always', {considerPropertyDescriptor: true}],
 
 	// Require or disallow named function expressions
 	'func-names': [logLevel, 'as-needed'],
 
-	// Enforce the consistent use of either function declarations or expressions assigned to variables
+	/* Enforce the consistent use of
+	   either function declarations or expressions assigned to variables */
 	'func-style': [logLevel, 'declaration', {allowArrowFunctions: true}],
 
 	// Require grouped accessor pairs in object literals and classes
@@ -82,7 +84,12 @@ export default (
 	'id-denylist': 0,
 
 	// Enforce minimum and maximum identifier lengths
-	'id-length': [formatLogLevel, {min: 4, max: 24, exceptions: ['i']}],
+	'id-length': [formatLogLevel, {
+		min       : 4,
+		max       : 26,
+		properties: 'never',
+		exceptions: ['i']
+	}],
 
 	// Require identifiers to match a specified regular expression
 	'id-match': 0, // Instead of this, `camelcase` rule is used
@@ -91,9 +98,10 @@ export default (
 	'init-declarations': logLevel,
 
 	// Require or disallow logical assignment operator shorthand
-	'logical-assignment-operators': [formatLogLevel,
+	'logical-assignment-operators': [formatLogLevel,  /* eslint-disable @stylistic/indent */
 	                                 'always',
 	                                 {enforceForIfStatements: true}],
+	                                 /* eslint-enable @stylistic/indent */
 
 	// Enforce a maximum number of classes per file
 	'max-classes-per-file': 'warn',
@@ -267,17 +275,13 @@ export default (
 	'no-restricted-exports': 0,
 
 	// Disallow specified global variables
-	'no-restricted-globals': [logLevel,
-	                          {name   : 'event',
-	                           message: 'Use local parameter instead.'},
-	                          {name   : 'setTimeout',
-	                           message: "Use browser's API instead."},
-	                          {name   : 'setInterval',
-	                           message: "Use browser's API instead."},
-	                          {name   : 'clearTimeout',
-	                           message: "Use browser's API instead."},
-	                          {name   : 'clearInterval',
-	                           message: "Use browser's API instead."}],
+	'no-restricted-globals': [logLevel, /* eslint-disable @stylistic/indent, @stylistic/no-multi-spaces */
+		{name: 'event',         message: 'Use local parameter instead.'},
+		{name: 'setTimeout',    message: "Use browser's API instead."},
+		{name: 'setInterval',   message: "Use browser's API instead."},
+		{name: 'clearTimeout',  message: "Use browser's API instead."},
+		{name: 'clearInterval', message: "Use browser's API instead."}],
+		/* eslint-enable @stylistic/indent, @stylistic/no-multi-spaces */
 
 	// Disallow specified modules when loaded by import
 	'no-restricted-imports': 0, // Instead of this, `n/no-restricted-import` rule is used
@@ -286,11 +290,12 @@ export default (
 	'no-restricted-properties': 0,
 
 	// Disallow specified syntax
-	'no-restricted-syntax': [logLevel,
+	'no-restricted-syntax': [logLevel, /* eslint-disable @stylistic/indent */
 	                         {selector: "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
 	                          message : 'setTimeout must always be invoked with two arguments.'},
 	                         {selector: 'TemplateLiteral[expressions.length=0]',
 	                          message : 'In this case, back quotes are not allowed. Use single quotes.'}],
+	                         /* eslint-enable @stylistic/indent */
 
 	// Disallow assignment operators in return statements
 	'no-return-assign': logLevel,
@@ -362,9 +367,9 @@ export default (
 	'no-void': logLevel,
 
 	// Disallow specified warning terms in comments
-	'no-warning-comments': [logLevel,
-	                        {terms: ['bug', 'fix', 'fixme', 'to do', 'todo'],
-	                         location: 'anywhere'}],
+	'no-warning-comments': [logLevel, /* eslint-disable @stylistic/indent */
+	                        {terms   : ['bug', 'fix', 'fixme', 'to do', 'todo'],
+	                         location: 'anywhere'}], /* eslint-enable @stylistic/indent */
 
 	// Disallow with statements
 	'no-with': logLevel,
@@ -385,9 +390,10 @@ export default (
 	'prefer-const': logLevel,
 
 	// Require destructuring from arrays and/or objects
-	'prefer-destructuring': [logLevel,
+	'prefer-destructuring': [logLevel, /* eslint-disable @stylistic/indent */
 	                         {array: false, object: true},
 	                         {enforceForRenamedProperties: true}],
+	                         /* eslint-enable @stylistic/indent */
 
 	// Disallow the use of Math.pow in favor of the ** operator
 	'prefer-exponentiation-operator': logLevel,
@@ -395,13 +401,15 @@ export default (
 	// Enforce using named capture group in regular expression
 	'prefer-named-capture-group': logLevel,
 
-	// Disallow parseInt() and Number.parseInt() in favor of binary, octal, and hexadecimal literals
+	/* Disallow `parseInt()` and `Number.parseInt()`
+	   in favor of binary, octal, and hexadecimal literals */
 	'prefer-numeric-literals': logLevel,
 
-	// Disallow use of Object.prototype.hasOwnProperty.call() and prefer use of Object.hasOwn()
+	// Disallow use of `Object.prototype.hasOwnProperty.call()` and prefer use of `Object.hasOwn()`
 	'prefer-object-has-own': logLevel,
 
-	// Disallow using Object.assign with an object literal as the first argument and prefer the use of object spread instead
+	/* Disallow using `Object.assign` with an object literal as the first argument
+	    and prefer the use of object spread instead */
 	'prefer-object-spread': logLevel,
 
 	// Require using Error objects as Promise rejection reasons
@@ -432,19 +440,17 @@ export default (
 	'require-yield': 'error',
 
 	// Enforce sorted import declarations within modules
-	'sort-imports': [formatLogLevel,
-	                 {allowSeparatedGroups: true,
-	                  memberSyntaxSortOrder: ['all',
-	                                          'multiple',
-	                                          'single',
-	                                          'none']}],
+	'sort-imports': [formatLogLevel, /* eslint-disable @stylistic/indent */
+	                 {allowSeparatedGroups : true,
+	                  memberSyntaxSortOrder: ['all', 'multiple', 'single', 'none']}],
+	                 /* eslint-enable @stylistic/indent */
 
 	// Require object keys to be sorted
-	'sort-keys': [formatLogLevel,
-	              'asc',
-	              {allowLineSeparatedGroups: true,
-	               caseSensitive: false,
-	               natural: true}],
+	'sort-keys': [formatLogLevel, 'asc', {
+		allowLineSeparatedGroups: true,
+		caseSensitive           : false,
+		natural                 : true
+	}],
 
 	// Require variables within the same declaration block to be sorted
 	'sort-vars': [formatLogLevel, {ignoreCase: true}],
@@ -458,7 +464,7 @@ export default (
 	// Require var declarations be placed at the top of their containing scope
 	'vars-on-top': logLevel,
 
-	// Require or disallow “Yoda” conditions
-	// @ts-ignore
+	/* Require or disallow “Yoda” conditions
+	   @ts-ignore -- One of type definition or document is wrong. */
 	'yoda': [formatLogLevel, 'always', {exceptRange: true}]
 });

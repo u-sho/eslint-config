@@ -5,47 +5,64 @@
  */
 
 // @ts-check
-'use strict';
+/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
+/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
+/* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 
 // @ts-ignore `eslint-plugin-import' has no type
 import importPlugin from 'eslint-plugin-import';
-import helpfulWarningRules from './rules/helpful-warnings.js';
-import   moduleSystemRules from './rules/module-systems.js';
-import staticAnalysisRules from './rules/static-analysis.js';
-import     styleGuideRules from './rules/style-guide.js';
-import     deprecatedRules from './rules/deprecated.js';
 
-import { getPackageJson } from '../../../lib/util/get-package-json.cjs';
+/* eslint-disable @stylistic/no-multi-spaces */
+import importRulesDeprecated      from './rules/deprecated.js';
+import importRulesHelpfulWarnings from './rules/helpful-warnings.js';
+import importRulesModuleSystems   from './rules/module-systems.js';
+import importRulesStaticAnalysis  from './rules/static-analysis.js';
+import importRulesStyleGuide      from './rules/style-guide.js';
+
+
+import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
+
 const packageJson = getPackageJson();
-const isModule = packageJson != null
-                 && typeof packageJson === 'object'
+const isModule = null != packageJson
+                 && 'object' == typeof packageJson
                  && 'type' in packageJson
-                 && packageJson.type === 'module';
+                 && 'module' === packageJson.type;
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; webpack?: boolean; ts?: boolean; jsx?:boolean; pluginName?: string}} [options={}]
+ * @param {{short?:      boolean;
+ *          webpack?:    boolean;
+ *          typescript?: boolean;
+ *          jsx?:        boolean;
+ *          pluginName?: string}} [options={}]
  * @returns {import('eslint').Linter.Config}
  */
-export default (
-	logLevel = 'error',
+export default (/* eslint-disable @stylistic/indent */
+	      logLevel = 'error',
 	formatLogLevel = 'warn',
-	{short = false, webpack = false, ts = false, jsx = false, pluginName = 'import'} = {}
+	{
+		short      = false,
+		webpack    = false,
+		typescript = false,
+		jsx        = false,
+		pluginName = 'import'
+	} = {} /* eslint-enable @stylistic/no-multi-spaces *//* eslint-enable @stylistic/indent */
 ) => {
+	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = {
-		...helpfulWarningRules(logLevel),
-		...moduleSystemRules(logLevel),
-		...staticAnalysisRules(logLevel, formatLogLevel, {short, webpack}),
-		...styleGuideRules(logLevel, formatLogLevel, {short, ts, webpack}),
-		...deprecatedRules(),
+		...importRulesHelpfulWarnings(logLevel),
+		...importRulesModuleSystems(logLevel),
+		...importRulesStaticAnalysis(logLevel, formatLogLevel, {short, webpack}),
+		...importRulesStyleGuide(logLevel, formatLogLevel, {short, typescript, webpack}),
+		...importRulesDeprecated()
 	};
-	if (pluginName !== 'import') {
+	if ('import' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
-				.map(([ruleName, ruleConfig]) => [
-					ruleName.replace(/^import\//, `${pluginName}/`),
+				.map( ([ruleName, ruleConfig]) => [
+					ruleName.replace(/^import\//u, `${pluginName}/`),
 					ruleConfig
 				])
 		);
@@ -56,10 +73,11 @@ export default (
 	return {
 		...importPlugin.flatConfigs.recommended,
 		rules,
-		settings: ts
-		          ? importPlugin.flatConfigs.typescript.settings
-		          : {'import/extensions': extensions,
-		             'import/resolver': {node: {extensions: [...extensions, '.json', '.jsonc']}},
-		             'import/ignore': ['\.(scss|less|css)$']}
+		/* eslint-disable @stylistic/indent */
+		settings: typescript
+			? importPlugin.flatConfigs.typescript.settings
+			: {'import/extensions': extensions,
+			   'import/resolver'  : {node: {extensions: [...extensions, '.json', '.jsonc']}},
+			   'import/ignore'    : ['\.(scss|less|css)$']} /* eslint-enable @stylistic/indent */
 	};
 };

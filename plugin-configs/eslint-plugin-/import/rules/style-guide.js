@@ -5,18 +5,23 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; ts?: boolean; jsx?: boolean; webpack?: boolean}} [option={}]
+ * @param {{short?: boolean; typescript?: boolean; jsx?: boolean; webpack?: boolean}} [option={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{short = false, ts = false, webpack = false} = {}
+	{/* eslint-disable @stylistic/no-multi-spaces */
+		short      = false,
+		typescript = false,
+		jsx        = false,
+		webpack    = false
+	} = {}/* eslint-enable @stylistic/no-multi-spaces */
 ) => ({
 	// Enforce or ban the use of inline type-only markers for named imports.
 	'import/consistent-type-specifier-style': 0, // I'm using TypeScript 4.5+.
@@ -28,10 +33,12 @@ export default (
 	'import/exports-last': short ? 0 : formatLogLevel,
 
 	// Ensure consistent use of file extension within the import path.
-	'import/extensions': [logLevel,
-	                      'always',
-	                      {js : 'never', ts : ts ? 'never' : 'always',
-	                       jsx: 'never', tsx: ts ? 'never' : 'always'}],
+	'import/extensions': [logLevel, 'always', {
+		js : 'never',
+		jsx: jsx ? 'never' : 'always',
+		ts : typescript ? 'never' : 'always',
+		tsx: typescript && jsx ? 'never' : 'always'
+	}],
 
 	// Ensure all imports appear before other statements.
 	'import/first': formatLogLevel, // Option `absolute-first` is a part of `import/order`.
@@ -39,8 +46,8 @@ export default (
 	// Prefer named exports to be grouped together in a single export declaration
 	'import/group-exports': short ? 0 : formatLogLevel,
 
-	// // Replaced by `import/first`.
-	// 'import/imports-first': logLevel, // deprecated
+	/* // Replaced by `import/first`.
+	   'import/imports-first': logLevel, // deprecated */
 
 	// Enforce the maximum number of dependencies a module can have.
 	'import/max-dependencies': [formatLogLevel, {max: 5, ignoreTypeImports: true}],
@@ -63,7 +70,7 @@ export default (
 	// Forbid named exports.
 	'import/no-named-export': 0,
 
-	// Forbid namespace (a.k.a. "wildcard" 
+	// Forbid namespace (a.k.a. "wildcard" `*`) imports.
 	'import/no-namespace': logLevel,
 
 	// Forbid unassigned imports

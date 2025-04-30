@@ -4,11 +4,11 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- * 
+ *
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default is `'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default is `'warn'`
  * @param {Pick<StylisticCustomizeOptions, 'semi'>} options default is `{semi: true}`
@@ -169,13 +169,14 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	'no-unused-private-class-members': logLevel,
 
 	// Disallow unused variables
-	'no-unused-vars': ['warn',
-	                   {vars                          : 'all',
-	                    args                          : 'all',
-	                    caughtErrors                  : 'all',
-	                    caughtErrorsIgnorePattern     : '^_',
-	                    destructuredArrayIgnorePattern: '^_',
-	                    ignoreRestSiblings            : false}],
+	'no-unused-vars': ['warn', {
+		vars                          : 'all',
+		args                          : 'all',
+		caughtErrors                  : 'all',
+		caughtErrorsIgnorePattern     : '^_',
+		destructuredArrayIgnorePattern: '^_',
+		ignoreRestSiblings            : false
+	}],
 
 	// Disallow the use of variables before they are defined
 	'no-use-before-define': 'error',

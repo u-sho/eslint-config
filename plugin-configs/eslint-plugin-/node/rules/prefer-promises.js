@@ -1,10 +1,11 @@
 /**
  * @see https://github.com/eslint-community/eslint-plugin-n#-rules
  * @author u-sho (Shouhei Uechi)
- */
+*/
+
 
 // @ts-check
-'use strict';
+/* eslint @stylistic/object-curly-newline: ['warn', 'always'] -- low properties. */
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
@@ -15,5 +16,5 @@ export default (logLevel = 'error') => ({
 	'n/prefer-promises/dns': logLevel,
 
 	// Enforce `require("fs").promises`
-	'n/prefer-promises/fs': logLevel,
+	'n/prefer-promises/fs': logLevel
 });

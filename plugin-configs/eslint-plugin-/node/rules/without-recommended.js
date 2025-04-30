@@ -4,10 +4,10 @@
  */
 
 // @ts-check
-'use strict';
 
-import preferGlobal   from  './prefer-global.js';
-import preferPromises from  './prefer-promises.js';
+
+import preferGlobal from './prefer-global.js';
+import preferPromises from './prefer-promises.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
@@ -22,20 +22,22 @@ export default (logLevel = 'error', {short = false} = {}) => ({
 	'n/exports-style': logLevel,
 
 	// Enforce the style of file extensions in `import` declarations
-	'n/file-extension-in-import': [logLevel, 'always', {'.js': 'never',
-	                                                    '.ts': 'never',
-	                                                    '.cjs': 'never',
-	                                                    '.cts': 'never',
-	                                                    '.mjs': 'never',
-	                                                    '.mts': 'never',
-	                                                    '.jsx': 'never',
-	                                                    '.tsx': 'never'}],
+	'n/file-extension-in-import': [logLevel, 'always', {
+		'.js' : 'never',
+		'.ts' : 'never',
+		'.cjs': 'never',
+		'.cts': 'never',
+		'.mjs': 'never',
+		'.mts': 'never',
+		'.jsx': 'never',
+		'.tsx': 'never'
+	}],
 
 	// Require `require()` calls to be placed at top-level module scope
 	'n/global-require': logLevel,
 
 	// Require error handling in callbacks
-	'n/handle-callback-err': [logLevel, "^(err|error|.+Error)$"],
+	'n/handle-callback-err': [logLevel, '^(err|error|.+Error)$'],
 
 	// Enforce Node.js-style error-first callback pattern is followed
 	'n/no-callback-literal': 0, // I think this is too strict.
@@ -50,7 +52,7 @@ export default (logLevel = 'error', {short = false} = {}) => ({
 	'n/no-path-concat': logLevel,
 
 	// Disallow the use of `process.env`
-	'n/no-process-env': logLevel, // use configs file
+	'n/no-process-env': logLevel, // Use configs file
 
 	// Disallow specified modules when loaded by `import` declarations
 	'n/no-restricted-import': 0, // User defined
@@ -62,7 +64,7 @@ export default (logLevel = 'error', {short = false} = {}) => ({
 	'n/no-sync': logLevel,
 
 	...preferGlobal(logLevel),
-	
+
 	// Enforce using the node: protocol when importing Node.js builtin modules.
 	'n/prefer-node-protocol': logLevel,
 

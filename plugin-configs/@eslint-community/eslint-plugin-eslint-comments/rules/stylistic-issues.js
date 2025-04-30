@@ -4,7 +4,6 @@
  */
 
 // @ts-check
-'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
@@ -15,7 +14,7 @@ export default (formatLogLevel = 'warn') => ({
 	'eslint-comments/no-restricted-disable': [formatLogLevel, '*', '!no-console'],
 
 	// Disallow ESLint directive-comments
-	'eslint-comments/no-use': formatLogLevel,
+	'eslint-comments/no-use': [formatLogLevel, {allow: ['eslint-disable-line', 'eslint-disable-next-line', 'eslint']}],
 
 	// Require include descriptions in ESLint directive-comments
 	'eslint-comments/require-description': formatLogLevel

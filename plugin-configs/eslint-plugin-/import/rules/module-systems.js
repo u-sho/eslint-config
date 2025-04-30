@@ -5,15 +5,15 @@
  */
 
 // @ts-check
-'use strict';
 
 
-import { getPackageJson } from '../../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../../../lib/util/get-package-json.cjs';
+
 const packageJson = getPackageJson();
-const isModule = packageJson != null
-                 && typeof packageJson === 'object'
+const isModule = null != packageJson
+                 && 'object' === typeof packageJson
                  && 'type' in packageJson
-                 && packageJson.type === 'module';
+                 && 'module' === packageJson.type;
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
@@ -33,5 +33,5 @@ export default (logLevel = 'error') => ({
 	'import/no-nodejs-modules': 0, // I'm using Node.js.
 
 	// Forbid potentially ambiguous parse goal (`script` vs. `module`).
-	'import/unambiguous': logLevel // maybe slow
+	'import/unambiguous': logLevel /** CAUTION!: Maybe slow */
 });

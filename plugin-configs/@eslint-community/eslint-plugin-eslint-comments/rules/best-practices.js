@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
@@ -15,8 +15,7 @@ export default (formatLogLevel = 'warn') => ({
 	'eslint-comments/disable-enable-pair': [formatLogLevel, {allowWholeFile: false}],
 
 	// Disallow a `eslint-enable` comment for multiple `eslint-disable` comments
-	'eslint-comments/no-aggregating-enable': 0,
-   // I think that this rule enforces unnecessary complexity.
+	'eslint-comments/no-aggregating-enable': 0, // I think that this rule enforces unnecessary complexity.
 
 	// Disallow duplicate `eslint-disable` comments
 	'eslint-comments/no-duplicate-disable': formatLogLevel,
@@ -25,8 +24,7 @@ export default (formatLogLevel = 'warn') => ({
 	'eslint-comments/no-unlimited-disable': formatLogLevel,
 
 	// Disallow unused `eslint-disable` comments
-	'eslint-comments/no-unused-disable': formatLogLevel,
-   // I think this and the below rules are replaced by linterOptions
+	'eslint-comments/no-unused-disable': formatLogLevel, // This and the below are replaced by linterOptions.
 
 	// Disallow unused `eslint-enable` comments
 	'eslint-comments/no-unused-enable': formatLogLevel

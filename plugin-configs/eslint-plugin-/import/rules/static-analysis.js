@@ -5,35 +5,41 @@
  */
 
 // @ts-check
-'use strict';
 
 
-import { getPackageJson } from '../../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../../../lib/util/get-package-json.cjs';
+
 const packageJson = getPackageJson();
-const isModule = packageJson != null
-                 && typeof packageJson === 'object'
+const isModule = null != packageJson
+                 && 'object' === typeof packageJson
                  && 'type' in packageJson
-                 && packageJson.type === 'module';
+                 && 'module' === packageJson.type;
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; ts?: boolean; webpack?: boolean}} [options={}]
+ * @param {{short?: boolean; typescript?: boolean; webpack?: boolean}} [options={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (
-	logLevel = 'error',
+	/* eslint-disable @stylistic/no-multi-spaces *//* eslint-disable @stylistic/indent */
+	      logLevel = 'error',
 	formatLogLevel = 'warn',
-	{short = false, ts = false, webpack = false} = {}
+	{
+		short      = false,
+		typescript = false,
+		webpack    = false
+	} = {} /* eslint-enable @stylistic/no-multi-spaces *//* eslint-enable @stylistic/indent */
 ) => ({
 	// Ensure a default export is present, given a default import.
 	'import/default': isModule ? logLevel : 0,
 
-	// Enforce either using, or omitting, the `node:` protocol when importing Node.js builtin modules.
+	/* Enforce either using, or omitting, the `node:` protocol
+	   when importing Node.js builtin modules. */
 	'import/enforce-node-protocol-usage': short ? formatLogLevel : [logLevel, 'always'],
 
 	// Ensure named imports correspond to a named export in the remote file.
-	'import/named': ts ? 0 : logLevel,
+	'import/named': typescript ? 0 : logLevel,
 
 	// Ensure imported namespaces contain dereferenced properties as they are dereferenced.
 	'import/namespace': logLevel,

@@ -4,7 +4,9 @@
  */
 
 // @ts-check
-'use strict';
+/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
+/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
+/* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 
 import markdownPlugin from '@eslint/markdown';
 import markdownPluginRules from './rules/all.js';
@@ -14,30 +16,29 @@ import markdownPluginRules from './rules/all.js';
  * @param {{language?: 'commonmark'|'gfm';
  *          frontMatter?: false|'yaml'|'toml';
  *          pluginName?: string}} options default:`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
- * @returns {import('eslint').Linter.Config} 
+ * @returns {import('eslint').Linter.Config}
  */
 export default (
 	logLevel = 'error',
 	{language = 'gfm', frontMatter = false, pluginName = 'markdown'} = {}
 ) => {
 	let rules = markdownPluginRules(logLevel);
-	if (pluginName !== 'markdown') {
+	if ('markdown' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
-				.map(([ruleName, ruleConfig]) => [
-					ruleName.replace(/^markdown\//, `${pluginName}/`),
+				.map( ([ruleName, ruleConfig]) => [
+					ruleName.replace(/^markdown\//u, `${pluginName}/`),
 					ruleConfig
 				])
 		);
 	}
 
 	return {
-		files: ['**/*.md'],
-		// @ts-ignore
-		plugins: { [pluginName]: markdownPlugin },
+		files   : ['**/*.md'],
+		plugins : {[pluginName]: markdownPlugin},
 		language: `${pluginName}/${language}`,
-		...frontMatter ? { languageOptions: { frontMatter } } : {},
+		...frontMatter ? {languageOptions: {frontMatter}} : {},
 		rules
 	};
-}
+};

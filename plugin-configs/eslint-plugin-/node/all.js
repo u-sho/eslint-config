@@ -4,40 +4,43 @@
  */
 
 // @ts-check
-'use strict';
+/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
+/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
 
 import globals from 'globals';
 import nodePlugin from 'eslint-plugin-n';
 
-import nodeRecommendedRules        from './rules/recommended.js';
-import nodeWithoutRecommendedRules from './rules/without-recommended.js';
-import nodeDeprecatedRules         from './rules/deprecated.js';
+import nodeRulesDeprecated from './rules/deprecated.js';
+import nodeRulesExceptRecommended from './rules/without-recommended.js';
+import nodeRulesRecommended from './rules/recommended.js';
 
 
-import { getPackageJson } from '../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
+
 const packageJson = getPackageJson();
-const isModule = packageJson != null
-                 && typeof packageJson === 'object'
-                 && 'type' in packageJson
-                 && packageJson.type === 'module';
+const isModule = null != packageJson
+	&& 'object' == typeof packageJson
+	&& 'type' in packageJson
+	&& 'module' === packageJson.type;
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{short?: boolean; pluginName?: string}} [options]
- * @returns {import('eslint').Linter.Config} 
+ * @param {{short?: boolean; pluginName?: string}} [options={}] - defaults:
+ * 	`{short: false, pluginName: 'n'}`
+ * @returns {import('eslint').Linter.Config}
  */
 export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
 	let rules = {
-		...nodeRecommendedRules(logLevel),
-		...nodeWithoutRecommendedRules(logLevel, {short}),
-		...nodeDeprecatedRules(),
+		...nodeRulesRecommended(logLevel),
+		...nodeRulesExceptRecommended(logLevel, {short}),
+		...nodeRulesDeprecated()
 	};
-	if (pluginName !== 'n') {
+	if ('n' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
-				.map(([ruleName, ruleConfig]) => [
-					ruleName.replace(/^n\//, `${pluginName}/`),
+				.map( ([ruleName, ruleConfig]) => [
+					ruleName.replace(/^n\//u, `${pluginName}/`),
 					ruleConfig
 				])
 		);
@@ -46,19 +49,17 @@ export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
 	return {
 		languageOptions: {
 			sourceType: isModule ? 'module' : 'commonjs',
-			globals: {
+			globals   : {
 				...globals.node,
 				...globals.es2021,
 				__dirname : isModule ? 'off' : 'readonly',
 				__filename: isModule ? 'off' : 'readonly',
 				exports   : isModule ? 'off' : 'writable',
 				module    : isModule ? 'off' : 'readonly',
-				require   : isModule ? 'off' : 'readonly',
+				require   : isModule ? 'off' : 'readonly'
 			}
 		},
-		plugins: {
-			[pluginName]: nodePlugin,
-		},
+		plugins: {[pluginName]: nodePlugin},
 		rules
 	};
-}
+};

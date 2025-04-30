@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default: `'error'`
@@ -13,7 +13,7 @@
 export default (logLevel = 'error') => ({
 	// Require languages for fenced code blocks	yes
 	'markdown/fenced-code-language': logLevel,
-	
+
 	// Enforce heading levels increment by one	yes
 	'markdown/heading-increment': logLevel,
 

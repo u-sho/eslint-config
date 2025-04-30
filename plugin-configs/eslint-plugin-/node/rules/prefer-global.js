@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
@@ -30,5 +30,5 @@ export default (logLevel = 'error') => ({
 	'n/prefer-global/url': logLevel,
 
 	// Enforce either `URLSearchParams` or `require("url").URLSearchParams`
-	'n/prefer-global/url-search-params': logLevel,
+	'n/prefer-global/url-search-params': logLevel
 });

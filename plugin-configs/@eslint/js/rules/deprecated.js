@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /**
  * @returns {Partial<import('eslint/rules').ESLintRules>}

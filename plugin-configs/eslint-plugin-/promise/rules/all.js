@@ -4,7 +4,6 @@
  */
 
 // @ts-check
-'use strict';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
@@ -61,5 +60,5 @@ export default (logLevel = 'error', formatLogLevel = 'warn') => ({
 	'promise/spec-only': logLevel,
 
 	// Enforces the proper number of arguments are passed to Promise functions.
-	'promise/valid-params': logLevel,
+	'promise/valid-params': logLevel
 });

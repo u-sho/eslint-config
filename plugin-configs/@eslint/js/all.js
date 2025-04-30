@@ -4,22 +4,24 @@
  */
 
 // @ts-check
-'use strict';
+
 
 import globals from 'globals';
-import eslintJs from '@eslint/js';
 
-import eslintPossibleProblems    from './rules/possible-problems.js';
-import eslintLayoutAndFormatting from './rules/layout-and-formatting.js';
-import eslintSuggestions         from './rules/suggestions.js';
+import eslintJs from '@eslint/js'; /* eslint-disable @stylistic/no-multi-spaces */
+
 import eslintDeprecated          from './rules/deprecated.js';
+import eslintLayoutAndFormatting from './rules/layout-and-formatting.js';
+import eslintPossibleProblems    from './rules/possible-problems.js';
+import eslintSuggestions         from './rules/suggestions.js'; /* eslint-enable @stylistic/no-multi-spaces */
 
-import { getPackageJson } from '../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
+
 const packageJson = getPackageJson();
-const isModule = packageJson != null
-                 && typeof packageJson === 'object'
+const isModule = null != packageJson
+                 && 'object' === typeof packageJson
                  && 'type' in packageJson
-                 && packageJson.type === 'module';
+                 && 'module' === packageJson.type;
 
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
@@ -36,25 +38,28 @@ export default (
 	{semi = true, jsx = false, complexityDepth = 2} = {}
 ) => ({
 	languageOptions: {
+		...jsx ? {parserOptions: {ecmaFeatures: {jsx: true}}} : {},
+
 		ecmaVersion: 'latest',
-		sourceType: isModule ? 'module' : 'commonjs',
+
 		globals: {
 			...globals.browser,
 			...globals.node,
 			...globals.es2021,
-			__dirname:  isModule ? 'off' : 'readonly',
+			__dirname : isModule ? 'off' : 'readonly',
 			__filename: isModule ? 'off' : 'readonly',
-			exports:    isModule ? 'off' : 'writable',
-			module:     isModule ? 'off' : 'readonly',
-			require:    isModule ? 'off' : 'readonly',
+			exports   : isModule ? 'off' : 'writable',
+			module    : isModule ? 'off' : 'readonly',
+			require   : isModule ? 'off' : 'readonly'
 		},
-		...jsx ? {parserOptions: {ecmaFeatures: {jsx: true}}} : {},
+		sourceType: isModule ? 'module' : 'commonjs'
 	},
-	plugins: { eslintJs },
-	rules: {
+	plugins: {eslintJs},
+	rules  : {
 		...eslintPossibleProblems(logLevel, formatLogLevel, {semi}),
 		...eslintLayoutAndFormatting(formatLogLevel),
 		...eslintSuggestions(logLevel, formatLogLevel, {complexityDepth}),
-		...eslintDeprecated(),
-	}
+		...eslintDeprecated()
+	},
+	settings: {typescriptExtensionMap: [['', 'js']]}
 });

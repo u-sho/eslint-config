@@ -5,10 +5,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 /** @returns {import('eslint').Linter.RulesRecord} */
-export default () => ({
-	// Replaced by `import/first`.
-	'import/imports-first': 0
-});
+export default () => ({'import/imports-first': 0 /* Replaced by `import/first`. */});

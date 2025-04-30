@@ -4,7 +4,6 @@
  */
 
 // @ts-check
-'use strict';
 
 /** @returns {import('eslint').Linter.RulesRecord} */
 export default () => ({

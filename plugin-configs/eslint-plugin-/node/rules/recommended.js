@@ -4,7 +4,7 @@
  */
 
 // @ts-check
-'use strict';
+
 
 import noUnsupportedFeatures from './no-unsupported-features.js';
 
@@ -49,5 +49,5 @@ export default (logLevel = 'error') => ({
 	...noUnsupportedFeatures(),
 
 	// Require that `process.exit()` expressions use the same code path as `throw`
-	'n/process-exit-as-throw': logLevel,
+	'n/process-exit-as-throw': logLevel
 });
