@@ -46,10 +46,10 @@ type TsRuleNamesNotInJsRules = 'member-delimiter-style' | 'type-annotation-spaci
 
 
 // All rule names without prefix. ============================================================================
-type UnprefixedRuleNamesJs   = keyof import('@stylistic/eslint-plugin-js/dist/dts')  .UnprefixedRuleOptions;
-type UnprefixedRuleNamesTs   = keyof import('@stylistic/eslint-plugin-ts/dist/dts')  .UnprefixedRuleOptions;
-type UnprefixedRuleNamesJsx  = keyof import('@stylistic/eslint-plugin-jsx/dist/dts') .UnprefixedRuleOptions;
-type UnprefixedRuleNamesPlus = keyof import('@stylistic/eslint-plugin-plus/dist/dts').UnprefixedRuleOptions;
+type UnprefixedRuleNamesJs   = keyof import('../../../node_modules/@stylistic/eslint-plugin-js/dist/dts')  .UnprefixedRuleOptions;
+type UnprefixedRuleNamesTs   = keyof import('../../../node_modules/@stylistic/eslint-plugin-ts/dist/dts')  .UnprefixedRuleOptions;
+type UnprefixedRuleNamesJsx  = keyof import('../../../node_modules/@stylistic/eslint-plugin-jsx/dist/dts') .UnprefixedRuleOptions;
+type UnprefixedRuleNamesPlus = keyof import('../../../node_modules/@stylistic/eslint-plugin-plus/dist/dts').UnprefixedRuleOptions;
 
 
 
@@ -71,45 +71,39 @@ type RuleNamesJsx  = `${PluginName}/${            UnprefixedRuleNamesJsx}`;
 type RuleNamesPlus = `${PluginName}/${            UnprefixedRuleNamesPlus}`;
 
 /** All `@stylistic/eslint-plugin-js` rule names with prefix,  EXCEPT `func-call-spacing` and `jsx-quotes`. */
-type RuleNamesPureJs  = `@stylistic/${UnprefixedRuleNamesPureJs}`;
+type RuleNamesPureJs  = `${PluginName}/${UnprefixedRuleNamesPureJs}`;
 /** All `@stylistic/eslint-plugin-jsx` rule names with prefix,   AND  `jsx-quotes`. */
-type RuleNamesPureJsx = `@stylistic/${UnprefixedRuleNamesPureJsx}`;
-
-
-
-// All rule entries with prefix,  EXCEPT `func-call-spacing` =================================================
-/** All `@stylistic/*` rules */
-type RuleOptions = import('@stylistic/eslint-plugin/dist/dts').RuleOptions;
-
-type RuleEntriesJs   = import('eslint').Linter.RuleEntry<RuleOptions[RuleNamesJs]>;
-type RuleEntriesTs   = import('eslint').Linter.RuleEntry<RuleOptions[RuleNamesTs]>;
-type RuleEntriesJsx  = import('eslint').Linter.RuleEntry<RuleOptions[RuleNamesJsx]>;
-type RuleEntriesPlus = import('eslint').Linter.RuleEntry<RuleOptions[RuleNamesPlus]>;
-
-/** All `@stylistic/eslint-plugin-js` rule entries with prefix,  EXCEPT `func-call-spacing` and `jsx-quotes`. */
-type RuleEntriesPureJs  = import('eslint').Linter.RuleEntry<RuleOptions[RuleNamesPureJs]>;
-/** All `@stylistic/eslint-plugin-jsx` rule entries with prefix,   AND  `jsx-quotes`. */
-type RuleEntriesPureJsx = import('eslint').Linter.RuleEntry<RuleOptions[RuleNamesPureJsx]>;
+type RuleNamesPureJsx = `${PluginName}/${UnprefixedRuleNamesPureJsx}`;
 
 
 
 // All rules config with prefix, EXCEPT `func-call-spacing` ==================================================
-type RulesJs   = Record<RuleNamesJs,   RuleEntriesJs>;
-type RulesTs   = Record<RuleNamesTs,   RuleEntriesTs>;
-type RulesJsx  = Record<RuleNamesJsx,  RuleEntriesJsx>;
-type RulesPlus = Record<RuleNamesPlus, RuleEntriesPlus>;
+/** All `@stylistic/*` rules */
+type RuleOptions = import('../../../node_modules/@stylistic/eslint-plugin/dist/dts/').RuleOptions;
+export type RuleSeverity = import('../../../node_modules/eslint').Linter.RuleSeverity;
+
+type MakeRules<RuleNames extends string> = Record<RuleNames, RuleSeverity | [RuleSeverity, ...Partial<RuleOptions[RuleNames]>]>;
+
+type RulesJs   = MakeRules<RuleNamesJs>;
+type RulesTs   = MakeRules<RuleNamesTs>;
+type RulesJsx  = MakeRules<RuleNamesJsx>;
+type RulesPlus = MakeRules<RuleNamesPlus>;
 
 /** All `@stylistic/eslint-plugin-js` rules config with prefix,  EXCEPT `func-call-spacing` and `jsx-quotes`. */
-       type RulesPureJs  = Record<RuleNamesPureJs,  RuleEntriesPureJs>;
+       type RulesPureJs  = Omit<RulesJs, `${PluginName}/${JsxRuleNamesInJsRules}`>;
 /** All `@stylistic/eslint-plugin-jsx` rules config with prefix,   AND  `jsx-quotes`. */
-export type RulesPureJsx = Record<RuleNamesPureJsx, RuleEntriesPureJsx>;
+export type RulesPureJsx = RulesJsx & Record<`${PluginName}/${JsxRuleNamesInJsRules}`, RulesJs[`${PluginName}/${JsxRuleNamesInJsRules}`]>;
 
 
 
 // All rules OFF config with each plugin's prefix. =================================================
-type OffRulesJs  = Record<                    Exclude<UnprefixedRuleNamesJs,  NewRuleNamesJs>,    0>;
-type OffRulesTs  = Record<`${ TsPluginName}/${Exclude<UnprefixedRuleNamesTs,  NewRuleNamesTs>}`,  0>;
-type OffRulesJsx = Record<`${JsxPluginName}/${Exclude<UnprefixedRuleNamesJsx, NewRuleNamesJsx>}`, 0>;
+type OffRuleNamesJs = `${PluginName}/${OldRuleNames}` | Exclude<UnprefixedRuleNamesJs, NewRuleNamesJs>;
+type OffRuleNamesTs = `${PluginName}/${OldRuleNames}` | `${TsPluginName}/${Exclude<UnprefixedRuleNamesTs, NewRuleNamesTs>}`;
+type OffRuleNamesJsx = `${JsxPluginName}/${Exclude<UnprefixedRuleNamesJsx, NewRuleNamesJsx>}`;
+
+type OffRulesJs  = Record<OffRuleNamesJs , 0>;
+type OffRulesTs  = Record<OffRuleNamesTs , 0>;
+type OffRulesJsx = Record<OffRuleNamesJsx, 0>;
 
 /** All `@stylistic/eslint-plugin-js` rules OFF config with prefix,  EXCEPT `jsx-quotes`. */
 type OffRulesPureJs = Omit<OffRulesJs, JsxRuleNamesInJsRules>;
@@ -119,9 +113,9 @@ export type OffRulesPureJsx = OffRulesJsx & Record<JsxRuleNamesInJsRules, 0>;
 
 
 // get rules function params =======================================================================
-type LogLevel = import('eslint').Linter.RuleSeverity;
+type LogLevel = import('../../../node_modules/eslint').Linter.RuleSeverity;
 
-type StylisticCustomizeOptions = import('@stylistic/eslint-plugin').StylisticCustomizeOptions;
+type StylisticCustomizeOptions = import('../../../node_modules/@stylistic/eslint-plugin').StylisticCustomizeOptions;
 type FormatCustomizeOptions = {
 	short?:      boolean;
 	printWidth?: number;
@@ -139,8 +133,8 @@ export type RulesAll          = RulesPureJs & RulesTs & RulesPureJsx & RulesPlus
 export type RulesAllExceptJsx = RulesPureJs & RulesTs                & RulesPlus;
 
 /** All rules OFF config with  */
-export type OffRulesAll          = OffRulesPureJs & OffRulesTs & OffRulesPureJsx;
-export type OffRulesAllExceptJsx = OffRulesPureJs & OffRulesTs;
+export type OffRulesAll          = Omit<OffRulesPureJs, `${PluginName}/${OldRuleNames}`> & OffRulesTs & OffRulesPureJsx;
+export type OffRulesAllExceptJsx = Omit<OffRulesPureJs, `${PluginName}/${OldRuleNames}`> & OffRulesTs;
 
 /** get default (`@stylistic/eslint-plugin`) rules
  * @param formatLogLevel  default is `'warn'`
@@ -174,9 +168,9 @@ export type GetRulesDefault = (
 // get js (`@stylistic/eslint-plugin-js`) rules function =====================================================
 type CustomizeOptionsJs = Omit<CustomizeOptions, 'pluginName'>;
 
-type JsPrefixedRuleOptions = import('@stylistic/eslint-plugin-js/dist/dts').RuleOptions;
-type JsPrefixedRuleNames   = Exclude<keyof JsPrefixedRuleOptions, OldRuleNames>;
-type JsPrefixedRuleEntries = import('eslint').Linter.RuleEntry<JsPrefixedRuleOptions[JsPrefixedRuleNames]>;
+type JsPrefixedRuleOptions = import('../../../node_modules/@stylistic/eslint-plugin-js/dist/dts').RuleOptions;
+type JsPrefixedRuleNames   = Exclude<keyof JsPrefixedRuleOptions, `${PluginName}/js/${OldRuleNames}`>;
+type JsPrefixedRuleEntries = import('../../../node_modules/eslint').Linter.RuleEntry<JsPrefixedRuleOptions[JsPrefixedRuleNames]>;
 
 type JsPrefixedRules = Record<JsPrefixedRuleNames, JsPrefixedRuleEntries>;
 type JsPrefixedRulesExceptJsx = Omit<JsPrefixedRules, `${PluginName}/js/${JsxRuleNamesInJsRules}`>;
@@ -216,9 +210,9 @@ export type GetRulesJs = (
 // get ts (`@stylistic/eslint-plugin-ts`) rules function =====================================================
 type CustomizeOptionsTs = Omit<CustomizeOptions, 'pluginName'|'printWidth'|'tabWidth'|'arrowParens'|'jsx'>;
 
-type TsPrefixedRuleOptions = import('@stylistic/eslint-plugin-ts/dist/dts').RuleOptions;
-type TsPrefixedRuleNames   = Exclude<keyof TsPrefixedRuleOptions, OldRuleNames>;
-type TsPrefixedRuleEntries = import('eslint').Linter.RuleEntry<TsPrefixedRuleOptions[TsPrefixedRuleNames]>;
+type TsPrefixedRuleOptions = import('../../../node_modules/@stylistic/eslint-plugin-ts/dist/dts').RuleOptions;
+type TsPrefixedRuleNames   = Exclude<keyof TsPrefixedRuleOptions, `${PluginName}/ts/${OldRuleNames}`>;
+type TsPrefixedRuleEntries = import('../../../node_modules/eslint').Linter.RuleEntry<TsPrefixedRuleOptions[TsPrefixedRuleNames]>;
 
 type TsPrefixedRules = Record<TsPrefixedRuleNames, TsPrefixedRuleEntries>;
 
@@ -253,9 +247,9 @@ export type GetRulesTs = (
 // get jsx (`@stylistic/eslint-plugin-jsx`) rules function ===================================================
 type CustomizeOptionsJsx = Pick<CustomizeOptions, 'blockSpacing'|'short'>;
 
-type JsxPrefixedRuleOptions = import('@stylistic/eslint-plugin-jsx/dist/dts').RuleOptions;
+type JsxPrefixedRuleOptions = import('../../../node_modules/@stylistic/eslint-plugin-jsx/dist/dts').RuleOptions;
 type JsxPrefixedRuleNames   = keyof JsxPrefixedRuleOptions;
-type JsxPrefixedRuleEntries = import('eslint').Linter.RuleEntry<JsxPrefixedRuleOptions[JsxPrefixedRuleNames]>;
+type JsxPrefixedRuleEntries = import('../../../node_modules/eslint').Linter.RuleEntry<JsxPrefixedRuleOptions[JsxPrefixedRuleNames]>;
 type JsxPrefixedRules = Record<JsxPrefixedRuleNames, JsxPrefixedRuleEntries>;
 
 type StylisticOffRulesJsx    = Record<`${PluginName}/${UnprefixedRuleNamesJsx}`, 0>;
@@ -273,9 +267,9 @@ export type GetRulesJsx = (
 
 // get additional (`@stylistic/eslint-plugin-plus`) rules function ===========================================
 type CustomizeOptionsAdditional = Pick<CustomizeOptions, 'short' | 'indent'>;
-type PlusPrefixedRuleOptions = import('@stylistic/eslint-plugin-plus/dist/dts').RuleOptions;
+type PlusPrefixedRuleOptions = import('../../../node_modules/@stylistic/eslint-plugin-plus/dist/dts').RuleOptions;
 type PlusPrefixedRuleNames = keyof PlusPrefixedRuleNames;
-type PlusPrefixedRuleEntries = import('eslint').Linter.RuleEntry<PlusPrefixedRuleOptions[PlusPrefixedRuleNames]>;
+type PlusPrefixedRuleEntries = import('../../../node_modules/eslint').Linter.RuleEntry<PlusPrefixedRuleOptions[PlusPrefixedRuleNames]>;
 type PlusPrefixedRules = Record<PlusPrefixedRuleNames, PlusPrefixedRuleEntries>;
 
 type StylisticOffRulesPlus = Record<RuleNamesPlus, 0>;

@@ -384,10 +384,6 @@ export default (
 	'@stylistic/padding-line-between-statements'   : 0,
 	'@stylistic/js/padding-line-between-statements': [formatLogLevel,
 		/* eslint-disable @stylistic/indent, @stylistic/no-multi-spaces */
-		{blankLine: 'always', prev: '*', next: ['enum', 'interface']},
-		{blankLine: 'always', next: '*', prev: ['enum', 'interface']},
-		{blankLine: 'never', prev: 'function-overload', next: 'function'},
-
 		{blankLine: 'always', prev: 'directive', next: '*'},
 		{blankLine: 'always', prev: 'import',    next: '*'},
 		{blankLine: short ? 'never' : 'any', prev: 'directive', next: 'directive'},
