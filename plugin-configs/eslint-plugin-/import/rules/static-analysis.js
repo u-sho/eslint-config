@@ -22,14 +22,14 @@ const isModule = null != packageJson
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (
-	/* eslint-disable @stylistic/no-multi-spaces *//* eslint-disable @stylistic/indent */
+	/* eslint-disable @stylistic/no-multi-spaces, @stylistic/indent */
 	      logLevel = 'error',
 	formatLogLevel = 'warn',
 	{
 		short      = false,
 		typescript = false,
 		webpack    = false
-	} = {} /* eslint-enable @stylistic/no-multi-spaces *//* eslint-enable @stylistic/indent */
+	} = {} /* eslint-enable @stylistic/no-multi-spaces, @stylistic/indent */
 ) => ({
 	// Ensure a default export is present, given a default import.
 	'import/default': isModule ? logLevel : 0,

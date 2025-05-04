@@ -4,19 +4,17 @@ import {defineConfig} from 'eslint/config';
 
 import {baseOptions, languageOptions} from './_base.js';
 
-/* eslint-disable @stylistic/no-multi-spaces */
-import getConfigJs   from '../plugin-configs/@eslint/js/all.js';
-import getConfigNode from '../plugin-configs/eslint-plugin-/node/all.js';
+import getConfigJs from '../plugin-configs/@eslint/js/format.js';
 
-import getConfigImport  from '../plugin-configs/eslint-plugin-/import/all.js';
-import getConfigPromise from '../plugin-configs/eslint-plugin-/promise/all.js';
+import getConfigImport from '../plugin-configs/eslint-plugin-/import/format.js';
+import getConfigPromise from '../plugin-configs/eslint-plugin-/promise/format.js';
 
 import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
-import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
+import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
 
 
-const configJs             = getConfigJs('error', 'warn', {complexityDepth: Infinity});
-const configNode           = getConfigNode();
+/* eslint-disable @stylistic/no-multi-spaces */
+const configJs             = getConfigJs('warn', {complexityDepth: Infinity});
 const configImport         = getConfigImport();
 const configPromise        = getConfigPromise();
 const configStylistic      = getConfigStylistic();
@@ -32,7 +30,6 @@ export default defineConfig([
 		languageOptions,
 		plugins: {
 			...configJs.plugins,
-			...configNode.plugins,
 			...configImport.plugins,
 			...configPromise.plugins,
 			...configStylistic.plugins,
@@ -40,16 +37,12 @@ export default defineConfig([
 		},
 		rules: {
 			...configJs.rules,
-			...configNode.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules,
 
 			...configImport.rules,
 			...configPromise.rules
 		},
-		settings: {
-			...configNode.settings,
-			...configImport.settings
-		}
+		settings: {...configImport.settings}
 	}
 ]);

@@ -179,7 +179,7 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	}],
 
 	// Disallow the use of variables before they are defined
-	'no-use-before-define': 'error',
+	'no-use-before-define': logLevel,
 
 	// Disallow variable assignments when the value is not used
 	'no-useless-assignment': logLevel,

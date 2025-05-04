@@ -77,7 +77,9 @@ export default (
 	'import/no-unassigned-import': logLevel,
 
 	// Enforce a convention in module import order.
-	'import/order': [formatLogLevel, {groups: ['builtin', 'external', 'internal', 'parent', 'index', 'sibling', 'object']}],
+	'import/order': [formatLogLevel, {
+		groups: ['builtin', 'external', 'internal', 'parent', 'index', 'sibling', 'object']
+	}],
 
 	// Prefer a default export if module exports a single name or multiple names.
 	'import/prefer-default-export': formatLogLevel

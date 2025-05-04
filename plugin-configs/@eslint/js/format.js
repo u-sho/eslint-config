@@ -26,14 +26,12 @@ const isModule = null != packageJson
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
  *
- * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default:`'error'`
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default:`'warn'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'>
  *         & {complexityDepth?: number}} [options={}] default:`{semi: true, jsx: false, complexityDepth: 2}`
  * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
  */
 export default (
-	logLevel = 'error',
 	formatLogLevel = 'warn',
 	{semi = true, jsx = false, complexityDepth = 2} = {}
 ) => ({
@@ -56,9 +54,9 @@ export default (
 	},
 	plugins: {eslintJs},
 	rules  : {
-		...eslintPossibleProblems(logLevel, formatLogLevel, {semi}),
+		...eslintPossibleProblems(0, formatLogLevel, {semi}),
 		...eslintLayoutAndFormatting(formatLogLevel),
-		...eslintSuggestions(logLevel, formatLogLevel, {complexityDepth}),
+		...eslintSuggestions(0, formatLogLevel, {complexityDepth}),
 		...eslintDeprecated()
 	}
 });

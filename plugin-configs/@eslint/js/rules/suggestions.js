@@ -18,7 +18,7 @@ export default (
 	{complexityDepth = 2} = {}
 ) => ({
 	// Enforce getter and setter pairs in objects and classes
-	'accessor-pairs': 'warn',
+	'accessor-pairs': 0,
 
 	// Require braces around arrow function bodies
 	'arrow-body-style': formatLogLevel,
@@ -171,10 +171,10 @@ export default (
 	'no-eq-null': 0, // Specific `null`, subset of `eqeqeq` rule
 
 	// Disallow the use of eval()
-	'no-eval': 'error',
+	'no-eval': logLevel,
 
 	// Disallow extending native types
-	'no-extend-native': 'error',
+	'no-extend-native': logLevel,
 
 	// Disallow unnecessary calls to .bind()
 	'no-extra-bind': logLevel,
@@ -186,7 +186,7 @@ export default (
 	'no-extra-label': logLevel,
 
 	// Disallow assignments to native objects or read-only global variables
-	'no-global-assign': 'error',
+	'no-global-assign': logLevel,
 
 	// Disallow shorthand type conversions
 	'no-implicit-coercion': [logLevel, {allow: ['!!', '~']}],
@@ -195,7 +195,7 @@ export default (
 	'no-implicit-globals': logLevel,
 
 	// Disallow the use of eval()-like methods
-	'no-implied-eval': 'error',
+	'no-implied-eval': logLevel,
 
 	// Disallow inline comments after code
 	'no-inline-comments': 0, // Instead of this, `line-comment-position` rule subset is used
@@ -221,8 +221,9 @@ export default (
 	// Disallow function declarations that contain unsafe references inside loop statements
 	'no-loop-func': logLevel,
 
-	// Disallow magic numbers
-	'no-magic-numbers': [logLevel, {enforceConst: true, ignore: [1]}],
+	/* Disallow magic numbers
+	   @ts-ignore https://eslint.org/docs/latest/rules/no-magic-numbers#ignoredefaultvalues */
+	'no-magic-numbers': [logLevel, {enforceConst: true, ignore: [1], ignoreDefaultValues: true}],
 
 	// Disallow use of chained assignment expressions
 	'no-multi-assign': formatLogLevel,
@@ -302,16 +303,16 @@ export default (
 	'no-return-assign': logLevel,
 
 	// Disallow javascript: URLs
-	'no-script-url': 'error',
+	'no-script-url': logLevel,
 
 	// Disallow comma operators
 	'no-sequences': [logLevel, {allowInParentheses: false}],
 
 	// Disallow variable declarations from shadowing variables declared in the outer scope
-	'no-shadow': ['error', {builtinGlobals: true}],
+	'no-shadow': [logLevel, {builtinGlobals: true}],
 
 	// Disallow identifiers from shadowing restricted names
-	'no-shadow-restricted-names': 'error',
+	'no-shadow-restricted-names': logLevel,
 
 	// Disallow ternary operators
 	'no-ternary': 0,
@@ -435,10 +436,10 @@ export default (
 	'require-await': logLevel,
 
 	// Enforce the use of u or v flag on regular expressions
-	'require-unicode-regexp': 'warn',
+	'require-unicode-regexp': logLevel,
 
 	// Require generator functions to contain yield
-	'require-yield': 'error',
+	'require-yield': logLevel,
 
 	// Enforce sorted import declarations within modules
 	'sort-imports': [formatLogLevel, /* eslint-disable @stylistic/indent */

@@ -15,8 +15,8 @@ import stylisticPlugin from '@stylistic/eslint-plugin';
 import stylisticDefaultRules from './rules/default.js';
 
 /** Get stylistic default (`@stylistic/eslint-plugin`) rules config
- * @param {import('./rules/types').RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
- * @param {import('./rules/types').CustomizeOptions
+ * @param {import('./rules/types.js').RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
+ * @param {import('./rules/types.js').CustomizeOptions
  *         & {tsPluginName?: string, reactPluginName?: string}} [options = {}] - defaults:
  * ```javascript
  * {

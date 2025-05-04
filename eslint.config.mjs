@@ -11,8 +11,8 @@ import getConfigNode from './plugin-configs/eslint-plugin-/node/all.js';
 // Import getConfigImport from './plugin-configs/eslint-plugin-/import/all.js';
 import getConfigPromise from './plugin-configs/eslint-plugin-/promise/all.js';
 
-import getConfigEslintComments from './plugin-configs/@eslint-community/eslint-plugin-eslint-comments/all.js';
-import getConfigStylistic from './plugin-configs/@stylistic/all.js';
+import getConfigEslintComments from './plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
+import getConfigStylistic from './plugin-configs/@stylistic/format.js';
 
 
 import getConfigMarkdown from './plugin-configs/@eslint/markdown/all.js';

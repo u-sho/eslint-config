@@ -29,7 +29,6 @@ const isModule = null != packageJson
                  && 'module' === packageJson.type;
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
  * @param {{short?:      boolean;
  *          webpack?:    boolean;
@@ -38,8 +37,7 @@ const isModule = null != packageJson
  *          pluginName?: string}} [options={}]
  * @returns {import('eslint').Linter.Config}
  */
-export default (/* eslint-disable @stylistic/indent */
-	      logLevel = 'error',
+export default (
 	formatLogLevel = 'warn',
 	{
 		short      = false,
@@ -47,14 +45,14 @@ export default (/* eslint-disable @stylistic/indent */
 		typescript = false,
 		jsx        = false,
 		pluginName = 'import'
-	} = {} /* eslint-enable @stylistic/no-multi-spaces, @stylistic/indent */
+	} = {} /* eslint-enable @stylistic/no-multi-spaces */
 ) => {
 	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = {
-		...importRulesHelpfulWarnings(logLevel),
-		...importRulesModuleSystems(logLevel),
-		...importRulesStaticAnalysis(logLevel, formatLogLevel, {short, webpack}),
-		...importRulesStyleGuide(logLevel, formatLogLevel, {short, typescript, webpack}),
+		...importRulesHelpfulWarnings(0),
+		...importRulesModuleSystems(0),
+		...importRulesStaticAnalysis(0, formatLogLevel, {short, webpack}),
+		...importRulesStyleGuide(0, formatLogLevel, {short, typescript, webpack}),
 		...importRulesDeprecated()
 	};
 	if ('' === pluginName) {
