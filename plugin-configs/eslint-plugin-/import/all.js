@@ -57,7 +57,9 @@ export default (/* eslint-disable @stylistic/indent */
 		...importRulesStyleGuide(logLevel, formatLogLevel, {short, typescript, webpack}),
 		...importRulesDeprecated()
 	};
-	if ('import' !== pluginName) {
+	if ('' === pluginName) {
+		console.warn('`pluginName` is empty. Use default `import`');
+	} else if ('import' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

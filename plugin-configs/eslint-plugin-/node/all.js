@@ -35,7 +35,9 @@ export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
 		...nodeRulesExceptRecommended(logLevel, {short}),
 		...nodeRulesDeprecated()
 	};
-	if ('n' !== pluginName) {
+	if ('' === pluginName) {
+		console.warn('`pluginName` is empty. Use default `n`');
+	} else if ('n' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

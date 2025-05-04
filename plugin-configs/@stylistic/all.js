@@ -20,9 +20,10 @@ import stylisticDefaultRules from './rules/default.js';
  *         & {tsPluginName?: string, reactPluginName?: string}} [options = {}] - defaults:
  * ```javascript
  * {
- * 	short       : false,
- * 	printWidth  : 100,
- * 	tabWidth    : 3,
+ * 	short     : false,
+ * 	printWidth: 100,
+ * 	  tabWidth: 3,
+ *
  * 	arrowParens : true,
  * 	blockSpacing: true,
  * 	braceStyle  : '1tbs',
@@ -30,11 +31,11 @@ import stylisticDefaultRules from './rules/default.js';
  * 	indent      : 'tab',
  * 	jsx         : false,
  * 	quoteProps  : 'consistent-as-needed',
- * 	quotes      : 'single',\
+ * 	quotes      : 'single',
  * 	semi        : true,
  *
- * 	pluginName     : '@stylistic',
- * 	tsPluginName   : '@typescript-eslint',
+ * 	     pluginName: '@stylistic',
+ * 	   tsPluginName: '@typescript-eslint',
  * 	reactPluginName: 'react'
  * }
  * ```
@@ -76,7 +77,10 @@ export default (
 		quotes,
 		semi
 	});
-	if ('@stylistic' !== pluginName) {
+
+	if ('' === pluginName) {
+		console.warn('`pluginName` is empty string. This is not recommended.');
+	} else if ('@stylistic' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
@@ -86,7 +90,14 @@ export default (
 				])
 		);
 	}
-	if ('@typescript-eslint' !== tsPluginName) {
+
+	if ('' === tsPluginName) {
+		rules = Object.fromEntries(
+			Object
+				.entries(rules)
+				.filter( ([ruleName, _ruleConfig]) => !ruleName.startsWith('@typescript-eslint/') )
+		);
+	} else if ('@typescript-eslint' !== tsPluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
@@ -96,7 +107,14 @@ export default (
 				])
 		);
 	}
-	if ('react' !== reactPluginName) {
+
+	if ('' === reactPluginName) {
+		rules = Object.fromEntries(
+			Object
+				.entries(rules)
+				.filter( ([ruleName, _ruleConfig]) => !ruleName.startsWith('react/') )
+		);
+	} else if ('react' !== reactPluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

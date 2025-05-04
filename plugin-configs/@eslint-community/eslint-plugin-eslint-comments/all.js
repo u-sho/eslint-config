@@ -26,7 +26,9 @@ export default (formatLogLevel = 'warn', {pluginName = '@eslint-community/eslint
 		...bestPracticeRules(formatLogLevel),
 		...stylisticIssueRules(formatLogLevel)
 	};
-	if ('eslint-comments' !== pluginName) {
+	if ('' === pluginName) {
+		console.warn('`pluginName` is empty. Use default `@eslint-community/eslint-comments`');
+	} else if ('eslint-comments' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

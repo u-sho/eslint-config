@@ -60,6 +60,5 @@ export default (
 		...eslintLayoutAndFormatting(formatLogLevel),
 		...eslintSuggestions(logLevel, formatLogLevel, {complexityDepth}),
 		...eslintDeprecated()
-	},
-	settings: {typescriptExtensionMap: [['', 'js']]}
+	}
 });

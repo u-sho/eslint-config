@@ -22,6 +22,9 @@ export default (
 	logLevel = 'error',
 	{language = 'gfm', frontMatter = false, pluginName = 'markdown'} = {}
 ) => {
+	if ('' === pluginName)
+		console.warn('`pluginName` is empty. Use default `markdown`');
+
 	let rules = markdownPluginRules(logLevel);
 	if ('markdown' !== pluginName) {
 		rules = Object.fromEntries(

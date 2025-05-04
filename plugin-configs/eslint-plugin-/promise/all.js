@@ -21,8 +21,9 @@ import promiseRules from './rules/all.js';
  */
 export default (logLevel = 'error', formatLogLevel = 'warn', {pluginName = 'promise'} = {}) => {
 	let rules = promiseRules(logLevel, formatLogLevel);
-
-	if ('promise' !== pluginName) {
+	if ('' === pluginName) {
+		console.warn('`pluginName` is empty. Use default `promise`');
+	} else if ('promise' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
