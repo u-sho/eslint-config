@@ -144,7 +144,7 @@ export type OffRulesAllExceptJsx = Omit<OffRulesPureJs, `${PluginName}/${OldRule
  * 	short       : false,
  * 	printWidth  : 100,
  * 	tabWidth    : 3,
- * 	arrowParens : true,
+ * 	arrowParens : false,
  * 	blockSpacing: true,
  * 	braceStyle  : '1tbs',
  * 	commaDangle : 'never',

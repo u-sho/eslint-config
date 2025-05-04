@@ -122,7 +122,8 @@ export default (
 	'max-params': logLevel,
 
 	// Enforce a maximum number of statements allowed in function blocks
-	'max-statements': [logLevel, {max: 8}],
+	// eslint-disable-next-line no-magic-numbers -- magic number
+	'max-statements': [logLevel, {max: complexityDepth * 5}],
 
 	// Require constructor names to begin with a capital letter
 	'new-cap': logLevel,
@@ -221,7 +222,7 @@ export default (
 	'no-loop-func': logLevel,
 
 	// Disallow magic numbers
-	'no-magic-numbers': logLevel,
+	'no-magic-numbers': [logLevel, {enforceConst: true, ignore: [1]}],
 
 	// Disallow use of chained assignment expressions
 	'no-multi-assign': formatLogLevel,

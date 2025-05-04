@@ -24,7 +24,7 @@ import stylisticDefaultRules from './rules/default.js';
  * 	printWidth: 100,
  * 	  tabWidth: 3,
  *
- * 	arrowParens : true,
+ * 	arrowParens : false,
  * 	blockSpacing: true,
  * 	braceStyle  : '1tbs',
  * 	commaDangle : 'never',
@@ -47,7 +47,7 @@ export default (
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
-		arrowParens  = true,
+		arrowParens  = false,
 		blockSpacing = true,
 		braceStyle   = '1tbs',
 		commaDangle  = 'never',
@@ -109,6 +109,9 @@ export default (
 	}
 
 	if ('' === reactPluginName) {
+		if (jsx)
+			console.warn('`jsx` is `true`, but `react` plugin name is empty string.');
+
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
