@@ -9,13 +9,13 @@
 /**
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel = 'error'] default: `'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel = 'warn']  default: `'warn'`
- * @param {{complexityDepth?: number}} options default: `{complexityDepth: 2}`
+ * @param {{complexityDepth?: number}} options default: `{complexityDepth: Infinity}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{complexityDepth = 2} = {}
+	{complexityDepth = Infinity} = {}
 ) => ({
 	// Enforce getter and setter pairs in objects and classes
 	'accessor-pairs': 0,
@@ -36,7 +36,7 @@ export default (
 	'class-methods-use-this': logLevel,
 
 	// Enforce a maximum cyclomatic complexity allowed in a program
-	'complexity': ['warn', {max: complexityDepth}],
+	'complexity': Infinity === complexityDepth ? 0 : ['warn', {max: complexityDepth}],
 
 	// Require return statements to either always or never specify values
 	'consistent-return': logLevel,
@@ -107,7 +107,7 @@ export default (
 	'max-classes-per-file': 'warn',
 
 	// Enforce a maximum depth that blocks can be nested
-	'max-depth': ['warn', {max: complexityDepth}],
+	'max-depth': ['warn', {max: Infinity === complexityDepth ? 2 : complexityDepth}],
 
 	// Enforce a maximum number of lines per file
 	'max-lines': 0, // I think this is too strict.
@@ -116,14 +116,14 @@ export default (
 	'max-lines-per-function': 0, // Subset of `max-statements` rule
 
 	// Enforce a maximum depth that callbacks can be nested
-	'max-nested-callbacks': ['warn', {max: complexityDepth}],
+	'max-nested-callbacks': ['warn', {max: Infinity === complexityDepth ? 2 : complexityDepth}],
 
 	// Enforce a maximum number of parameters in function definitions
 	'max-params': logLevel,
 
 	// Enforce a maximum number of statements allowed in function blocks
 	// eslint-disable-next-line no-magic-numbers -- magic number
-	'max-statements': [logLevel, {max: complexityDepth * 5}],
+	'max-statements': Infinity === complexityDepth ? 0 : [logLevel, {max: complexityDepth * 5}],
 
 	// Require constructor names to begin with a capital letter
 	'new-cap': logLevel,

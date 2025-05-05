@@ -14,7 +14,7 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
 
 
 /* eslint-disable @stylistic/no-multi-spaces */
-const configJs             = getConfigJs('warn', {complexityDepth: Infinity});
+const configJs             = getConfigJs();
 const configImport         = getConfigImport();
 const configPromise        = getConfigPromise();
 const configStylistic      = getConfigStylistic();

@@ -66,7 +66,7 @@ export const baseOptions = [
  * } & Omit<StylisticCustomizeOptions, 'pluginName'>} JsConfigOptions	defaults:
  * ```js
  * {
- *    complexityDepth: 2,
+ *    complexityDepth: Infinity,
  *    printWidth     : 100,
  *      tabWidth     : 3,
  *    short          : false,

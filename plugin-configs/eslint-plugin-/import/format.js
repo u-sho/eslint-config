@@ -29,12 +29,21 @@ const isModule = null != packageJson
                  && 'module' === packageJson.type;
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
  * @param {{short?:      boolean;
  *          webpack?:    boolean;
  *          typescript?: boolean;
  *          jsx?:        boolean;
- *          pluginName?: string}} [options={}]
+ *          pluginName?: string;}} [options={}] - defaults:
+ * ```javascript
+ * {
+ * 	short     : false,
+ * 	webpack   : false,
+ * 	typescript: false,
+ * 	jsx       : false,
+ * 	pluginName: 'import'
+ * }
+ * ```
  * @returns {import('eslint').Linter.Config}
  */
 export default (

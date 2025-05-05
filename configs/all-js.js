@@ -15,7 +15,7 @@ import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-
 import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
 
 
-const configJs             = getConfigJs('error', 'warn', {complexityDepth: Infinity});
+const configJs             = getConfigJs();
 const configNode           = getConfigNode();
 const configImport         = getConfigImport();
 const configPromise        = getConfigPromise();

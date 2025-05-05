@@ -28,12 +28,12 @@ const isModule = null != packageJson
  *
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'>
- *         & {complexityDepth?: number}} [options={}] default:`{semi: true, jsx: false, complexityDepth: 2}`
+ *         & {complexityDepth?: number}} [options={}] default:`{semi:true, jsx:false, complexityDepth:Infinity}`
  * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
  */
 export default (
 	formatLogLevel = 'warn',
-	{semi = true, jsx = false, complexityDepth = 2} = {}
+	{semi = true, jsx = false, complexityDepth = Infinity} = {}
 ) => ({
 	languageOptions: {
 		...jsx ? {parserOptions: {ecmaFeatures: {jsx: true}}} : {},
