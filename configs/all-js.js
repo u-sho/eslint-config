@@ -73,12 +73,16 @@ export const getConfigJsAll = (
 	});
 	const configEslintComments = getConfigEslintComments(formatLogLevel, {pluginName: eslintCommentsPluginName});
 
+	const filesJs = ['*.js', '*.cjs', '*.mjs', '**/*.js', '**/*.mjs', '**/*.cjs'];
+	const filesJsx = ['*.jsx', '**/*.jsx'];
+
 	return {
-		files : ['*.js', '*.mjs', '*.cjs', '**/*.js', '**/*.mjs', '**/*.cjs'],
+		files: [...filesJs, ...jsx ? filesJsx : []],
 		languageOptions,
 		plugins: {
 			...configJs.plugins,
 			...configNode.plugins,
+
 			// ...configImport.plugins,
 			...configPromise.plugins,
 			...configStylistic.plugins,
@@ -87,14 +91,20 @@ export const getConfigJsAll = (
 		rules: {
 			...configJs.rules,
 			...configNode.rules,
+
 			// ...configImport.rules,
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
 		},
 		settings: {
-			...configNode.settings
-			// ...configImport.settings
+			...configJs.settings,
+			...configNode.settings,
+
+			// ...configImport.settings,
+			...configPromise.settings,
+			...configStylistic.settings,
+			...configEslintComments.settings
 		}
 	};
 };

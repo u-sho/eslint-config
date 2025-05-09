@@ -145,6 +145,7 @@ export default (
 		   In stylistic plugin, `func-call-spacing` is an alias of `function-call-spacing`. */
 		'func-call-spacing'                   : 0,
 		'@typescript-eslint/func-call-spacing': 0,
+		'@stylistic/func-call-spacing'        : 0,
 
 		// Enforce line breaks between arguments of a function call
 		'function-call-argument-newline'           : 0,

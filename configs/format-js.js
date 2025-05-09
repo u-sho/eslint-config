@@ -1,48 +1,93 @@
 // @ts-check
 
-import {defineConfig} from 'eslint/config';
 
-import {baseOptions, languageOptions} from './_base.js';
+import {languageOptions} from './base.js';
 
 import getConfigJs from '../plugin-configs/@eslint/js/format.js';
 
-import getConfigImport from '../plugin-configs/eslint-plugin-/import/format.js';
 import getConfigPromise from '../plugin-configs/eslint-plugin-/promise/format.js';
 
 import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
 import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
 
 
-/* eslint-disable @stylistic/no-multi-spaces */
-const configJs             = getConfigJs();
-const configImport         = getConfigImport();
-const configPromise        = getConfigPromise();
-const configStylistic      = getConfigStylistic();
-const configEslintComments = getConfigEslintComments('warn', {pluginName: 'eslint-comments'});
-/* eslint-enable @stylistic/no-multi-spaces */
+/**
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
+ * @param {Omit<import('./base.js').JsConfigOptions, 'nodePluginName'>} [option={}]
+ * @returns {import('eslint').Linter.Config}
+ */
+export const getConfigJsFormat = (
+	formatLogLevel = 'warn',
+	{/* eslint-disable @stylistic/no-multi-spaces */
+		complexityDepth = Infinity,
+		printWidth     = 100,
+		tabWidth       = 3,
+		short          = false,
+		arrowParens    = false,
+		blockSpacing   = true,
+		braceStyle     = '1tbs',
+		commaDangle    = 'never',
+		indent         = 'tab',
+		jsx            = false,
+		quoteProps     = 'consistent-as-needed',
+		quotes         = 'single',
+		semi           = true,
 
+		eslintCommentsPluginName = '@eslint-community/eslint-comments',
+		promisePluginName        = 'promise',
+		reactPluginName          = 'react',
+		stylisticPluginName      = '@stylistic',
+		tsPluginName             = '@typescript-eslint'
+	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+) => {
+	const configJs = getConfigJs(formatLogLevel, {complexityDepth, jsx, semi});
+	const configPromise = getConfigPromise(formatLogLevel, {pluginName: promisePluginName});
+	const configStylistic = getConfigStylistic(formatLogLevel, {
+		printWidth,
+		tabWidth,
+		short,
 
-/** @type {import('eslint').Linter.Config[]} */
-export default defineConfig([
-	...baseOptions,
-	{
-		files  : ['*.js', '*.mjs', '*.cjs', '**/*.js', '**/*.mjs', '**/*.cjs'],
+		arrowParens,
+		blockSpacing,
+		braceStyle,
+		commaDangle,
+		indent,
+		jsx,
+		quoteProps,
+		quotes,
+		semi,
+
+		pluginName: stylisticPluginName,
+		tsPluginName,
+		reactPluginName
+	});
+	const configEslintComments = getConfigEslintComments('warn', {pluginName: eslintCommentsPluginName});
+
+	const filesJs = ['*.js', '*.mjs', '*.cjs', '**/*.js', '**/*.mjs', '**/*.cjs'];
+	const filesJsx = ['*.jsx', '**/*.jsx'];
+
+	return {
+		files: [...filesJs, ...jsx ? filesJsx : []],
 		languageOptions,
 		plugins: {
 			...configJs.plugins,
-			...configImport.plugins,
 			...configPromise.plugins,
 			...configStylistic.plugins,
 			...configEslintComments.plugins
 		},
 		rules: {
 			...configJs.rules,
+			...configPromise.rules,
 			...configStylistic.rules,
-			...configEslintComments.rules,
-
-			...configImport.rules,
-			...configPromise.rules
+			...configEslintComments.rules
 		},
-		settings: {...configImport.settings}
-	}
-]);
+		settings: {
+			...configJs.settings,
+			...configPromise.settings,
+			...configStylistic.settings,
+			...configEslintComments.settings
+		}
+	};
+};
+
+export default getConfigJsFormat();

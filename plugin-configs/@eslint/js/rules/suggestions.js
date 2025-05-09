@@ -223,7 +223,7 @@ export default (
 
 	/* Disallow magic numbers
 	   @ts-ignore https://eslint.org/docs/latest/rules/no-magic-numbers#ignoredefaultvalues */
-	'no-magic-numbers': [logLevel, {enforceConst: true, ignore: [1], ignoreDefaultValues: true}],
+	'no-magic-numbers': [formatLogLevel, {enforceConst: true, ignore: [1], ignoreDefaultValues: true}],
 
 	// Disallow use of chained assignment expressions
 	'no-multi-assign': formatLogLevel,
@@ -235,7 +235,7 @@ export default (
 	'no-negated-condition': logLevel,
 
 	// Disallow nested ternary expressions
-	'no-nested-ternary': logLevel,
+	'no-nested-ternary': formatLogLevel,
 
 	// Disallow new operators outside of assignments or comparisons
 	'no-new': logLevel,

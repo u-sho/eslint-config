@@ -24,22 +24,22 @@ export const ignores = [
 
 /** @type {Required<RequiredConfig['linterOptions']>} */
 export const linterOptions = {
-	noInlineConfig               : false,
+	noInlineConfig: false,
 	reportUnusedDisableDirectives: 'warn',
-	reportUnusedInlineConfigs    : 'warn'
+	reportUnusedInlineConfigs: 'warn'
 };
 
 /** @type {RequiredConfig['languageOptions']} */
 export const languageOptions = {
 	ecmaVersion: 'latest',
-	globals    : {
+	globals: {
 		...globals.node,
-		...globals.es2021,
+		...globals.es2021,  /* eslint-disable @stylistic/key-spacing */
 		__dirname : isModule ? 'off' : 'readonly',
 		__filename: isModule ? 'off' : 'readonly',
 		exports   : isModule ? 'off' : 'writable',
 		module    : isModule ? 'off' : 'readonly',
-		require   : isModule ? 'off' : 'readonly'
+		require   : isModule ? 'off' : 'readonly' /* eslint-enable @stylistic/key-spacing */
 	},
 	sourceType: isModule ? 'module' : 'commonjs'
 };
