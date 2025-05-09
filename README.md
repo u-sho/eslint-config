@@ -27,7 +27,7 @@ or
 // eslint.config.js
 import {baseOptions} from '@u-sho/eslint-config/configs/base';
 import {getConfigJsAll} from '@u-sho/eslint-config/configs/all-js';
-import configMarkdownAll from '@u-sho/eslint-config/configs/all-md';
+import configMarkdown from '@u-sho/eslint-config/configs/all-md';
 
 export default [
   ...baseOptions,
