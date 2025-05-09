@@ -1,6 +1,6 @@
 # @u-sho/eslint-config
 
-Rules of ESLint as a formatter by u-sho.
+ESLint config for @u-sho.
 
 ## Installation
 
