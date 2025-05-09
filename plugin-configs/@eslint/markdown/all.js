@@ -1,5 +1,5 @@
 /**
- * @see https://eslint-community.github.io/eslint-plugin-eslint-comments/#%F0%9F%93%96-usage
+ * @see https://github.com/eslint/markdown#configurations
  * @author u-sho (Shouhei Uechi)
  */
 
@@ -37,7 +37,7 @@ export default (
 	}
 
 	return {
-		files   : ['**/*.md'],
+		files   : ['*.md', '**/*.md'],
 		plugins : {[pluginName]: markdownPlugin},
 		language: `${pluginName}/${language}`,
 		...frontMatter ? {languageOptions: {frontMatter}} : {},
