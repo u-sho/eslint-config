@@ -5,7 +5,7 @@ import {languageOptions} from './base.js';
 
 import getConfigJs from '../plugin-configs/@eslint/js/format.js';
 
-import getConfigPromise from '../plugin-configs/eslint-plugin-/promise/format.js';
+import getConfigPromise from '../plugin-configs/eslint-plugin-promise/format.js';
 
 import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
 import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
