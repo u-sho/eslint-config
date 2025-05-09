@@ -5,8 +5,6 @@ import {defineConfig} from 'eslint/config';
 import {ignores, linterOptions} from './configs/base.js';
 import {getConfigJsFormat} from './configs/format-js.js';
 
-import getConfigMarkdown from './plugin-configs/@eslint/markdown/all.js';
-
 
 const OFF = 0;
 const WARN = 1;
@@ -23,14 +21,11 @@ const configJs = getConfigJsFormat('warn', {
 	eslintCommentsPluginName: 'eslint-comments'
 });
 
-const configMarkdown = getConfigMarkdown('warn');
-
 
 /** @type {import('typescript-eslint').Config} */
 export default defineConfig([
 	{ignores: [...ignores, 'samples/', 'lib/']},
 	{linterOptions: {...linterOptions, reportUnusedInlineConfigs: OFF}},
-	configMarkdown,
 	{
 		...configJs,
 		rules: {

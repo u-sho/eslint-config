@@ -3,10 +3,9 @@
 import {defineConfig} from 'eslint/config';
 
 import {ignores, linterOptions} from './configs/base.js';
+
+import configMarkdown from './configs/all-md.js';
 import {getConfigJsAll} from './configs/all-js.js';
-
-import getConfigMarkdown from './plugin-configs/@eslint/markdown/all.js';
-
 
 const OFF = 0;
 const WARN = 1;
@@ -23,8 +22,6 @@ const configJs = getConfigJsAll('error', 'warn', {
 	blockSpacing: false,
 	eslintCommentsPluginName: 'eslint-comments'
 });
-
-const configMarkdown = getConfigMarkdown('error');
 
 
 /** @type {import('typescript-eslint').Config} */
