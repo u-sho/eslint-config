@@ -1,5 +1,5 @@
 /**
- * @see https://eslint-community.github.io/eslint-plugin-eslint-comments/rules/#best-practices
+ * @see https://eslint-community.github.io/eslint-plugin-eslint-comments/rules/#stylistic-issues
  * @author u-sho (Shouhei Uechi)
  */
 
