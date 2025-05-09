@@ -6,7 +6,6 @@
 
 // @ts-check
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
 /* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 /* eslint sort-keys: 'off' -- grouping the same rules */
 
@@ -102,8 +101,11 @@ export default (
 		'@stylistic/computed-property-spacing': formatLogLevel,
 
 		// Enforce consistent line breaks after opening and before closing braces
-		'@stylistic/curly-newline': [formatLogLevel, {
-			// IfStatement: {multiline: true, consistent: true},
+		'@stylistic/curly-newline': [formatLogLevel, {consistent: true, minElements: short ? 2 : 1}],
+
+		/* [formatLogLevel, {
+				// @ts-ignore IfStatement replaced to IfStatementConsequent or IfStatementAlternative
+			IfStatement: {multiline: true, consistent: true},
 			ForStatement    : 'always',
 			ForInStatement  : 'always',
 			ForOfStatement  : 'always',
@@ -120,7 +122,6 @@ export default (
 			FunctionDeclaration: {consistent: true, minElements: short ? 2 : 1},
 			FunctionExpression : {consistent: true, minElements: short ? 2 : 1},
 			Property           : {multiline: true},
-
 			ClassBody: short ? {multiline: true} : 'always',
 
 			StaticBlock  : {multiline: true},
@@ -129,7 +130,8 @@ export default (
 			TSEnumBody     : 'always',
 			TSInterfaceBody: short ? {consistent: true} : {multiline: true},
 			TSModuleBlock  : {multiline: true}
-		}],
+		}], */
+
 
 		// Enforce consistent newlines before and after dots
 		'dot-location'           : 0,

@@ -6,7 +6,6 @@
 // @ts-check
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
 /* eslint @stylistic/object-curly-newline : ['warn', {minProperties: 2}] -- good to understand. */
-/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
 
 
 import promisePlugin from 'eslint-plugin-promise';

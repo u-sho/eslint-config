@@ -7,7 +7,6 @@
 
 // @ts-check
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent'] -- good to understand. */
-/* eslint @stylistic/curly-newline        : ['warn', 'always']     -- this has low statements. */
 
 
 import stylisticPlugin from '@stylistic/eslint-plugin';

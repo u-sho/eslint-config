@@ -4,8 +4,7 @@
  */
 
 // @ts-check
-/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
+/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent'] -- good to understand. */
 
 import globals from 'globals';
 import nodePlugin from 'eslint-plugin-n';

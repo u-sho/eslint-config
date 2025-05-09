@@ -18,7 +18,9 @@ export default (
 ) => ({
 	// Enforce consistent line breaks after opening and before closing braces
 	'@stylistic/curly-newline'     : 0,
-	'@stylistic/plus/curly-newline': [formatLogLevel, {
+	'@stylistic/plus/curly-newline': [formatLogLevel, {consistent: true, minElements: short ? 2 : 1}],
+
+	/* [formatLogLevel, {
 		// @ts-ignore IfStatement replaced to IfStatementConsequent or IfStatementAlternative
 		IfStatement          : {multiline: true, consistent: true},
 		ForStatement         : 'always',
@@ -41,7 +43,7 @@ export default (
 		TSEnumBody           : 'always',
 		TSInterfaceBody      : short ? {consistent: true} : {multiline: true},
 		TSModuleBlock        : {multiline: true}
-	}],
+	}], */
 
 	// Indentation for binary operators
 	'@stylistic/indent-binary-ops'     : 0,

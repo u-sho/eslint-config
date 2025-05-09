@@ -5,7 +5,6 @@
 
 // @ts-check
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
 
 /* eslint @stylistic/multiline-ternary: 'off' -- prefer the immutable declaration. */
 /* eslint no-nested-ternary           : 'off' -- prefer the immutable declaration. */

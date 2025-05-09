@@ -5,7 +5,6 @@
 
 // @ts-check
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint @stylistic/curly-newline        : ['warn', 'always']      -- this has low statements. */
 /* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 
 import markdownPlugin from '@eslint/markdown';

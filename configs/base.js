@@ -4,6 +4,8 @@ import globals from 'globals';
 
 import {getPackageJson} from '../lib/util/get-package-json.cjs';
 
+/** @typedef {Required<import('eslint').Linter.Config>} RequiredConfig */
+
 const packageJson = getPackageJson();
 const isModule = null != packageJson
 	&& 'object' == typeof packageJson
@@ -11,7 +13,7 @@ const isModule = null != packageJson
 	&& 'module' === packageJson.type;
 
 
-/** @type {import('eslint').Linter.Config['ignores']} */
+/** @type {RequiredConfig['ignores']} */
 export const ignores = [
 	'node_modules/',
 	'dist/',
@@ -20,14 +22,14 @@ export const ignores = [
 	'static/'
 ];
 
-/** @type {import('eslint').Linter.Config['linterOptions']} */
+/** @type {Required<RequiredConfig['linterOptions']>} */
 export const linterOptions = {
 	noInlineConfig               : false,
 	reportUnusedDisableDirectives: 'warn',
 	reportUnusedInlineConfigs    : 'warn'
 };
 
-/** @type {import('eslint').Linter.Config['languageOptions']} */
+/** @type {RequiredConfig['languageOptions']} */
 export const languageOptions = {
 	ecmaVersion: 'latest',
 	globals    : {
