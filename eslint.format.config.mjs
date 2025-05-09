@@ -18,7 +18,8 @@ const WARN = 1;
 const configJs = getConfigJsFormat('warn', {
 	printWidth: 120,
 	blockSpacing: false,
-	eslintCommentsPluginName: 'eslint-comments'
+	eslintCommentsPluginName: 'eslint-comments',
+	tsPluginName: ''
 });
 
 

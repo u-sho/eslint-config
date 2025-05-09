@@ -1,27 +1,40 @@
-# @u-sho/eslint-config-format
+# @u-sho/eslint-config
 
 Rules of ESLint as a formatter by u-sho.
 
 ## Installation
 
 ```shell
-npm i -D eslint @u-sho/eslint-config-format
+npm i -D eslint @u-sho/eslint-config
 ```
 
 ## Usage
 
-Once the `@u-sho/eslint-config-format` package is installed, you can use it in the [`extends`](http://eslint.org/docs/user-guide/configuring#extending-configuration-files) section of your [ESLint configuration](http://eslint.org/docs/user-guide/configuring).
+Once the `@u-sho/eslint-config` package is installed, you can use it like the below.
 
 ```js
 // eslint.config.js
-import u_shoFormatConfig from '@u-sho/eslint-config-format';
+import u_shoConfig from '@u-sho/eslint-config';
 
 export default [
-  ...u_shoFormatConfig
+  ...u_shoConfig
 ];
 ```
 
-- Check the base rules at [here](https://github.com/u-sho/eslint-config-format/blob/main/.eslintrc.js).
+or
+
+```js
+// eslint.config.js
+import {baseOptions} from '@u-sho/eslint-config/configs/base';
+import {getConfigJsAll} from '@u-sho/eslint-config/configs/all-js';
+import configMarkdownAll from '@u-sho/eslint-config/configs/all-md';
+
+export default [
+  ...baseOptions,
+  getConfigJsAll('error', 'warn', {indent: 2, tsPluginName: ''}),
+  configMarkdown,
+];
+```
 
 ### Additional rules
 
@@ -30,7 +43,7 @@ For example, using alias `@c/` as `src/components`, write like below.
 
 ```js
 // eslint.config.js
-import u_shoFormatConfig from '@u-sho/eslint-config-format';
+import u_shoFormatConfig from '@u-sho/eslint-config';
 
 export default [
   ...u_shoFormatConfig,
@@ -78,7 +91,12 @@ export default [
 
 For more information about rules, see below documents.
 
-- <https://eslint.org/docs/rules/#stylistic-issues>
+- <https://eslint.org/docs/v9.x/rules/>
+- <https://eslint.style/rules>
+- <https://github.com/eslint/markdown#rules>
+- <https://eslint-community.github.io/eslint-plugin-eslint-comments/rules/>
+- <https://github.com/eslint-community/eslint-plugin-n>
+- <https://github.com/eslint-community/eslint-plugin-promise#rules>
 
 ## TODO
 
