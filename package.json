@@ -12,6 +12,13 @@
 			"format-js": "./configs/format-js.js"
 		}
 	},
+	"files": [
+		"index.js",
+		"configs",
+		"plugin-configs",
+		"jsconfig.json",
+		"lib"
+	],
 	"scripts": {
 		"format": "eslint --config eslint.format.config.mjs",
 		"format:fix": "eslint --config eslint.format.config.mjs --fix",
