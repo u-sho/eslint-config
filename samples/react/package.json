@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "name": "react",
+  "description": "React code sample",
+  "author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
+  "license": "MIT",
+  "repository": {
+    "url": "git+https://github.com/u-sho/quantum-game-arena.git",
+    "type": "git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "check": "tsc"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^2.2.0",
+    "sass": "^1.56.1",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4"
+  }
+}

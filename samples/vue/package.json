@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "vue",
+  "description": "Vue code sample",
+  "author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
+  "license": "MIT",
+  "repository": {
+    "url": "git+https://github.com/u-sho/quantum-game-arena.git",
+    "type": "git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/tsconfig": "^0.1.3",
+    "sass": "^1.56.1",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4",
+    "vue-tsc": "^1.0.9"
+  }
+}

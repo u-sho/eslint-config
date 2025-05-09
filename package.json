@@ -1,30 +1,74 @@
 {
-  "name": "@u-sho/eslint-config",
-  "version": "1.0.0-alpha.0",
-  "description": "ESLint config for @u-sho",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint --ext .js ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/u-sho/eslint-config-format.git"
-  },
-  "keywords": [
-    "eslint",
-    "formatter",
-    "eslintconfig"
-  ],
-  "author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/u-sho/eslint-config-format/issues"
-  },
-  "homepage": "https://github.com/u-sho/eslint-config-format#readme",
-  "peerDependencies": {
-    "eslint": "^8.31.0"
-  },
-  "dependencies": {
-    "eslint-plugin-smarter-tabs": "^1.2.0"
-  }
+	"name": "@u-sho/eslint-config",
+	"version": "0.0.1",
+	"description": "Rules of ESLint as a formatter by u-sho",
+	"main": "index.js",
+	"exports": {
+		".": "./index.js",
+		"./configs": {
+			"all-js": "./configs/all-js.js",
+			"all-md": "./configs/all-md.js",
+			"base": "./configs/base.js",
+			"format-js": "./configs/format-js.js"
+		}
+	},
+	"scripts": {
+		"format": "eslint --config eslint.format.config.mjs",
+		"format:fix": "eslint --config eslint.format.config.mjs --fix",
+		"lint": "eslint",
+		"lint:fix": "eslint --fix"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/u-sho/eslint-config.git"
+	},
+	"keywords": [
+		"eslint",
+		"formatter",
+		"eslintconfig"
+	],
+	"author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
+	"license": "./LICENSE",
+	"bugs": {
+		"url": "https://github.com/u-sho/eslint-config/issues"
+	},
+	"homepage": "https://github.com/u-sho/eslint-config#readme",
+	"peerDependencies": {
+		"eslint": "^9.26.0"
+	},
+	"dependencies": {
+		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+		"@eslint/js": "^9.26.0",
+		"@stylistic/eslint-plugin": "^4.2.0",
+		"eslint-plugin-n": "^17.17.0",
+		"eslint-plugin-promise": "^7.2.1",
+		"globals": "^16.0.0"
+	},
+	"optionalDependencies": {
+		"@eslint/markdown": "^6.4.0",
+		"@stylistic/eslint-plugin-js": "^4.2.0",
+		"@stylistic/eslint-plugin-jsx": "^4.2.0",
+		"@stylistic/eslint-plugin-plus": "^4.2.0",
+		"@stylistic/eslint-plugin-ts": "^4.2.0",
+		"eslint-import-resolver-typescript": "^4.3.4",
+		"eslint-plugin-import": "~2.31.0",
+		"eslint-plugin-import-x": "^4.11.0",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"typescript-eslint": "^8.30.1"
+	},
+	"devDependencies": {
+		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+		"@eslint/js": "^9.26.0",
+		"@eslint/markdown": "^6.4.0",
+		"@stylistic/eslint-plugin": "^4.2.0",
+		"eslint": "^9.26.0",
+		"eslint-import-resolver-typescript": "^4.3.4",
+		"eslint-plugin-import": "~2.31.0",
+		"eslint-plugin-import-x": "^4.11.0",
+		"eslint-plugin-n": "^17.17.0",
+		"globals": "^16.0.0",
+		"type-fest": "^4.40.1"
+	},
+	"type": "module"
 }
