@@ -4,24 +4,60 @@
   },
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
+
+  "editor.wordWrapColumn": 120,
+  "files.insertFinalNewline": false,
+  "files.trimFinalNewlines": true,
+
   "eslint.enable": true,
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
-  "eslint.probe": [
-    "json",
-    "jsonc",
+  "eslint.validate": [
+    // "json",
+    // "jsonc",
     "javascript",
     "typescript",
-    "markdown"
+    "javascriptreact",
+    "typescriptreact",
+    // "vue",
+    // "svelte",
+    // "html",
+    "markdown",
+    // "css",
+    // "scss",
+    // "less",
+  ],
+  "eslint.probe": [
+    // "json",
+    // "jsonc",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    // "vue",
+    // "svelte",
+    // "html",
+    "markdown",
+    // "css",
+    // "scss",
+    // "less",
   ],
   "eslint.trace.server": "messages",
-  "[json]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
+
+  // "[json]": {
+  //   "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  // },
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  }
+  },
+  "cSpell.words": [
+    "multilines",
+    "nonblock",
+    "nonconstructor",
+    "nonoctal"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
