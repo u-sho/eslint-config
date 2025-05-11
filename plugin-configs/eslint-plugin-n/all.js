@@ -14,7 +14,7 @@ import nodeRulesExceptRecommended from './rules/without-recommended.js';
 import nodeRulesRecommended from './rules/recommended.js';
 
 
-import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../lib/util/get-package-json.cjs';
 
 const packageJson = getPackageJson();
 const isModule = null != packageJson

@@ -1,6 +1,6 @@
 {
 	"name": "@u-sho/eslint-config",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Rules of ESLint as a formatter by u-sho",
 	"main": "index.js",
 	"exports": {
@@ -12,6 +12,13 @@
 			"format-js": "./configs/format-js.js"
 		}
 	},
+	"files": [
+		"index.js",
+		"configs",
+		"plugin-configs",
+		"jsconfig.json",
+		"lib"
+	],
 	"scripts": {
 		"format": "eslint --config eslint.format.config.mjs",
 		"format:fix": "eslint --config eslint.format.config.mjs --fix",

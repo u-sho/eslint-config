@@ -1,7 +1,10 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
+		"allowJs": true,
+		"checkJs": true,
 		"strict": true,
+		"strictNullChecks": true,
 		"esModuleInterop": true,
 		"noImplicitAny": true,
 		"noEmit": true,

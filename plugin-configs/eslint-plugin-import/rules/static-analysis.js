@@ -7,7 +7,7 @@
 // @ts-check
 
 
-import {getPackageJson} from '../../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
 
 const packageJson = getPackageJson();
 const isModule = null != packageJson
