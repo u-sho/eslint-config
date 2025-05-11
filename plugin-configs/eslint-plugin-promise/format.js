@@ -18,10 +18,11 @@ import promiseRules from './rules/all.js';
  * @returns {import('eslint').Linter.Config}
  */
 export default (formatLogLevel = 'warn', {pluginName = 'promise'} = {}) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `promise`.');
+
 	let rules = promiseRules(0, formatLogLevel);
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `promise`');
-	} else if ('promise' !== pluginName) {
+	if ('promise' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

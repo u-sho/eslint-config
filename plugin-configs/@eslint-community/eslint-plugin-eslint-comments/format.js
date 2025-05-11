@@ -21,13 +21,14 @@ import stylisticIssueRules from './rules/stylistic-issues.js';
  * @returns {import('eslint').Linter.Config}
  */
 export default (formatLogLevel = 'warn', {pluginName = '@eslint-community/eslint-comments'} = {}) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `eslint-comments`.');
+
 	let rules = {
 		...bestPracticeRules(formatLogLevel),
 		...stylisticIssueRules(formatLogLevel)
 	};
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `@eslint-community/eslint-comments`');
-	} else if ('eslint-comments' !== pluginName) {
+	if ('eslint-comments' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

@@ -29,14 +29,15 @@ const isModule = null != packageJson
  * @returns {import('eslint').Linter.Config}
  */
 export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `node`.');
+
 	let rules = {
 		...nodeRulesRecommended(logLevel),
 		...nodeRulesExceptRecommended(logLevel, {short}),
 		...nodeRulesDeprecated()
 	};
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `n`');
-	} else if ('n' !== pluginName) {
+	if ('n' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

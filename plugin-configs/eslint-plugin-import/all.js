@@ -57,6 +57,9 @@ export default (/* eslint-disable @stylistic/indent */
 		pluginName = 'import'
 	} = {} /* eslint-enable @stylistic/no-multi-spaces, @stylistic/indent */
 ) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `import`.');
+
 	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = {
 		...importRulesHelpfulWarnings(logLevel),
@@ -65,9 +68,7 @@ export default (/* eslint-disable @stylistic/indent */
 		...importRulesStyleGuide(logLevel, formatLogLevel, {short, typescript, webpack}),
 		...importRulesDeprecated()
 	};
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `import`');
-	} else if ('import' !== pluginName) {
+	if ('import' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

@@ -61,6 +61,8 @@ export default (
 		reactPluginName = 'react'
 	} = {} /* eslint-enable @stylistic/no-multi-spaces */
 ) => {
+	if ('' === pluginName) throw new Error('`pluginName` is an empty string. Use like `@stylistic`.');
+
 	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = stylisticDefaultRules(formatLogLevel, {
 		short,
@@ -77,9 +79,7 @@ export default (
 		semi
 	});
 
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty string. This is not recommended.');
-	} else if ('@stylistic' !== pluginName) {
+	if ('@stylistic' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
@@ -108,8 +108,7 @@ export default (
 	}
 
 	if ('' === reactPluginName) {
-		if (jsx)
-			console.warn('`jsx` is `true`, but `react` plugin name is empty string.');
+		if (jsx) console.warn('`jsx` is `true`, but `react` plugin name is empty string.');
 
 		rules = Object.fromEntries(
 			Object
