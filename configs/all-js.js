@@ -1,6 +1,5 @@
 // @ts-check
 
-import {languageOptions} from './base.js';
 
 /* eslint-disable @stylistic/no-multi-spaces */
 import getConfigJs   from '../plugin-configs/@eslint/js/all.js';
@@ -78,7 +77,7 @@ export const getConfigJsAll = (
 
 	return {
 		files: [...filesJs, ...jsx ? filesJsx : []],
-		languageOptions,
+		languageOptions: configJs.languageOptions,
 		plugins: {
 			...configJs.plugins,
 			...configNode.plugins,

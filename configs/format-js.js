@@ -1,8 +1,6 @@
 // @ts-check
 
 
-import {languageOptions} from './base.js';
-
 import getConfigJs from '../plugin-configs/@eslint/js/format.js';
 
 import getConfigPromise from '../plugin-configs/eslint-plugin-promise/format.js';
@@ -68,7 +66,7 @@ export const getConfigJsFormat = (
 
 	return {
 		files: [...filesJs, ...jsx ? filesJsx : []],
-		languageOptions,
+		languageOptions: configJs.languageOptions,
 		plugins: {
 			...configJs.plugins,
 			...configPromise.plugins,
