@@ -19,7 +19,7 @@ import importRulesStaticAnalysis  from './rules/static-analysis.js';
 import importRulesStyleGuide      from './rules/style-guide.js';
 
 
-import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
+import {getPackageJson} from '../../lib/util/get-package-json.cjs';
 
 const packageJson = getPackageJson();
 const isModule = null != packageJson
