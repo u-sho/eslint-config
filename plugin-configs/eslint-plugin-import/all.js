@@ -34,7 +34,7 @@ const isModule = null != packageJson
  *          webpack?:    boolean;
  *          typescript?: boolean;
  *          jsx?:        boolean;
- *          pluginName?: string;}} [options={}] - defaults:
+ *          pluginName?: string;}} [options={}] - default:
  * ```javascript
  * {
  * 	short     : false,

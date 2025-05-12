@@ -12,7 +12,7 @@
 /** Get ts (`@stylistic/eslint-plugin-ts`) rules
  * @type {import('./types').GetRulesTs}
  * @param formatLogLevel - default: `'warn'`
- * @param options - defaults:
+ * @param options - default:
  * ```javascript
  * {
  * 	short       : false,
@@ -262,12 +262,10 @@ export default (
 	'semi'                   : 0,
 	'@typescript-eslint/semi': 0,
 	'@stylistic/semi'        : 0,
-	'@stylistic/js/semi'     : 0, /* eslint-disable @stylistic/indent */
-	'@stylistic/ts/semi'     : [formatLogLevel,
-		...semi
-		? ['always', {omitLastInOneLineBlock: short}]
-		: ['never', {beforeStatementContinuationChars: short ? 'any' : 'always'}]],
-		/* eslint-enable @stylistic/indent */
+	'@stylistic/js/semi'     : 0,
+	'@stylistic/ts/semi'     : semi
+	/*                      */ ? [formatLogLevel, 'always', {omitLastInOneLineBlock: short}]
+	/*                      */ : [formatLogLevel, 'never', {beforeStatementContinuationChars: short ? 'any' : 'always'}],
 
 	// Enforce consistent spacing before and after semicolons
 	'semi-spacing'              : 0,

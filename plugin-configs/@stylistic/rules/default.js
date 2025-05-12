@@ -13,7 +13,7 @@
 /** Get stylistic default (`@stylistic/eslint-plugin`) rules
  * @type {import('./types').GetRulesDefault}
  * @param formatLogLevel - default:`'warn'`
- * @param options        - defaults:
+ * @param options        - default:
  * ```javascript
  * {
  * 	short       : false,
@@ -402,7 +402,10 @@ export default (
 
 			{blankLine: short ? 'any' : 'always',
 			 prev     : '*',
-			 next     : ['try', 'switch', 'return', 'multiline-export', 'singleline-export']}],
+			 next     : ['try', 'switch', 'return', 'multiline-export', 'singleline-export']},
+			{blankLine: 'any',
+			 prev     : ['multiline-export', 'singleline-export'],
+			 next     : ['multiline-export', 'singleline-export']}],
 			 /* eslint-enable @stylistic/indent, @stylistic/no-multi-spaces */
 
 		// Require quotes around object literal, type literal, interfaces and enums property names
