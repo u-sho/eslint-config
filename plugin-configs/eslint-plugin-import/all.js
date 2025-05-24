@@ -11,7 +11,6 @@
 // @ts-ignore `eslint-plugin-import' has no type
 import importPlugin from 'eslint-plugin-import';
 
-/* eslint-disable @stylistic/no-multi-spaces */
 import importRulesDeprecated      from './rules/deprecated.js';
 import importRulesHelpfulWarnings from './rules/helpful-warnings.js';
 import importRulesModuleSystems   from './rules/module-systems.js';
@@ -55,7 +54,7 @@ export default (/* eslint-disable @stylistic/indent */
 		typescript = false,
 		jsx        = false,
 		pluginName = 'import'
-	} = {} /* eslint-enable @stylistic/no-multi-spaces, @stylistic/indent */
+	} = {} /* eslint-enable @stylistic/indent */
 ) => {
 	if ('' === pluginName)
 		throw new Error('`pluginName` is an empty string. Use like `import`.');
@@ -65,7 +64,7 @@ export default (/* eslint-disable @stylistic/indent */
 		...importRulesHelpfulWarnings(logLevel),
 		...importRulesModuleSystems(logLevel),
 		...importRulesStaticAnalysis(logLevel, formatLogLevel, {short, webpack}),
-		...importRulesStyleGuide(logLevel, formatLogLevel, {short, typescript, webpack}),
+		...importRulesStyleGuide(logLevel, formatLogLevel, {short, typescript, jsx, webpack}),
 		...importRulesDeprecated()
 	};
 	if ('import' !== pluginName) {

@@ -32,7 +32,7 @@
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
@@ -45,7 +45,7 @@ export default (
 		quoteProps   = 'consistent-as-needed',
 		quotes       = 'single',
 		semi         = true
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => ({
 	// Enforce linebreaks after opening and before closing array brackets
 	'array-bracket-newline'              : 0,
@@ -318,6 +318,7 @@ export default (
 			? {ignoreEOLComments: false}
 			: {ignoreEOLComments: true, /* eslint-disable @stylistic/indent */
 			   exceptions       : {Property           : true,
+			                       AssignmentPattern  : true,
 			                       TSPropertySignature: true,
 			                       ImportAttribute    : true,
 			                       ImportDeclaration  : true,

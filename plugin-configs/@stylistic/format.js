@@ -42,7 +42,7 @@ import stylisticDefaultRules from './rules/default.js';
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
@@ -59,7 +59,7 @@ export default (
 		pluginName      = '@stylistic',
 		tsPluginName    = '@typescript-eslint',
 		reactPluginName = 'react'
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => {
 	if ('' === pluginName) throw new Error('`pluginName` is an empty string. Use like `@stylistic`.');
 

@@ -28,7 +28,7 @@
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		blockSpacing = true,
 		braceStyle   = '1tbs',
@@ -37,7 +37,7 @@ export default (
 		quoteProps   = 'consistent-as-needed',
 		quotes       = 'single',
 		semi         = true
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => ({
 	// Disallow or enforce spaces inside of blocks after opening block and before closing block
 	'block-spacing'                   : 0,

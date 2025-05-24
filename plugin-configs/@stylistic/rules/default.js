@@ -33,7 +33,7 @@
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
@@ -46,7 +46,7 @@ export default (
 		quoteProps   = 'consistent-as-needed',
 		quotes       = 'single',
 		semi         = true
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => {
 	/** @type {import('./types').OffRulesAllExceptJsx & import('./types').RulesAllExceptJsx} */
 	const withoutJsxRules = {
@@ -335,6 +335,7 @@ export default (
 				? {ignoreEOLComments: false}
 				: {ignoreEOLComments: true, /* eslint-disable @stylistic/indent -- align */
 				   exceptions       : {Property           : true,
+				                       AssignmentPattern  : true,
 				                       TSPropertySignature: true,
 				                       ImportAttribute    : true,
 				                       ImportDeclaration  : true,

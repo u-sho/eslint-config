@@ -6,7 +6,6 @@
 
 // @ts-check
 
-
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
@@ -16,12 +15,12 @@
 export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short      = false,
 		typescript = false,
 		jsx        = false,
 		webpack    = false
-	} = {}/* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => ({
 	// Enforce or ban the use of inline type-only markers for named imports.
 	'import/consistent-type-specifier-style': 0, // I'm using TypeScript 4.5+.

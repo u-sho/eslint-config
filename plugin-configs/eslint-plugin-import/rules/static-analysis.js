@@ -15,21 +15,21 @@ const isModule = null != packageJson
                  && 'type' in packageJson
                  && 'module' === packageJson.type;
 
+
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; typescript?: boolean; webpack?: boolean}} [options={}]
+ * @param {{short?: boolean; typescript?: boolean; webpack?: boolean;}} [options={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (
-	/* eslint-disable @stylistic/no-multi-spaces, @stylistic/indent */
-	      logLevel = 'error',
+	      logLevel = 'error', /* eslint-disable-line @stylistic/indent -- align */
 	formatLogLevel = 'warn',
 	{
 		short      = false,
 		typescript = false,
 		webpack    = false
-	} = {} /* eslint-enable @stylistic/no-multi-spaces, @stylistic/indent */
+	} = {}
 ) => ({
 	// Ensure a default export is present, given a default import.
 	'import/default': isModule ? logLevel : 0,
