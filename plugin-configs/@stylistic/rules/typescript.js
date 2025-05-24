@@ -305,5 +305,5 @@ export default (
 	'@stylistic/ts/type-annotation-spacing': short
 		? [formatLogLevel, {/*                */before: false, after: true,
 		                    overrides: {arrow: {before: false, after: false}}}]
-		: formatLogLevel
+		: 0 // '@stylistic/ts/key-spacing' works instead
 }); /* eslint-enable @stylistic/indent, @stylistic/key-spacing, @stylistic/object-property-newline */

@@ -330,9 +330,15 @@ export default (
 		// Disallow multiple spaces
 		'no-multi-spaces'           : 0,
 		'@stylistic/no-multi-spaces': [formatLogLevel, {
-			ignoreEOLComments: !short,
-			exceptions       : {Property: !short, ImportAttribute: !short},
-			includeTabs      : false
+			includeTabs: true,
+			...short
+				? {ignoreEOLComments: false}
+				: {ignoreEOLComments: true, /* eslint-disable @stylistic/indent -- align */
+				   exceptions       : {Property           : true,
+				                       TSPropertySignature: true,
+				                       ImportAttribute    : true,
+				                       ImportDeclaration  : true,
+				                       VariableDeclarator : true}} /* eslint-enable @stylistic/indent */
 		}],
 
 		// Disallow multiple empty lines
@@ -486,7 +492,7 @@ export default (
 		'@stylistic/type-annotation-spacing': short /* eslint-disable @stylistic/object-property-newline */
 			? [formatLogLevel, {/*                */before: false, after: true,
 			                    overrides: {arrow: {before: false, after: false}}}]
-			: formatLogLevel,
+			: 0, // '@stylistic/key-spacing' works instead
 		/* eslint-enable @stylistic/indent, @stylistic/key-spacing, @stylistic/object-property-newline */
 
 		// Enforces consistent spacing inside TypeScript type generics

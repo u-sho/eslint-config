@@ -1,7 +1,6 @@
 // @ts-check
 
 
-/* eslint-disable @stylistic/no-multi-spaces */
 import getConfigJs   from '../plugin-configs/@eslint/js/all.js';
 import getConfigNode from '../plugin-configs/eslint-plugin-n/all.js';
 
@@ -10,7 +9,6 @@ import getConfigPromise from '../plugin-configs/eslint-plugin-promise/all.js';
 
 import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
 import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
-/* eslint-enable @stylistic/no-multi-spaces */
 
 
 /**

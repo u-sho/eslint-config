@@ -12,7 +12,7 @@
  * @type {import('./types').GetRulesJs}
  *
  * @param formatLogLevel - default:`'warn'`
- * @param options        - defaults:
+ * @param options        - default:
  * ```javascript
  * {
  * 	short       : false,
@@ -305,17 +305,23 @@ export default (
 	// Disallow mixed spaces and tabs for indentation
 	'no-mixed-spaces-and-tabs'              : 0,
 	'@stylistic/no-mixed-spaces-and-tabs'   : 0,
-	'@stylistic/js/no-mixed-spaces-and-tabs': 'tab' === indent /* eslint-disable @stylistic/indent */
-	                                          ? [formatLogLevel, 'smart-tabs']
-	                                          : formatLogLevel, /* eslint-enable @stylistic/indent */
+	'@stylistic/js/no-mixed-spaces-and-tabs': 'tab' === indent
+	/*                                     */ ? [formatLogLevel, 'smart-tabs']
+	/*                                     */ : formatLogLevel,
 
 	// Disallow multiple spaces
 	'no-multi-spaces'              : 0,
 	'@stylistic/no-multi-spaces'   : 0,
 	'@stylistic/js/no-multi-spaces': [formatLogLevel, {
-		ignoreEOLComments: !short,
-		exceptions       : {Property: !short, ImportAttribute: !short},
-		includeTabs      : false
+		includeTabs: true,
+		...short
+			? {ignoreEOLComments: false}
+			: {ignoreEOLComments: true, /* eslint-disable @stylistic/indent */
+			   exceptions       : {Property           : true,
+			                       TSPropertySignature: true,
+			                       ImportAttribute    : true,
+			                       ImportDeclaration  : true,
+			                       VariableDeclarator : true}} /* eslint-enable @stylistic/indent */
 	}],
 
 	// Disallow multiple empty lines
