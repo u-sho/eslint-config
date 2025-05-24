@@ -35,7 +35,6 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {pluginName = 'prom
 	}
 
 	return {
-		// @ts-ignore `eslint-plugin-promise` has old config?
 		plugins: {[pluginName]: promisePlugin},
 		rules
 	};
