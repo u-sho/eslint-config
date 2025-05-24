@@ -169,13 +169,15 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	'no-unused-private-class-members': logLevel,
 
 	// Disallow unused variables
-	'no-unused-vars': ['warn', {
+	'no-unused-vars': ['warn', { // `@typescript-eslint/no-unused-vars` is used
 		vars                          : 'all',
 		args                          : 'all',
+		argsIgnorePattern             : '^_[a-z]',
 		caughtErrors                  : 'all',
-		caughtErrorsIgnorePattern     : '^_',
-		destructuredArrayIgnorePattern: '^_',
-		ignoreRestSiblings            : false
+		caughtErrorsIgnorePattern     : '^_[a-z]',
+		destructuredArrayIgnorePattern: '^_[a-z]',
+		ignoreRestSiblings            : false,
+		reportUsedIgnorePattern       : true
 	}],
 
 	// Disallow the use of variables before they are defined
