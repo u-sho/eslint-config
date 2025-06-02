@@ -9,7 +9,7 @@
 /**
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel = 'error'] default: `'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel = 'warn']  default: `'warn'`
- * @param {{complexityDepth?: number}} options default: `{complexityDepth: Infinity}`
+ * @param {{readonly complexityDepth?: number}} options default: `{complexityDepth: Infinity}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 export default (

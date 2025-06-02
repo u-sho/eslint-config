@@ -425,7 +425,7 @@ export default (
 	'semi'              : 0,
 	'@stylistic/semi'   : 0,
 	'@stylistic/js/semi': semi
-		? [formatLogLevel, 'always', {omitLastInOneLineBlock: !!short}]
+		? [formatLogLevel, 'always', {omitLastInOneLineBlock: short}]
 		: [formatLogLevel, 'never', {beforeStatementContinuationChars: short ? 'any' : 'always'}],
 
 	// Enforce consistent spacing before and after semicolons

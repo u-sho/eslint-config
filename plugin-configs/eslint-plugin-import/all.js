@@ -8,8 +8,7 @@
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
 /* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 
-// @ts-ignore `eslint-plugin-import' has no type
-import importPlugin from 'eslint-plugin-import';
+import importPlugin from 'eslint-plugin-import-x';
 
 import importRulesDeprecated      from './rules/deprecated.js';
 import importRulesHelpfulWarnings from './rules/helpful-warnings.js';
@@ -29,11 +28,13 @@ const isModule = null != packageJson
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']      - default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
- * @param {{short?:      boolean;
- *          webpack?:    boolean;
- *          typescript?: boolean;
- *          jsx?:        boolean;
- *          pluginName?: string;}} [options={}] - default:
+ * @param {Readonly<{
+ * 	short?:      boolean;
+ * 	webpack?:    boolean;
+ * 	typescript?: boolean;
+ * 	jsx?:        boolean;
+ * 	pluginName?: string;
+ * }>} [options={}] - default:
  * ```javascript
  * {
  * 	short     : false,
@@ -43,7 +44,7 @@ const isModule = null != packageJson
  * 	pluginName: 'import'
  * }
  * ```
- * @returns {import('eslint').Linter.Config}
+ * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
  */
 export default (/* eslint-disable @stylistic/indent */
 	      logLevel = 'error',

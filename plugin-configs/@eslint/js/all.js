@@ -28,8 +28,9 @@ const isModule = null != packageJson
  *
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default:`'warn'`
- * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'>
- *         & {complexityDepth?: number}} [options={}] default:`{semi: true, jsx: false, complexityDepth: Infinity}`
+ * @param {Readonly<
+ * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
+ * >} [options={}] default:`{semi: true, jsx: false, complexityDepth: Infinity}`
  * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
  */
 export default (

@@ -15,7 +15,7 @@ import promiseRules from './rules/all.js';
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']      - default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
- * @param {{pluginName?: string}} [options={}] - default:`{pluginName: 'promise'}`
+ * @param {{readonly pluginName?: string}} [options={}] - default:`{pluginName: 'promise'}`
  * @returns {import('eslint').Linter.Config}
  */
 export default (logLevel = 'error', formatLogLevel = 'warn', {pluginName = 'promise'} = {}) => {

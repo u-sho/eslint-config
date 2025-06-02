@@ -53,7 +53,7 @@ export const baseOptions = [
 
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- * @typedef {{
+ * @typedef {Readonly<{
  * 	complexityDepth?: number;
  * 	printWidth?:      number;
  * 	tabWidth?:        number;
@@ -65,7 +65,7 @@ export const baseOptions = [
  * 	reactPluginName?:          string;
  * 	stylisticPluginName?:      string;
  * 	tsPluginName?:             string;
- * } & Omit<StylisticCustomizeOptions, 'pluginName'>} JsConfigOptions	default:
+ * } & Omit<StylisticCustomizeOptions, 'pluginName'>>} JsConfigOptions	default:
  * ```js
  * {
  *    complexityDepth: Infinity,

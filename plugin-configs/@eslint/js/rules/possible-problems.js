@@ -11,7 +11,7 @@
  *
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default is `'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default is `'warn'`
- * @param {Pick<StylisticCustomizeOptions, 'semi'>} options default is `{semi: true}`
+ * @param {Readonly<Pick<StylisticCustomizeOptions, 'semi'>>} options default is `{semi: true}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {}) => ({

@@ -17,7 +17,7 @@ import stylisticIssueRules from './rules/stylistic-issues.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
- * @param {{pluginName?: string}} options default:`{pluginName:'@eslint-community/eslint-comments'}`
+ * @param {{readonly pluginName?: string}} options default:`{pluginName:'@eslint-community/eslint-comments'}`
  * @returns {import('eslint').Linter.Config}
  */
 export default (formatLogLevel = 'warn', {pluginName = '@eslint-community/eslint-comments'} = {}) => {

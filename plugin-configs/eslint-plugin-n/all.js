@@ -24,7 +24,7 @@ const isModule = null != packageJson
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{short?: boolean; pluginName?: string}} [options={}] - default:
+ * @param {Readonly<{short?: boolean; pluginName?: string}>} [options={}] - default:
  * 	`{short: false, pluginName: 'n'}`
  * @returns {import('eslint').Linter.Config}
  */

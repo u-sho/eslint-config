@@ -19,7 +19,7 @@ const isModule = null != packageJson
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; typescript?: boolean; webpack?: boolean;}} [options={}]
+ * @param {Readonly<{short?: boolean; typescript?: boolean; webpack?: boolean;}>} [options={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (
