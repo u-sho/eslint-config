@@ -83,6 +83,13 @@ export default [
             message: "API型情報以外は越境しないで"
           }
         ]
+      }],
+      'typescript/no-restricted-types': ["error", {
+        types: {
+          'any': { message: 'Use `unknown` instead of `any`.' },
+          'Function': { message: 'Use `(...args: any[]) => any` instead of `Function`.' },
+          'object': { message: 'Use `Record<string, unknown>` instead of `object`.' }
+        }
       }]
     }
   }
@@ -104,6 +111,8 @@ For more information about rules, see below documents.
 - `'@stylistic/no-mixed-operators'` in `short` option
 - `'@eslint-community/eslint-comments/no-restricted-disable'`
 - `'html/id-naming-convention'`
+- `'@typescript-eslint/no-empty-function'`
+- `'@typescript-eslint/no-unsafe-type-assertion'`
 
 ## License
 
