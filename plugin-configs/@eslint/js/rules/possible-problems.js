@@ -64,7 +64,7 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	'no-dupe-args': logLevel,
 
 	// Disallow duplicate class members
-	'no-dupe-class-members': logLevel,
+	'no-dupe-class-members': logLevel, // `@typescript-eslint/no-dupe-class-members` is used
 
 	// Disallow duplicate conditions in if-else-if chains
 	'no-dupe-else-if': logLevel,
@@ -181,7 +181,7 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	}],
 
 	// Disallow the use of variables before they are defined
-	'no-use-before-define': logLevel,
+	'no-use-before-define': logLevel, // `@typescript-eslint/no-use-before-define` is used
 
 	// Disallow variable assignments when the value is not used
 	'no-useless-assignment': logLevel,

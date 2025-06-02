@@ -18,7 +18,7 @@ export default (
 	{complexityDepth = Infinity} = {}
 ) => ({
 	// Enforce getter and setter pairs in objects and classes
-	'accessor-pairs': 0,
+	'accessor-pairs': 0, // Rel. `@typescript-eslint/related-getter-setter-pairs`
 
 	// Require braces around arrow function bodies
 	'arrow-body-style': formatLogLevel,
@@ -27,35 +27,35 @@ export default (
 	'block-scoped-var': logLevel,
 
 	// Enforce camelcase naming convention
-	'camelcase': formatLogLevel,
+	'camelcase': formatLogLevel, // `@typescript-eslint/naming-convention` rule is used
 
 	// Enforce or disallow capitalization of the first letter of a comment
 	'capitalized-comments': formatLogLevel,
 
 	// Enforce that class methods utilize this
-	'class-methods-use-this': logLevel,
+	'class-methods-use-this': logLevel, // `@typescript-eslint/class-methods-use-this` rule is used
 
 	// Enforce a maximum cyclomatic complexity allowed in a program
 	'complexity': Infinity === complexityDepth ? 0 : ['warn', {max: complexityDepth}],
 
 	// Require return statements to either always or never specify values
-	'consistent-return': logLevel,
+	'consistent-return': logLevel, // `@typescript-eslint/consistent-return` rule is used
 
 	// Enforce consistent naming when capturing the current execution context
 	'consistent-this': [logLevel, 'self'],
 
 	/* Enforce consistent brace style for all control statements
-	   @ts-ignore -- One of type definition or document is wrong. */
+	   @ts-expect-error 2322: One of type definition or document is wrong. */
 	'curly': [formatLogLevel, 'multi-or-nest', 'consistent'],
 
 	// Require default cases in switch statements
-	'default-case': logLevel,
+	'default-case': logLevel, // `/^no default$/i` is used as ignore comment
 
 	// Enforce default clauses in switch statements to be last
 	'default-case-last': 'error',
 
 	// Enforce default parameters to be last
-	'default-param-last': 'error',
+	'default-param-last': 'error', // `@typescript-eslint/default-param-last` rule is used
 
 	// Enforce dot notation whenever possible
 	'dot-notation': [logLevel, {allowPattern: '^[a-z]+((_|-).+)+$'}],
@@ -92,10 +92,10 @@ export default (
 	}],
 
 	// Require identifiers to match a specified regular expression
-	'id-match': 0, // Instead of this, `camelcase` rule is used
+	'id-match': 0, // Instead of this, `camelcase` or `@typescript-eslint/naming-convention` rule is used
 
 	// Require or disallow initialization in variable declarations
-	'init-declarations': logLevel,
+	'init-declarations': logLevel, // `@typescript-eslint/init-declarations` rule is used
 
 	// Require or disallow logical assignment operator shorthand
 	'logical-assignment-operators': [formatLogLevel,  /* eslint-disable @stylistic/indent */
@@ -119,10 +119,10 @@ export default (
 	'max-nested-callbacks': ['warn', {max: Infinity === complexityDepth ? 2 : complexityDepth}],
 
 	// Enforce a maximum number of parameters in function definitions
-	'max-params': logLevel,
+	'max-params': logLevel, // `@typescript-eslint/max-params` rule is used
 
 	// Enforce a maximum number of statements allowed in function blocks
-	// eslint-disable-next-line no-magic-numbers -- magic number
+	// eslint-disable-next-line 'typescript/no-magic-numbers' -- because statements are magic
 	'max-statements': Infinity === complexityDepth ? 0 : [logLevel, {max: complexityDepth * 5}],
 
 	// Require constructor names to begin with a capital letter
@@ -131,8 +131,8 @@ export default (
 	// Disallow the use of alert, confirm, and prompt
 	'no-alert': logLevel,
 
-	// Disallow Array constructors
-	'no-array-constructor': logLevel,
+	// Disallow `Array` constructors
+	'no-array-constructor': logLevel, // `@typescript-eslint/no-array-constructor` rule is used
 
 	// Disallow bitwise operators
 	'no-bitwise': logLevel,
@@ -170,13 +170,13 @@ export default (
 	// Disallow null comparisons without type-checking operators
 	'no-eq-null': 0, // Specific `null`, subset of `eqeqeq` rule
 
-	// Disallow the use of eval()
+	// Disallow the use of `eval()`
 	'no-eval': logLevel,
 
 	// Disallow extending native types
 	'no-extend-native': logLevel,
 
-	// Disallow unnecessary calls to .bind()
+	// Disallow unnecessary calls to `.bind()`
 	'no-extra-bind': logLevel,
 
 	// Disallow unnecessary boolean casts
@@ -194,14 +194,14 @@ export default (
 	// Disallow declarations in the global scope
 	'no-implicit-globals': logLevel,
 
-	// Disallow the use of eval()-like methods
-	'no-implied-eval': logLevel,
+	// Disallow the use of `eval()`-like methods
+	'no-implied-eval': logLevel, // `@typescript-eslint/no-implied-eval` rule is used
 
 	// Disallow inline comments after code
 	'no-inline-comments': 0, // Instead of this, `line-comment-position` rule subset is used
 
 	// Disallow use of this in contexts where the value of this is undefined
-	'no-invalid-this': logLevel,
+	'no-invalid-this': logLevel, // `@typescript-eslint/no-invalid-this` rule is used
 
 	// Disallow the use of the __iterator__ property
 	'no-iterator': 'error',
@@ -219,10 +219,11 @@ export default (
 	'no-lonely-if': formatLogLevel,
 
 	// Disallow function declarations that contain unsafe references inside loop statements
-	'no-loop-func': logLevel,
+	'no-loop-func': logLevel, // `@typescript-eslint/no-loop-func` rule is used
 
 	/* Disallow magic numbers
-	   @ts-ignore https://eslint.org/docs/latest/rules/no-magic-numbers#ignoredefaultvalues */
+		'@typescript-eslint/no-magic-numbers' rule is used.
+	   @ts-expect-error 2353: See https://eslint.org/docs/latest/rules/no-magic-numbers#ignoredefaultvalues */
 	'no-magic-numbers': [formatLogLevel, {enforceConst: true, ignore: [1], ignoreDefaultValues: true}],
 
 	// Disallow use of chained assignment expressions
@@ -268,7 +269,7 @@ export default (
 	'no-proto': 'error',
 
 	// Disallow variable redeclaration
-	'no-redeclare': logLevel,
+	'no-redeclare': logLevel, // `@typescript-eslint/no-redeclare` rule is used
 
 	// Disallow multiple spaces in regular expressions
 	'no-regex-spaces': logLevel,
@@ -285,7 +286,8 @@ export default (
 		{name: 'clearInterval', message: "Use browser's API instead."}],
 		/* eslint-enable @stylistic/indent, @stylistic/no-multi-spaces */
 
-	// Disallow specified modules when loaded by import
+	/* Disallow specified modules when loaded by import
+	   Rel. `@typescript-eslint/no-restricted-imports` */
 	'no-restricted-imports': 0, // Instead of this, `n/no-restricted-import` rule is used
 
 	// Disallow certain properties on certain objects
@@ -309,7 +311,7 @@ export default (
 	'no-sequences': [logLevel, {allowInParentheses: false}],
 
 	// Disallow variable declarations from shadowing variables declared in the outer scope
-	'no-shadow': [logLevel, {builtinGlobals: true}],
+	'no-shadow': [logLevel, {builtinGlobals: true}], // `@typescript-eslint/no-shadow` rule is used
 
 	// Disallow identifiers from shadowing restricted names
 	'no-shadow-restricted-names': logLevel,
@@ -318,7 +320,7 @@ export default (
 	'no-ternary': 0,
 
 	// Disallow throwing literals as exceptions
-	'no-throw-literal': logLevel,
+	'no-throw-literal': logLevel, // `@typescript-eslint/only-throw-error` rule is used
 
 	// Disallow initializing variables to undefined
 	'no-undef-init': logLevel,
@@ -333,7 +335,7 @@ export default (
 	'no-unneeded-ternary': logLevel,
 
 	// Disallow unused expressions
-	'no-unused-expressions': logLevel,
+	'no-unused-expressions': logLevel, // `@typescript-eslint/no-unused-expressions` rule is used
 
 	// Disallow unused labels
 	'no-unused-labels': logLevel,
@@ -351,7 +353,7 @@ export default (
 	'no-useless-concat': logLevel,
 
 	// Disallow unnecessary constructors
-	'no-useless-constructor': logLevel,
+	'no-useless-constructor': logLevel, // `@typescript-eslint/no-useless-constructor` rule is used
 
 	// Disallow unnecessary escape characters
 	'no-useless-escape': logLevel,
@@ -395,7 +397,7 @@ export default (
 	'prefer-destructuring': [logLevel, /* eslint-disable @stylistic/indent */
 	                         {array: false, object: true},
 	                         {enforceForRenamedProperties: true}],
-	                         /* eslint-enable @stylistic/indent */
+	/* eslint-enable @stylistic/indent */ // `@typescript-eslint/prefer-destructuring` rule is used
 
 	// Disallow the use of Math.pow in favor of the ** operator
 	'prefer-exponentiation-operator': logLevel,
@@ -414,8 +416,8 @@ export default (
 	    and prefer the use of object spread instead */
 	'prefer-object-spread': logLevel,
 
-	// Require using Error objects as Promise rejection reasons
-	'prefer-promise-reject-errors': logLevel,
+	// Require using `Error` objects as `Promise` rejection reasons
+	'prefer-promise-reject-errors': logLevel, // `@typescript-eslint/prefer-promise-reject-errors` rule is used
 
 	// Disallow use of the RegExp constructor in favor of regular expression literals
 	'prefer-regex-literals': [logLevel, {disallowRedundantWrapping: true}],
@@ -432,13 +434,13 @@ export default (
 	// Enforce the consistent use of the radix argument when using parseInt()
 	'radix': logLevel,
 
-	// Disallow async functions which have no await expression
-	'require-await': logLevel,
+	// Disallow async functions which have no `await` expression
+	'require-await': logLevel, // `@typescript-eslint/require-await` rule is used
 
-	// Enforce the use of u or v flag on regular expressions
+	// Enforce the use of `u` or `v` flag on regular expressions
 	'require-unicode-regexp': logLevel,
 
-	// Require generator functions to contain yield
+	// Require generator functions to contain `yield`
 	'require-yield': logLevel,
 
 	// Enforce sorted import declarations within modules
@@ -467,6 +469,6 @@ export default (
 	'vars-on-top': logLevel,
 
 	/* Require or disallow “Yoda” conditions
-	   @ts-ignore -- One of type definition or document is wrong. */
+	   @ts-expect-error 2322: One of type definition or document is wrong. */
 	'yoda': [formatLogLevel, 'always', {exceptRange: true}]
 });

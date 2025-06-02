@@ -15,7 +15,7 @@ export default (logLevel = 'error') => ({
 	'import/export': logLevel,
 
 	// Forbid imported names marked with
-	'import/no-deprecated': logLevel,
+	'import/no-deprecated': logLevel, // Rel. '@typescript-eslint/consistent-type-imports'
 
 	// Forbid empty named import blocks.
 	'import/no-empty-named-blocks': logLevel,
