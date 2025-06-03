@@ -6,25 +6,26 @@
 
 // @ts-check
 
-
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {{short?: boolean; typescript?: boolean; jsx?: boolean; webpack?: boolean}} [option={}]
+ * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] - default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
+ * @param {Readonly<{short?:boolean; typescript?:boolean; jsx?:boolean; webpack?:boolean}>} [option={}] - --- default:
+ * 	`{short: false, typescript: false, jsx: false, webpack: false}`
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short      = false,
 		typescript = false,
 		jsx        = false,
 		webpack    = false
-	} = {}/* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => ({
 	// Enforce or ban the use of inline type-only markers for named imports.
 	'import/consistent-type-specifier-style': 0, // I'm using TypeScript 4.5+.
+	// Rel. '@typescript-eslint/consistent-type-imports'
 
 	// Enforce a leading comment with the webpackChunkName for dynamic imports.
 	'import/dynamic-import-chunkname': webpack ? logLevel : 0,

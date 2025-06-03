@@ -8,12 +8,12 @@
 
 import globals from 'globals';
 
-import eslintJs from '@eslint/js'; /* eslint-disable @stylistic/no-multi-spaces */
+import eslintJs from '@eslint/js';
 
 import eslintDeprecated          from './rules/deprecated.js';
 import eslintLayoutAndFormatting from './rules/layout-and-formatting.js';
 import eslintPossibleProblems    from './rules/possible-problems.js';
-import eslintSuggestions         from './rules/suggestions.js'; /* eslint-enable @stylistic/no-multi-spaces */
+import eslintSuggestions         from './rules/suggestions.js';
 
 import {getPackageJson} from '../../../lib/util/get-package-json.cjs';
 
@@ -27,8 +27,9 @@ const isModule = null != packageJson
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
  *
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
- * @param {Pick<StylisticCustomizeOptions, 'semi'|'jsx'>
- *         & {complexityDepth?: number}} [options={}] default:`{semi:true, jsx:false, complexityDepth:Infinity}`
+ * @param {Readonly<
+ * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
+ * >} [options={}] default:`{semi:true, jsx:false, complexityDepth:Infinity}`
  * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
  */
 export default (

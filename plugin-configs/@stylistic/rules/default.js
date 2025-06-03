@@ -13,7 +13,7 @@
 /** Get stylistic default (`@stylistic/eslint-plugin`) rules
  * @type {import('./types').GetRulesDefault}
  * @param formatLogLevel - default:`'warn'`
- * @param options        - defaults:
+ * @param options        - default:
  * ```javascript
  * {
  * 	short       : false,
@@ -33,7 +33,7 @@
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
@@ -46,7 +46,7 @@ export default (
 		quoteProps   = 'consistent-as-needed',
 		quotes       = 'single',
 		semi         = true
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => {
 	/** @type {import('./types').OffRulesAllExceptJsx & import('./types').RulesAllExceptJsx} */
 	const withoutJsxRules = {
@@ -330,9 +330,16 @@ export default (
 		// Disallow multiple spaces
 		'no-multi-spaces'           : 0,
 		'@stylistic/no-multi-spaces': [formatLogLevel, {
-			ignoreEOLComments: !short,
-			exceptions       : {Property: !short, ImportAttribute: !short},
-			includeTabs      : false
+			includeTabs: true,
+			...short
+				? {ignoreEOLComments: false}
+				: {ignoreEOLComments: true, /* eslint-disable @stylistic/indent -- align */
+				   exceptions       : {Property           : true,
+				                       AssignmentPattern  : true,
+				                       TSPropertySignature: true,
+				                       ImportAttribute    : true,
+				                       ImportDeclaration  : true,
+				                       VariableDeclarator : true}} /* eslint-enable @stylistic/indent */
 		}],
 
 		// Disallow multiple empty lines
@@ -402,7 +409,10 @@ export default (
 
 			{blankLine: short ? 'any' : 'always',
 			 prev     : '*',
-			 next     : ['try', 'switch', 'return', 'multiline-export', 'singleline-export']}],
+			 next     : ['try', 'switch', 'return', 'multiline-export', 'singleline-export']},
+			{blankLine: 'any',
+			 prev     : ['multiline-export', 'singleline-export'],
+			 next     : ['multiline-export', 'singleline-export']}],
 			 /* eslint-enable @stylistic/indent, @stylistic/no-multi-spaces */
 
 		// Require quotes around object literal, type literal, interfaces and enums property names
@@ -483,7 +493,7 @@ export default (
 		'@stylistic/type-annotation-spacing': short /* eslint-disable @stylistic/object-property-newline */
 			? [formatLogLevel, {/*                */before: false, after: true,
 			                    overrides: {arrow: {before: false, after: false}}}]
-			: formatLogLevel,
+			: 0, // '@stylistic/key-spacing' works instead
 		/* eslint-enable @stylistic/indent, @stylistic/key-spacing, @stylistic/object-property-newline */
 
 		// Enforces consistent spacing inside TypeScript type generics

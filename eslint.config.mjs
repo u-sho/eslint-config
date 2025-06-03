@@ -1,11 +1,12 @@
 // @ts-check
 
-import {defineConfig} from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
 import {ignores, linterOptions} from './configs/base.js';
 
 import configMarkdown from './configs/all-md.js';
-import {getConfigJsAll} from './configs/all-js.js';
+import {getConfigTsAll} from './configs/all-ts.js';
+
 
 const OFF = 0;
 const WARN = 1;
@@ -17,23 +18,37 @@ const ERROR = 2;
 //  */
 // Const smarterTabsRule = { 'smarter-tabs/smarter-tabs': WARN };
 
-const configJs = getConfigJsAll('error', 'warn', {
+/** @type {Parameters<getConfigTsAll>[2]} */
+const defaultOptions = {
 	printWidth: 120,
 	blockSpacing: false,
 	eslintCommentsPluginName: 'eslint-comments',
-	tsPluginName: ''
-});
+	tsPluginName: 'typescript'
+};
+
+const configJs = getConfigTsAll('error', 'warn', {...defaultOptions, isJsFile: true});
+const configTs = getConfigTsAll('error', 'warn', defaultOptions);
 
 
 /** @type {import('typescript-eslint').Config} */
-export default defineConfig([
+export default tseslint.config([
 	{ignores: [...ignores, 'samples/', 'lib/']},
 	{linterOptions},
 	configMarkdown,
 	{
 		...configJs,
+		settings: {
+			...configJs.settings,
+			tsconfigPath: './jsconfig.json'
+		}
+	},
+	{
+		files: configTs.files,
+		rules: configTs.rules
+	},
+	{
+		files: configJs.files,
 		rules: {
-			...configJs.rules,
 			'@stylistic/array-bracket-newline': [WARN, 'never'],
 			'@stylistic/array-element-newline': [WARN, {consistent: true}],
 			'@stylistic/indent-binary-ops': OFF,
@@ -49,18 +64,26 @@ export default defineConfig([
 
 			'n/file-extension-in-import': [ERROR, 'always'],
 
-			'no-magic-numbers': [WARN, {ignore: [0, 1, 2], ignoreDefaultValues: true}],
 			'no-restricted-globals': [ERROR, 'document', 'event', 'window', 'navigator'],
-			'sort-keys': [WARN, 'asc', {caseSensitive: false, minKeys: 20, natural: true}]
-		},
-		settings: {
-			...configJs.settings,
-			tsconfigPath: './jsconfig.json'
+			'sort-keys': [WARN, 'asc', {caseSensitive: false, minKeys: 20, natural: true}],
+
+			'typescript/naming-convention': [WARN, {selector: 'objectLiteralProperty', format: null}],
+			'typescript/no-magic-numbers': [
+				WARN,
+				{
+					enforceConst: true,
+					ignore: [0, 1, 2],
+					ignoreDefaultValues: true,
+					ignoreEnums: true,
+					ignoreNumericLiteralTypes: true,
+					ignoreReadonlyClassProperties: true
+				}
+			]
 		}
 	},
 	{
 		files: ['*.config.mjs', 'configs/**/*.js'],
-		plugins: {...configJs.plugins},
+		plugins: {...configTs.plugins},
 		rules: {
 			'@stylistic/array-bracket-newline': [WARN, {multiline: true}],
 			'@stylistic/key-spacing': [WARN, {beforeColon: false, afterColon: true}],

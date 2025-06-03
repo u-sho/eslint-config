@@ -11,7 +11,7 @@ import preferPromises from './prefer-promises.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{short?: boolean}} [option={}]
+ * @param {{readonly short?: boolean}} [option={}]
  * @returns {import('eslint').Linter.RulesRecord}
  */
 export default (logLevel = 'error', {short = false} = {}) => ({
@@ -43,7 +43,7 @@ export default (logLevel = 'error', {short = false} = {}) => ({
 	'n/no-callback-literal': 0, // I think this is too strict.
 
 	// Disallow `require` calls to be mixed with regular variable declarations
-	'n/no-mixed-requires': [logLevel, {grouping: true, allowCall: !!short}],
+	'n/no-mixed-requires': [logLevel, {grouping: true, allowCall: short}],
 
 	// Disallow `new` operators with calls to `require`
 	'n/no-new-require': short ? 0 : logLevel,

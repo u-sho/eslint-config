@@ -1,24 +1,21 @@
 // @ts-check
 
 
-import getConfigJs   from '../plugin-configs/@eslint/js/all.js';
-import getConfigNode from '../plugin-configs/eslint-plugin-n/all.js';
+import getConfigJs from '../plugin-configs/@eslint/js/format.js';
+import getConfigTs from '../plugin-configs/@typescript-eslint/format.js';
 
-// Import getConfigImport  from '../plugin-configs/eslint-plugin-/import/all.js';
-import getConfigPromise from '../plugin-configs/eslint-plugin-promise/all.js';
+import getConfigPromise from '../plugin-configs/eslint-plugin-promise/format.js';
 
 import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
 import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
 
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {import('./base.js').JsConfigOptions} [option={}]
- * @returns {import('eslint').Linter.Config}
+ * @param {import('./base.js').JsConfigOptions & {readonly isJsFile?: boolean}} [option={}]
+ * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
  */
-export const getConfigJsAll = (
-	logLevel = 'error',
+export const getConfigTsFormat = (
 	formatLogLevel = 'warn',
 	{
 		complexityDepth = Infinity,
@@ -35,20 +32,19 @@ export const getConfigJsAll = (
 		quotes          = 'single',
 		semi            = true,
 
-		/* eslint-disable @stylistic/indent */
-		eslintCommentsPluginName = '@eslint-community/eslint-comments',
-		          nodePluginName = 'n',
+		isJsFile = false,
+
+		eslintCommentsPluginName = '@eslint-community/eslint-comments', /* eslint-disable @stylistic/indent */
 		       promisePluginName = 'promise',
 		         reactPluginName = 'react',
 		     stylisticPluginName = '@stylistic',
 		            tsPluginName = '@typescript-eslint' /* eslint-enable @stylistic/indent */
 	} = {}
 ) => {
-	const configJs = getConfigJs(logLevel, formatLogLevel, {complexityDepth, jsx, semi});
-	const configNode = getConfigNode(logLevel, {short, pluginName: nodePluginName});
+	const configJs = getConfigJs(formatLogLevel, {complexityDepth, jsx, semi});
+	const configTs = getConfigTs(formatLogLevel, {short, javascript: isJsFile, pluginName: tsPluginName});
 
-	// Const configImport = getConfigImport(logLevel, formatLogLevel, {jsx, pluginName: 'import'});
-	const configPromise = getConfigPromise(logLevel, formatLogLevel, {pluginName: promisePluginName});
+	const configPromise = getConfigPromise(formatLogLevel, {pluginName: promisePluginName});
 
 	const configStylistic = getConfigStylistic(formatLogLevel, {
 		printWidth,
@@ -71,35 +67,37 @@ export const getConfigJsAll = (
 	});
 	const configEslintComments = getConfigEslintComments(formatLogLevel, {pluginName: eslintCommentsPluginName});
 
-	const filesJs = ['*.js', '*.cjs', '*.mjs', '**/*.js', '**/*.mjs', '**/*.cjs'];
+	const filesJs = ['*.js', '*.mjs', '*.cjs', '**/*.js', '**/*.mjs', '**/*.cjs'];
+	const filesTs = ['*.ts', '*.mts', '*.cts', '**/*.ts', '**/*.mts', '**/*.cts'];
 	const filesJsx = ['*.jsx', '**/*.jsx'];
+	const filesTsx = ['*.tsx', '**/*.tsx'];
+	const files = [
+		...filesTs,
+		...jsx ? filesTsx : [],
+		...isJsFile ? filesJs : [],
+		...isJsFile && jsx ? filesJsx : []
+	];
 
 	return {
-		files: [...filesJs, ...jsx ? filesJsx : []],
-		languageOptions: configJs.languageOptions,
+		files,
+		languageOptions: {...configJs.languageOptions, ...configTs.languageOptions},
 		plugins: {
 			...configJs.plugins,
-			...configNode.plugins,
-
-			// ...configImport.plugins,
+			...configTs.plugins,
 			...configPromise.plugins,
 			...configStylistic.plugins,
 			...configEslintComments.plugins
 		},
 		rules: {
 			...configJs.rules,
-			...configNode.rules,
-
-			// ...configImport.rules,
+			...configTs.rules,
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
 		},
 		settings: {
 			...configJs.settings,
-			...configNode.settings,
-
-			// ...configImport.settings,
+			...configTs.settings,
 			...configPromise.settings,
 			...configStylistic.settings,
 			...configEslintComments.settings
@@ -107,4 +105,4 @@ export const getConfigJsAll = (
 	};
 };
 
-export default getConfigJsAll();
+export default getConfigTsFormat();

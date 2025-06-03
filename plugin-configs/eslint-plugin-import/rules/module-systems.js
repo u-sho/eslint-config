@@ -15,6 +15,7 @@ const isModule = null != packageJson
                  && 'type' in packageJson
                  && 'module' === packageJson.type;
 
+
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @returns {import('eslint').Linter.RulesRecord}

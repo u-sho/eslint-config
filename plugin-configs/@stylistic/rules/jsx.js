@@ -10,7 +10,7 @@
 /** Get js (`@stylistic/eslint-plugin-js`) rules
  * @type {import('./types').GetRulesJsx}
  * @param formatLogLevel - default: `'warn'`
- * @param options - defaults:`{ short: false, blockSpacing: true }`
+ * @param options - default:`{ short: false, blockSpacing: true }`
  */
 export default (
 	formatLogLevel = 'warn',

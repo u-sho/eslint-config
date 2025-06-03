@@ -24,19 +24,20 @@ const isModule = null != packageJson
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {{short?: boolean; pluginName?: string}} [options={}] - defaults:
+ * @param {Readonly<{short?: boolean; pluginName?: string}>} [options={}] - default:
  * 	`{short: false, pluginName: 'n'}`
  * @returns {import('eslint').Linter.Config}
  */
 export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `node`.');
+
 	let rules = {
 		...nodeRulesRecommended(logLevel),
 		...nodeRulesExceptRecommended(logLevel, {short}),
 		...nodeRulesDeprecated()
 	};
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `n`');
-	} else if ('n' !== pluginName) {
+	if ('n' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)

@@ -15,8 +15,9 @@ import stylisticDefaultRules from './rules/default.js';
 
 /** Get stylistic default (`@stylistic/eslint-plugin`) rules config
  * @param {import('./rules/types.js').RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
- * @param {import('./rules/types.js').CustomizeOptions
- *         & {tsPluginName?: string, reactPluginName?: string}} [options = {}] - defaults:
+ * @param {Readonly<
+ * 	import('./rules/types.js').CustomizeOptions & {tsPluginName?: string, reactPluginName?: string}
+ * >} [options = {}] - default:
  * ```javascript
  * {
  * 	short     : false,
@@ -42,7 +43,7 @@ import stylisticDefaultRules from './rules/default.js';
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
@@ -59,8 +60,10 @@ export default (
 		pluginName      = '@stylistic',
 		tsPluginName    = '@typescript-eslint',
 		reactPluginName = 'react'
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => {
+	if ('' === pluginName) throw new Error('`pluginName` is an empty string. Use like `@stylistic`.');
+
 	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = stylisticDefaultRules(formatLogLevel, {
 		short,
@@ -77,9 +80,7 @@ export default (
 		semi
 	});
 
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty string. This is not recommended.');
-	} else if ('@stylistic' !== pluginName) {
+	if ('@stylistic' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
@@ -108,8 +109,7 @@ export default (
 	}
 
 	if ('' === reactPluginName) {
-		if (jsx)
-			console.warn('`jsx` is `true`, but `react` plugin name is empty string.');
+		if (jsx) console.warn('`jsx` is `true`, but `react` plugin name is empty string.');
 
 		rules = Object.fromEntries(
 			Object
@@ -128,7 +128,6 @@ export default (
 	}
 
 	return {
-		// @ts-ignore `configs` type of `@stylistic/eslint-plugin` doesn't apply
 		plugins: {[pluginName]: stylisticPlugin},
 		rules
 	};
