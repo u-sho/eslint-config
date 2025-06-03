@@ -119,7 +119,7 @@ export default (
 	'max-nested-callbacks': ['warn', {max: Infinity === complexityDepth ? 2 : complexityDepth}],
 
 	// Enforce a maximum number of parameters in function definitions
-	'max-params': logLevel, // `@typescript-eslint/max-params` rule is used
+	'max-params': [logLevel, {countVoidThis: true}], // `@typescript-eslint/max-params` rule is used
 
 	// Enforce a maximum number of statements allowed in function blocks
 	// eslint-disable-next-line 'typescript/no-magic-numbers' -- because statements are magic
