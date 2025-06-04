@@ -91,7 +91,7 @@ export default (
 	// Disallow magic numbers
 	'no-magic-numbers'                   : 0,
 	'@typescript-eslint/no-magic-numbers': [formatLogLevel, {enforceConst                 : true,
-	/* eslint-disable @stylistic/indent                   */ ignore                       : [1],
+	/* eslint-disable @stylistic/indent                   */ ignore                       : [0, 1],
 	                                                         ignoreDefaultValues          : true,
 	                                                         ignoreEnums                  : true,
 	                                                         ignoreNumericLiteralTypes    : true,
