@@ -39,7 +39,8 @@ export default tseslint.config([
 		...configJs,
 		settings: {
 			...configJs.settings,
-			tsconfigPath: './jsconfig.json'
+			tsconfigPath: './jsconfig.json',
+			tryExtensions: ['.js', '.ts']
 		}
 	},
 	{
