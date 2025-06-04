@@ -55,6 +55,7 @@ export default [
         // The below pattern is covered by `import/no-relative-parent-imports`.
         // { name: "../*", message: "Don't use relative path to any parent direction." },
       ]],
+	    "n/no-extraneous-import": ["error", {allowModules: ["@eslint/js"]}],
       "import/order": ["warn", {
         groups: [
           "builtin",

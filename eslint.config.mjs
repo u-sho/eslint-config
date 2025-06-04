@@ -67,6 +67,8 @@ export default tseslint.config([
 			'no-restricted-globals': [ERROR, 'document', 'event', 'window', 'navigator'],
 			'sort-keys': [WARN, 'asc', {caseSensitive: false, minKeys: 20, natural: true}],
 
+			'n/no-extraneous-import': [ERROR, {allowModules: ['@eslint/js']}],
+
 			'typescript/naming-convention': [WARN, {selector: 'objectLiteralProperty', format: null}],
 			'typescript/no-magic-numbers': [
 				WARN,
