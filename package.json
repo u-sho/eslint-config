@@ -40,6 +40,9 @@
 		"url": "https://github.com/u-sho/eslint-config/issues"
 	},
 	"homepage": "https://github.com/u-sho/eslint-config#readme",
+	"engines": {
+		"node": "^20.19.0 || 22.x || 24.x"
+	},
 	"peerDependencies": {
 		"eslint": "^9.28.0",
 		"typescript": "~5.8.3"
