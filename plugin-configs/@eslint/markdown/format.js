@@ -7,12 +7,9 @@
 /* eslint @stylistic/array-bracket-newline: ['warn', 'consistent'] -- good to understand. */
 
 import markdownPlugin from '@eslint/markdown';
-
-import markdownRulesNoRecommended from './rules/no-recommended.js';
 import markdownRulesRecommended from './rules/recommended.js';
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
  * @param {Readonly<{
  * 	language   ?: 'commonmark' | 'gfm';
@@ -22,16 +19,12 @@ import markdownRulesRecommended from './rules/recommended.js';
  * @returns {import('eslint').Linter.Config}
  */
 export default (
-	logLevel = 'error',
 	formatLogLevel = 'warn',
 	{language = 'gfm', frontMatter = false, pluginName = 'markdown'} = {}
 ) => {
 	if ('' === pluginName) throw new Error('`pluginName` is an empty string. Use like `markdown`.');
 
-	let rules = {
-		...markdownRulesRecommended(logLevel, formatLogLevel),
-		...markdownRulesNoRecommended(logLevel)
-	};
+	let rules = markdownRulesRecommended('off', formatLogLevel);
 	if ('markdown' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
