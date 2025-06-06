@@ -40,45 +40,42 @@
 		"url": "https://github.com/u-sho/eslint-config/issues"
 	},
 	"homepage": "https://github.com/u-sho/eslint-config#readme",
+	"engines": {
+		"node": "^20.19.0 || 22.x || 24.x"
+	},
 	"peerDependencies": {
-		"eslint": "^9.26.0",
+		"eslint": "^9.28.0",
 		"typescript": "~5.8.3"
 	},
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "~4.5.0",
-		"@eslint/js": "~9.26.0",
-		"@stylistic/eslint-plugin": "~4.2.0",
-		"eslint-plugin-n": "~17.17.0",
+		"@stylistic/eslint-plugin": "~4.4.1",
+		"eslint-plugin-n": "~17.19.0",
 		"eslint-plugin-promise": "~7.2.1",
 		"globals": "^16.1.0"
 	},
 	"optionalDependencies": {
 		"@eslint/markdown": "^6.4.0",
-		"@stylistic/eslint-plugin-js": "^4.2.0",
-		"@stylistic/eslint-plugin-jsx": "^4.2.0",
-		"@stylistic/eslint-plugin-plus": "^4.2.0",
-		"@stylistic/eslint-plugin-ts": "^4.2.0",
+		"@stylistic/eslint-plugin-js": "^4.4.1",
+		"@stylistic/eslint-plugin-jsx": "^4.4.1",
+		"@stylistic/eslint-plugin-plus": "^4.4.1",
+		"@stylistic/eslint-plugin-ts": "^4.4.1",
 		"eslint-import-resolver-typescript": "^4.3.4",
 		"eslint-plugin-import": "~2.31.0",
 		"eslint-plugin-import-x": "^4.11.0",
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^5.2.0",
-		"typescript-eslint": "^8.32.1"
+		"typescript-eslint": "^8.33.1"
 	},
 	"devDependencies": {
-		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
-		"@eslint/js": "^9.26.0",
 		"@eslint/markdown": "^6.4.0",
-		"@stylistic/eslint-plugin": "^4.2.0",
-		"eslint": "^9.26.0",
+		"eslint": "^9.28.0",
 		"eslint-import-resolver-typescript": "^4.3.4",
 		"eslint-plugin-import": "~2.31.0",
 		"eslint-plugin-import-x": "^4.11.0",
-		"eslint-plugin-n": "^17.17.0",
-		"globals": "^16.0.0",
-		"type-fest": "^4.40.1",
+		"type-fest": "^4.41.0",
 		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.32.1"
+		"typescript-eslint": "^8.33.1"
 	},
 	"type": "module"
 }

@@ -21,7 +21,7 @@ export default (
 	'@stylistic/plus/curly-newline': [formatLogLevel, {consistent: true, minElements: short ? 2 : 1}],
 
 	/* [formatLogLevel, {
-		// @ts-ignore IfStatement replaced to IfStatementConsequent or IfStatementAlternative
+		// @ts-expect-error 2561: IfStatement replaced to IfStatementConsequent or IfStatementAlternative
 		IfStatement          : {multiline: true, consistent: true},
 		ForStatement         : 'always',
 		ForInStatement       : 'always',

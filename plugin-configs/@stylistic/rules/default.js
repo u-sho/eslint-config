@@ -5,8 +5,6 @@
  */
 
 // @ts-check
-/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 /* eslint sort-keys: 'off' -- grouping the same rules */
 
 
@@ -104,8 +102,8 @@ export default (
 		'@stylistic/curly-newline': [formatLogLevel, {consistent: true, minElements: short ? 2 : 1}],
 
 		/* [formatLogLevel, {
-				// @ts-ignore IfStatement replaced to IfStatementConsequent or IfStatementAlternative
-			IfStatement: {multiline: true, consistent: true},
+			// @ts-expect-error 2561: IfStatement replaced to IfStatementConsequent or IfStatementAlternative
+			IfStatement     : {multiline: true, consistent: true},
 			ForStatement    : 'always',
 			ForInStatement  : 'always',
 			ForOfStatement  : 'always',
@@ -122,7 +120,7 @@ export default (
 			FunctionDeclaration: {consistent: true, minElements: short ? 2 : 1},
 			FunctionExpression : {consistent: true, minElements: short ? 2 : 1},
 			Property           : {multiline: true},
-			ClassBody: short ? {multiline: true} : 'always',
+			ClassBody          : short ? {multiline: true} : 'always',
 
 			StaticBlock  : {multiline: true},
 			WithStatement: {multiline: true},

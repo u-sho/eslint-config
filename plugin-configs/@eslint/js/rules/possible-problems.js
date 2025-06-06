@@ -138,8 +138,11 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	// Disallow template literal placeholder syntax in regular strings
 	'no-template-curly-in-string': logLevel,
 
-	// Disallow this/super before calling super() in constructors
+	// Disallow `this`/`super` before calling `super()` in constructors
 	'no-this-before-super': logLevel,
+
+	// Disallow `let` or `var` variables that are read but never assigned
+	'no-unassigned-vars': logLevel,
 
 	// Disallow the use of undeclared variables unless mentioned in `/*global */` comments
 	'no-undef': 'error',

@@ -63,6 +63,9 @@ export default (logLevel = 'error', {short = false} = {}) => ({
 	// Disallow synchronous methods
 	'n/no-sync': logLevel,
 
+	// Disallow top-level `await` in published modules
+	'n/no-top-level-await': [logLevel, {ignoreBin: true}],
+
 	...preferGlobal(logLevel),
 
 	// Enforce using the node: protocol when importing Node.js builtin modules.

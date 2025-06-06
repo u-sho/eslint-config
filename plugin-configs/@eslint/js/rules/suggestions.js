@@ -44,8 +44,7 @@ export default (
 	// Enforce consistent naming when capturing the current execution context
 	'consistent-this': [logLevel, 'self'],
 
-	/* Enforce consistent brace style for all control statements
-	   @ts-expect-error 2322: One of type definition or document is wrong. */
+	// Enforce consistent brace style for all control statements
 	'curly': [formatLogLevel, 'multi-or-nest', 'consistent'],
 
 	// Require default cases in switch statements
@@ -119,7 +118,7 @@ export default (
 	'max-nested-callbacks': ['warn', {max: Infinity === complexityDepth ? 2 : complexityDepth}],
 
 	// Enforce a maximum number of parameters in function definitions
-	'max-params': logLevel, // `@typescript-eslint/max-params` rule is used
+	'max-params': [logLevel, {countVoidThis: true}], // `@typescript-eslint/max-params` rule is used
 
 	// Enforce a maximum number of statements allowed in function blocks
 	// eslint-disable-next-line 'typescript/no-magic-numbers' -- because statements are magic
@@ -222,9 +221,14 @@ export default (
 	'no-loop-func': logLevel, // `@typescript-eslint/no-loop-func` rule is used
 
 	/* Disallow magic numbers
-		'@typescript-eslint/no-magic-numbers' rule is used.
-	   @ts-expect-error 2353: See https://eslint.org/docs/latest/rules/no-magic-numbers#ignoredefaultvalues */
-	'no-magic-numbers': [formatLogLevel, {enforceConst: true, ignore: [1], ignoreDefaultValues: true}],
+		'@typescript-eslint/no-magic-numbers' rule is used. */
+	'no-magic-numbers': [formatLogLevel, {enforceConst                 : true,
+	/* eslint-disable @stylistic/indent */ignore                       : [0, 1],
+	// @ts-expect-error 2353: See https://eslint.org/docs/latest/rules/no-magic-numbers#ignoredefaultvalues
+	                                      ignoreDefaultValues          : true,
+	                                      ignoreEnums                  : true,
+	                                      ignoreNumericLiteralTypes    : true,
+	/* eslint-enable @stylistic/indent */ ignoreReadonlyClassProperties: true}],
 
 	// Disallow use of chained assignment expressions
 	'no-multi-assign': formatLogLevel,
