@@ -12,7 +12,7 @@
  * @type {import('./types').GetRulesJs}
  *
  * @param formatLogLevel - default:`'warn'`
- * @param options        - defaults:
+ * @param options        - default:
  * ```javascript
  * {
  * 	short       : false,
@@ -32,7 +32,7 @@
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		printWidth   = 100,
 		tabWidth     = 3,
@@ -45,7 +45,7 @@ export default (
 		quoteProps   = 'consistent-as-needed',
 		quotes       = 'single',
 		semi         = true
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => ({
 	// Enforce linebreaks after opening and before closing array brackets
 	'array-bracket-newline'              : 0,
@@ -305,17 +305,24 @@ export default (
 	// Disallow mixed spaces and tabs for indentation
 	'no-mixed-spaces-and-tabs'              : 0,
 	'@stylistic/no-mixed-spaces-and-tabs'   : 0,
-	'@stylistic/js/no-mixed-spaces-and-tabs': 'tab' === indent /* eslint-disable @stylistic/indent */
-	                                          ? [formatLogLevel, 'smart-tabs']
-	                                          : formatLogLevel, /* eslint-enable @stylistic/indent */
+	'@stylistic/js/no-mixed-spaces-and-tabs': 'tab' === indent
+	/*                                     */ ? [formatLogLevel, 'smart-tabs']
+	/*                                     */ : formatLogLevel,
 
 	// Disallow multiple spaces
 	'no-multi-spaces'              : 0,
 	'@stylistic/no-multi-spaces'   : 0,
 	'@stylistic/js/no-multi-spaces': [formatLogLevel, {
-		ignoreEOLComments: !short,
-		exceptions       : {Property: !short, ImportAttribute: !short},
-		includeTabs      : false
+		includeTabs: true,
+		...short
+			? {ignoreEOLComments: false}
+			: {ignoreEOLComments: true, /* eslint-disable @stylistic/indent */
+			   exceptions       : {Property           : true,
+			                       AssignmentPattern  : true,
+			                       TSPropertySignature: true,
+			                       ImportAttribute    : true,
+			                       ImportDeclaration  : true,
+			                       VariableDeclarator : true}} /* eslint-enable @stylistic/indent */
 	}],
 
 	// Disallow multiple empty lines
@@ -418,7 +425,7 @@ export default (
 	'semi'              : 0,
 	'@stylistic/semi'   : 0,
 	'@stylistic/js/semi': semi
-		? [formatLogLevel, 'always', {omitLastInOneLineBlock: !!short}]
+		? [formatLogLevel, 'always', {omitLastInOneLineBlock: short}]
 		: [formatLogLevel, 'never', {beforeStatementContinuationChars: short ? 'any' : 'always'}],
 
 	// Enforce consistent spacing before and after semicolons

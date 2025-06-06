@@ -14,14 +14,15 @@ import promiseRules from './rules/all.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
- * @param {{pluginName?: string}} [options={}] - defaults:`{pluginName: 'promise'}`
+ * @param {{readonly pluginName?: string}} [options={}] - default:`{pluginName: 'promise'}`
  * @returns {import('eslint').Linter.Config}
  */
 export default (formatLogLevel = 'warn', {pluginName = 'promise'} = {}) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `promise`.');
+
 	let rules = promiseRules(0, formatLogLevel);
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `promise`');
-	} else if ('promise' !== pluginName) {
+	if ('promise' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
@@ -33,7 +34,6 @@ export default (formatLogLevel = 'warn', {pluginName = 'promise'} = {}) => {
 	}
 
 	return {
-		// @ts-ignore `eslint-plugin-promise` has old config?
 		plugins: {[pluginName]: promisePlugin},
 		rules
 	};

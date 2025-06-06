@@ -1,6 +1,8 @@
 // @ts-check
 
 
+import {languageOptions} from './base.js';
+
 import getConfigJs from '../plugin-configs/@eslint/js/format.js';
 
 import getConfigPromise from '../plugin-configs/eslint-plugin-promise/format.js';
@@ -16,27 +18,27 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
  */
 export const getConfigJsFormat = (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		complexityDepth = Infinity,
-		printWidth     = 100,
-		tabWidth       = 3,
-		short          = false,
-		arrowParens    = false,
-		blockSpacing   = true,
-		braceStyle     = '1tbs',
-		commaDangle    = 'never',
-		indent         = 'tab',
-		jsx            = false,
-		quoteProps     = 'consistent-as-needed',
-		quotes         = 'single',
-		semi           = true,
+		printWidth      = 100,
+		tabWidth        = 3,
+		short           = false,
+		arrowParens     = false,
+		blockSpacing    = true,
+		braceStyle      = '1tbs',
+		commaDangle     = 'never',
+		indent          = 'tab',
+		jsx             = false,
+		quoteProps      = 'consistent-as-needed',
+		quotes          = 'single',
+		semi            = true,
 
 		eslintCommentsPluginName = '@eslint-community/eslint-comments',
 		promisePluginName        = 'promise',
 		reactPluginName          = 'react',
 		stylisticPluginName      = '@stylistic',
 		tsPluginName             = '@typescript-eslint'
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => {
 	const configJs = getConfigJs(formatLogLevel, {complexityDepth, jsx, semi});
 	const configPromise = getConfigPromise(formatLogLevel, {pluginName: promisePluginName});
@@ -66,7 +68,7 @@ export const getConfigJsFormat = (
 
 	return {
 		files: [...filesJs, ...jsx ? filesJsx : []],
-		languageOptions: configJs.languageOptions,
+		languageOptions,
 		plugins: {
 			...configJs.plugins,
 			...configPromise.plugins,

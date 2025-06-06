@@ -11,7 +11,7 @@
  *
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default is `'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default is `'warn'`
- * @param {Pick<StylisticCustomizeOptions, 'semi'>} options default is `{semi: true}`
+ * @param {Readonly<Pick<StylisticCustomizeOptions, 'semi'>>} options default is `{semi: true}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {}) => ({
@@ -64,7 +64,7 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	'no-dupe-args': logLevel,
 
 	// Disallow duplicate class members
-	'no-dupe-class-members': logLevel,
+	'no-dupe-class-members': logLevel, // `@typescript-eslint/no-dupe-class-members` is used
 
 	// Disallow duplicate conditions in if-else-if chains
 	'no-dupe-else-if': logLevel,
@@ -138,8 +138,11 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	// Disallow template literal placeholder syntax in regular strings
 	'no-template-curly-in-string': logLevel,
 
-	// Disallow this/super before calling super() in constructors
+	// Disallow `this`/`super` before calling `super()` in constructors
 	'no-this-before-super': logLevel,
+
+	// Disallow `let` or `var` variables that are read but never assigned
+	'no-unassigned-vars': logLevel,
 
 	// Disallow the use of undeclared variables unless mentioned in `/*global */` comments
 	'no-undef': 'error',
@@ -169,17 +172,19 @@ export default (logLevel = 'error', formatLogLevel = 'warn', {semi = true} = {})
 	'no-unused-private-class-members': logLevel,
 
 	// Disallow unused variables
-	'no-unused-vars': ['warn', {
+	'no-unused-vars': ['warn', { // `@typescript-eslint/no-unused-vars` is used
 		vars                          : 'all',
 		args                          : 'all',
+		argsIgnorePattern             : '^_[a-z]',
 		caughtErrors                  : 'all',
-		caughtErrorsIgnorePattern     : '^_',
-		destructuredArrayIgnorePattern: '^_',
-		ignoreRestSiblings            : false
+		caughtErrorsIgnorePattern     : '^_[a-z]',
+		destructuredArrayIgnorePattern: '^_[a-z]',
+		ignoreRestSiblings            : false,
+		reportUsedIgnorePattern       : true
 	}],
 
 	// Disallow the use of variables before they are defined
-	'no-use-before-define': logLevel,
+	'no-use-before-define': logLevel, // `@typescript-eslint/no-use-before-define` is used
 
 	// Disallow variable assignments when the value is not used
 	'no-useless-assignment': logLevel,

@@ -1,10 +1,10 @@
 // @ts-check
 
-
-import getConfigJs   from '../plugin-configs/@eslint/js/all.js';
-import getConfigNode from '../plugin-configs/eslint-plugin-n/all.js';
+import getConfigJs from '../plugin-configs/@eslint/js/all.js';
+import getConfigTs from '../plugin-configs/@typescript-eslint/all.js';
 
 // Import getConfigImport  from '../plugin-configs/eslint-plugin-/import/all.js';
+import getConfigNode    from '../plugin-configs/eslint-plugin-n/all.js';
 import getConfigPromise from '../plugin-configs/eslint-plugin-promise/all.js';
 
 import getConfigEslintComments from '../plugin-configs/@eslint-community/eslint-plugin-eslint-comments/format.js';
@@ -14,11 +14,11 @@ import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {import('./base.js').JsConfigOptions} [option={}]
- * @returns {import('eslint').Linter.Config}
+ * @param {import('./base.js').JsConfigOptions & {readonly isJsFile?: boolean}} [option={}]
+ * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
  */
-export const getConfigJsAll = (
-	logLevel = 'error',
+export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
+	      logLevel = 'error',
 	formatLogLevel = 'warn',
 	{
 		complexityDepth = Infinity,
@@ -35,7 +35,8 @@ export const getConfigJsAll = (
 		quotes          = 'single',
 		semi            = true,
 
-		/* eslint-disable @stylistic/indent */
+		isJsFile  = false,
+
 		eslintCommentsPluginName = '@eslint-community/eslint-comments',
 		          nodePluginName = 'n',
 		       promisePluginName = 'promise',
@@ -45,9 +46,10 @@ export const getConfigJsAll = (
 	} = {}
 ) => {
 	const configJs = getConfigJs(logLevel, formatLogLevel, {complexityDepth, jsx, semi});
-	const configNode = getConfigNode(logLevel, {short, pluginName: nodePluginName});
+	const configTs = getConfigTs(logLevel, formatLogLevel, {short, javascript: isJsFile, pluginName: tsPluginName});
 
 	// Const configImport = getConfigImport(logLevel, formatLogLevel, {jsx, pluginName: 'import'});
+	const configNode = getConfigNode(logLevel, {short, pluginName: nodePluginName});
 	const configPromise = getConfigPromise(logLevel, formatLogLevel, {pluginName: promisePluginName});
 
 	const configStylistic = getConfigStylistic(formatLogLevel, {
@@ -71,35 +73,46 @@ export const getConfigJsAll = (
 	});
 	const configEslintComments = getConfigEslintComments(formatLogLevel, {pluginName: eslintCommentsPluginName});
 
-	const filesJs = ['*.js', '*.cjs', '*.mjs', '**/*.js', '**/*.mjs', '**/*.cjs'];
+	const filesJs = ['*.js', '*.mjs', '*.cjs', '**/*.js', '**/*.mjs', '**/*.cjs'];
+	const filesTs = ['*.ts', '*.mts', '*.cts', '**/*.ts', '**/*.mts', '**/*.cts'];
 	const filesJsx = ['*.jsx', '**/*.jsx'];
+	const filesTsx = ['*.tsx', '**/*.tsx'];
+	const files = [
+		...filesTs,
+		...jsx ? filesTsx : [],
+		...isJsFile ? filesJs : [],
+		...isJsFile && jsx ? filesJsx : []
+	];
 
 	return {
-		files: [...filesJs, ...jsx ? filesJsx : []],
-		languageOptions: configJs.languageOptions,
+		files,
+		languageOptions: {...configJs.languageOptions, ...configTs.languageOptions},
 		plugins: {
 			...configJs.plugins,
-			...configNode.plugins,
+			...configTs.plugins,
 
 			// ...configImport.plugins,
+			...configNode.plugins,
 			...configPromise.plugins,
 			...configStylistic.plugins,
 			...configEslintComments.plugins
 		},
 		rules: {
 			...configJs.rules,
-			...configNode.rules,
+			...configTs.rules,
 
 			// ...configImport.rules,
+			...configNode.rules,
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
 		},
 		settings: {
 			...configJs.settings,
-			...configNode.settings,
+			...configTs.settings,
 
 			// ...configImport.settings,
+			...configNode.settings,
 			...configPromise.settings,
 			...configStylistic.settings,
 			...configEslintComments.settings
@@ -107,4 +120,4 @@ export const getConfigJsAll = (
 	};
 };
 
-export default getConfigJsAll();
+export default getConfigTsAll();

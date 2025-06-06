@@ -49,12 +49,16 @@ export default [
   ...u_shoFormatConfig,
   {
     files: ["**/*.js", "**/*.ts"],
-      rules  : {
+    rules  : {
+      // Add your custom rules here
+
       "n/no-restricted-import": ["error", [
         { name: "src/components/*", message: "Use @c/* instead." },
         // The below pattern is covered by `import/no-relative-parent-imports`.
         // { name: "../*", message: "Don't use relative path to any parent direction." },
       ]],
+      "n/no-extraneous-import": ["error", { allowModules: ["@eslint/js"] }],
+
       "import/order": ["warn", {
         groups: [
           "builtin",
@@ -83,7 +87,22 @@ export default [
             message: "API型情報以外は越境しないで"
           }
         ]
+      }],
+
+      'typescript/no-restricted-types': ["error", {
+        types: {
+          'any': { message: 'Use `unknown` instead of `any`.' },
+          'Function': { message: 'Use `(...args: any[]) => any` instead of `Function`.' },
+          'object': { message: 'Use `Record<string, unknown>` instead of `object`.' }
+        }
       }]
+    }
+  },
+  {
+    files: ["**/*.md"],
+    rules  : {
+      // code blocks language must be `js` or `ts`; not allowed `javascript`, `typescript`, etc.
+      "markdown/fenced-code-language": ["error", { required: ["js", "ts"]}]
     }
   }
 ];
@@ -104,6 +123,8 @@ For more information about rules, see below documents.
 - `'@stylistic/no-mixed-operators'` in `short` option
 - `'@eslint-community/eslint-comments/no-restricted-disable'`
 - `'html/id-naming-convention'`
+- `'@typescript-eslint/no-empty-function'`
+- `'@typescript-eslint/no-unsafe-type-assertion'`
 
 ## License
 

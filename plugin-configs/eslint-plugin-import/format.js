@@ -5,13 +5,10 @@
  */
 
 // @ts-check
-/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
+/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent'] -- good to understand. */
 
-// @ts-ignore `eslint-plugin-import' has no type
-import importPlugin from 'eslint-plugin-import';
+import importPlugin from 'eslint-plugin-import-x';
 
-/* eslint-disable @stylistic/no-multi-spaces */
 import importRulesDeprecated      from './rules/deprecated.js';
 import importRulesHelpfulWarnings from './rules/helpful-warnings.js';
 import importRulesModuleSystems   from './rules/module-systems.js';
@@ -29,11 +26,13 @@ const isModule = null != packageJson
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
- * @param {{short?:      boolean;
- *          webpack?:    boolean;
- *          typescript?: boolean;
- *          jsx?:        boolean;
- *          pluginName?: string;}} [options={}] - defaults:
+ * @param {Readonly<{
+ * 	short?:      boolean;
+ * 	webpack?:    boolean;
+ * 	typescript?: boolean;
+ * 	jsx?:        boolean;
+ * 	pluginName?: string;
+ * }>} [options={}] - default:
  * ```javascript
  * {
  * 	short     : false,
@@ -43,7 +42,7 @@ const isModule = null != packageJson
  * 	pluginName: 'import'
  * }
  * ```
- * @returns {import('eslint').Linter.Config}
+ * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
  */
 export default (
 	formatLogLevel = 'warn',
@@ -53,19 +52,20 @@ export default (
 		typescript = false,
 		jsx        = false,
 		pluginName = 'import'
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => {
+	if ('' === pluginName)
+		throw new Error('`pluginName` is an empty string. Use like `import`.');
+
 	/** @type {import('eslint').Linter.RulesRecord} */
 	let rules = {
 		...importRulesHelpfulWarnings(0),
 		...importRulesModuleSystems(0),
 		...importRulesStaticAnalysis(0, formatLogLevel, {short, webpack}),
-		...importRulesStyleGuide(0, formatLogLevel, {short, typescript, webpack}),
+		...importRulesStyleGuide(0, formatLogLevel, {short, typescript, jsx, webpack}),
 		...importRulesDeprecated()
 	};
-	if ('' === pluginName) {
-		console.warn('`pluginName` is empty. Use default `import`');
-	} else if ('import' !== pluginName) {
+	if ('import' !== pluginName) {
 		rules = Object.fromEntries(
 			Object
 				.entries(rules)
@@ -80,12 +80,15 @@ export default (
 
 	return {
 		...importPlugin.flatConfigs.recommended,
+
 		rules,
-		/* eslint-disable @stylistic/indent */
+
+		/* eslint-disable @stylistic/indent, no-useless-escape */
 		settings: typescript
-			? importPlugin.flatConfigs.typescript.settings
-			: {'import/extensions': extensions,
-			   'import/resolver'  : {node: {extensions: [...extensions, '.json', '.jsonc']}},
-			   'import/ignore'    : ['\.(scss|less|css)$']} /* eslint-enable @stylistic/indent */
+		          ? importPlugin.flatConfigs.typescript.settings
+		          : {'import/extensions': extensions,
+		             'import/resolver'  : {node: {extensions: [...extensions, '.json', '.jsonc']}},
+		             'import/ignore'    : ['\.(scss|less|css)$']}
+		             /* eslint-enable @stylistic/indent, no-useless-escape */
 	};
 };

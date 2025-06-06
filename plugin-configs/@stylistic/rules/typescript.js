@@ -12,7 +12,7 @@
 /** Get ts (`@stylistic/eslint-plugin-ts`) rules
  * @type {import('./types').GetRulesTs}
  * @param formatLogLevel - default: `'warn'`
- * @param options - defaults:
+ * @param options - default:
  * ```javascript
  * {
  * 	short       : false,
@@ -28,7 +28,7 @@
  */
 export default (
 	formatLogLevel = 'warn',
-	{/* eslint-disable @stylistic/no-multi-spaces */
+	{
 		short        = false,
 		blockSpacing = true,
 		braceStyle   = '1tbs',
@@ -37,7 +37,7 @@ export default (
 		quoteProps   = 'consistent-as-needed',
 		quotes       = 'single',
 		semi         = true
-	} = {} /* eslint-enable @stylistic/no-multi-spaces */
+	} = {}
 ) => ({
 	// Disallow or enforce spaces inside of blocks after opening block and before closing block
 	'block-spacing'                   : 0,
@@ -262,12 +262,10 @@ export default (
 	'semi'                   : 0,
 	'@typescript-eslint/semi': 0,
 	'@stylistic/semi'        : 0,
-	'@stylistic/js/semi'     : 0, /* eslint-disable @stylistic/indent */
-	'@stylistic/ts/semi'     : [formatLogLevel,
-		...semi
-		? ['always', {omitLastInOneLineBlock: short}]
-		: ['never', {beforeStatementContinuationChars: short ? 'any' : 'always'}]],
-		/* eslint-enable @stylistic/indent */
+	'@stylistic/js/semi'     : 0,
+	'@stylistic/ts/semi'     : semi
+	/*                      */ ? [formatLogLevel, 'always', {omitLastInOneLineBlock: short}]
+	/*                      */ : [formatLogLevel, 'never', {beforeStatementContinuationChars: short ? 'any' : 'always'}],
 
 	// Enforce consistent spacing before and after semicolons
 	'semi-spacing'              : 0,
@@ -307,5 +305,5 @@ export default (
 	'@stylistic/ts/type-annotation-spacing': short
 		? [formatLogLevel, {/*                */before: false, after: true,
 		                    overrides: {arrow: {before: false, after: false}}}]
-		: formatLogLevel
+		: 0 // '@stylistic/ts/key-spacing' works instead
 }); /* eslint-enable @stylistic/indent, @stylistic/key-spacing, @stylistic/object-property-newline */
