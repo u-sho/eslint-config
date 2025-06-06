@@ -1,11 +1,13 @@
 // @ts-check
 
+import {config} from 'typescript-eslint';
 import {defineConfig} from 'eslint/config';
 
 import {baseOptions} from './configs/base.js';
 import {getConfigJsAll} from './configs/all-js.js';
+import {getConfigTsAll} from './configs/all-ts.js';
 
-import getConfigMarkdown from './plugin-configs/@eslint/markdown/all.js';
+import configMarkdown from './configs/all-md.js';
 
 
 /* eslint-disable capitalized-comments */
@@ -21,9 +23,20 @@ import getConfigMarkdown from './plugin-configs/@eslint/markdown/all.js';
 const configJsAll = getConfigJsAll('error', 'warn', {
 	eslintCommentsPluginName: 'eslint-comments'
 });
-
-const configMarkdown = getConfigMarkdown('error');
+const configTsAll = getConfigTsAll('error', 'warn', {
+	eslintCommentsPluginName: 'eslint-comments',
+	tsPluginName            : 'typescript'
+});
 
 
 /** @type {import('typescript-eslint').Config} */
-export default defineConfig([...baseOptions, configJsAll, configMarkdown]);
+export default config([...baseOptions, configTsAll, configMarkdown]);
+
+/** @type {import('typescript-eslint').Config} */
+export const javascript = defineConfig([...baseOptions, configJsAll]);
+
+/** @type {import('typescript-eslint').Config} */
+export const typescript = config([...baseOptions, configTsAll]);
+
+/** @type {import('typescript-eslint').Config} */
+export const markdown = defineConfig([...baseOptions, configMarkdown]);
