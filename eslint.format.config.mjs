@@ -3,6 +3,8 @@
 import tseslint from 'typescript-eslint';
 
 import {ignores, linterOptions} from './configs/base.js';
+
+import configMarkdownFormat from './configs/format-md.js';
 import {getConfigTsFormat} from './configs/format-ts.js';
 
 
@@ -36,6 +38,7 @@ export default tseslint.config([
 			reportUnusedDisableDirectives: OFF // For non-format rules
 		}
 	},
+	configMarkdownFormat,
 	{
 		...configJs,
 		settings: {

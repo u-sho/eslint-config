@@ -49,13 +49,16 @@ export default [
   ...u_shoFormatConfig,
   {
     files: ["**/*.js", "**/*.ts"],
-      rules  : {
+    rules  : {
+      // Add your custom rules here
+
       "n/no-restricted-import": ["error", [
         { name: "src/components/*", message: "Use @c/* instead." },
         // The below pattern is covered by `import/no-relative-parent-imports`.
         // { name: "../*", message: "Don't use relative path to any parent direction." },
       ]],
-	    "n/no-extraneous-import": ["error", {allowModules: ["@eslint/js"]}],
+      "n/no-extraneous-import": ["error", { allowModules: ["@eslint/js"] }],
+
       "import/order": ["warn", {
         groups: [
           "builtin",
@@ -85,6 +88,7 @@ export default [
           }
         ]
       }],
+
       'typescript/no-restricted-types': ["error", {
         types: {
           'any': { message: 'Use `unknown` instead of `any`.' },
@@ -92,6 +96,13 @@ export default [
           'object': { message: 'Use `Record<string, unknown>` instead of `object`.' }
         }
       }]
+    }
+  },
+  {
+    files: ["**/*.md"],
+    rules  : {
+      // code blocks language must be `js` or `ts`; not allowed `javascript`, `typescript`, etc.
+      "markdown/fenced-code-language": ["error", { required: ["js", "ts"]}]
     }
   }
 ];
