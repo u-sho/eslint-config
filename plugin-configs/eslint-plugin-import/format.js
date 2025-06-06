@@ -5,8 +5,7 @@
  */
 
 // @ts-check
-/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
+/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent'] -- good to understand. */
 
 import importPlugin from 'eslint-plugin-import-x';
 
@@ -81,12 +80,15 @@ export default (
 
 	return {
 		...importPlugin.flatConfigs.recommended,
+
 		rules,
-		/* eslint-disable @stylistic/indent */
+
+		/* eslint-disable @stylistic/indent, no-useless-escape */
 		settings: typescript
-			? importPlugin.flatConfigs.typescript.settings
-			: {'import/extensions': extensions,
-			   'import/resolver'  : {node: {extensions: [...extensions, '.json', '.jsonc']}},
-			   'import/ignore'    : ['\.(scss|less|css)$']} /* eslint-enable @stylistic/indent */
+		          ? importPlugin.flatConfigs.typescript.settings
+		          : {'import/extensions': extensions,
+		             'import/resolver'  : {node: {extensions: [...extensions, '.json', '.jsonc']}},
+		             'import/ignore'    : ['\.(scss|less|css)$']}
+		             /* eslint-enable @stylistic/indent, no-useless-escape */
 	};
 };

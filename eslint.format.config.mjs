@@ -30,7 +30,12 @@ const configTs = getConfigTsFormat('warn', defaultOptions);
 
 export default tseslint.config([
 	{ignores: [...ignores, 'samples/', 'lib/']},
-	{linterOptions: {...linterOptions, reportUnusedInlineConfigs: OFF}},
+	{
+		linterOptions: {
+			...linterOptions,
+			reportUnusedDisableDirectives: OFF // For non-format rules
+		}
+	},
 	{
 		...configJs,
 		settings: {

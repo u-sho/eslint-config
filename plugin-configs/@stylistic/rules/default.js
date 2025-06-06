@@ -5,8 +5,6 @@
  */
 
 // @ts-check
-/* eslint @stylistic/array-bracket-newline: ['warn', 'consistent']       -- good to understand. */
-/* eslint no-useless-escape: 'off' -- see `eslint-plugin-import` docs */
 /* eslint sort-keys: 'off' -- grouping the same rules */
 
 
