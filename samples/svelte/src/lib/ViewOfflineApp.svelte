@@ -1,7 +1,9 @@
+<!-- @migration-task Error while migrating Svelte code: can't migrate `let state = game.state;` to `$state` because there's a variable named state.
+     Rename the variable and try again or migrate by hand. -->
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi
-		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
+	  Copyright (C) 2021  Shouhei Uechi
+	  Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
 
@@ -20,61 +22,60 @@
 -->
 <script lang="ts">
 	import type { MaxLengthArray } from '$ts/types/generics';
-	import { toOrdinalSafely } from '$ts/utils/ordinalNumerals';
-	
+	import { getOrdinal } from '$ts/utils/getNumeral';
+
 	import GameBoard from '$lib/GameBoard.svelte';
 	import GameInfo from '$lib/GameInfo.svelte';
+	import GameFooter from '$lib/GameFooter.svelte';
 	import type { MarkType, SquareType } from '$ts/games/QuantumTTT.type';
 	import Game from '$ts/games/QuantumTTT';
-	
+
 	let game = new Game();
-	game.setStatus('プレイヤーXのターンです');
 	let gameCount = 1;
-	
+
 	let state = game.state;
 	let message = state.status;
-	
+
 	$: choices =
-		state.collapseSquare !== null
-			? (state.qSquares[state.collapseSquare]?.filter((choice) =>
-					state.cycleMarks?.includes(choice)
+		state.collapseSquare !== null && state.cycleMarks !== null
+			? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
+					(choice) => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
 				) as MaxLengthArray<MarkType, 3> | undefined)
 			: undefined;
-	
+
 	function handleSquareClick(i: SquareType) {
 		const status = game.handleSquareClick(i);
 		console.table(game.state);
-	
+
 		state = { ...game.state };
 		message = status;
 	}
-	
+
 	function handleCollapse(mark: MarkType) {
 		const status = game.handleCollapse(mark);
-	
+
 		state = { ...game.state };
 		message = status;
 	}
-	
+
 	function handleNextGameClick() {
 		game = new Game();
 		game.setState({ scores: { ...state.scores } });
 		gameCount += 1;
-	
+
 		state = { ...game.state };
-		message = `The ${toOrdinalSafely(gameCount)} game!\n${game.state.status}`;
+		message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
 	}
-	
+
 	function handleResetGameClick() {
 		game = new Game();
-		game.setStatus('プレイヤーXのターンです');
 		gameCount = 1;
-	
+
 		state = { ...game.state };
 		message = game.state.status;
 	}
 	</script>
-	
+
 	<div class="game">
 		<GameBoard
 			cSquares={state.cSquares}
@@ -94,47 +95,14 @@
 			onResetGameClick={handleResetGameClick}
 		/>
 	</div>
-	<div class="game-footer">
-		<p>
-			<small>
-				<a rel="license" href="https://www.gnu.org/licenses/">GNU Public Licensed</a>
-			</small>
-		</p>
-		<p>
-			<small>
-				QuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-			</small>
-			<br />
-			<small>
-				Copyright &copy; 2021
-				<a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a>. Rights reserved.
-			</small>
-			<br />
-			<small>
-				Copyright &copy; 2017 Rohan Pandit, available at
-				<a href="https://github.com/rohanp/QuantumTicTacToe/tree/master/">his GitHub repository</a>.
-			</small>
-		</p>
-	</div>
-	
-	<style lang="scss">
+	<GameFooter />
+
+<style>
 	.game {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		flex-wrap: wrap;
 		margin-top: 50px;
-	}
-	
-	.game-footer {
-		width: 100%;
-		margin-top: 50px;
-		text-align: center;
-		background-color: var(--theme-color);
-		color: var(--bg-color);
-		a {
-			color: var(--bg-light-color);
-			text-decoration-line: underline;
-		}
 	}
 	</style>
