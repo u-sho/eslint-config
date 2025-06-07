@@ -1,6 +1,6 @@
 <!--
   QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-    Copyright (C) 2021-2022  Shouhei Uechi
+    Copyright (C) 2021  Shouhei Uechi
     Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
   This file is part of QuantumTicTacToe.
@@ -23,6 +23,8 @@ import type { MaxLengthArray } from '@@/ts/types/generics';
 
 import type { MarkType } from '@@/ts/games/QuantumTTT.type';
 
+import GameInfoButton from './GameInfoButton.vue';
+
 defineProps<{
   // Contains marks in selected square if collapse ongoing
   choices: MaxLengthArray<MarkType, 3> | undefined;
@@ -38,7 +40,7 @@ defineProps<{
 
   // Go to next game with scores
   onNextGameClick: () => void;
-  
+
   // Reset scores & Go to new game
   onResetGameClick: () => void;
 }>();
@@ -49,27 +51,16 @@ defineProps<{
     <p class="status">{{status}}</p>
     <div v-if="choices" class="btn-list">
       <template v-for="choice in choices" :key="choice">
-        <div class="btn collapse-choice"
-          @click.prevent="(_) => onChoiceClick(choice!)"
-          @keypress.prevent="(_) => onChoiceClick(choice!)"
-        >
-          <span>{{choice![0]}}<sub>{{choice![1]}}</sub></span>
-        </div>
+        <GameInfoButton
+          buttonClass="collapse-choice"
+          :choice="choice"
+          :onClick="() => onChoiceClick(choice)"
+        />
       </template>
     </div>
     <div v-if="isGameOver" class="btn-list">
-      <div class="btn next-game"
-        @click.prevent="onNextGameClick"
-        @keypress.prevent="onNextGameClick"
-      >
-        <span class="btn-text">Next</span>
-      </div>
-      <div class="btn reset-game"
-        @click.prevent="onResetGameClick"
-        @keypress.prevent="onResetGameClick"
-      >
-        <span class="btn-text">Reset</span>
-      </div>
+      <GameInfoButton buttonClass="reset-game" :onClick="onResetGameClick" />
+      <GameInfoButton buttonClass="next-game" :onClick="onNextGameClick" />
     </div>
     <div class="scores">
       Current scores:
@@ -79,30 +70,7 @@ defineProps<{
   </div>
 </template>
 
-<style scoped lang="scss">
-.collapse-choice {
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  font-family: inherit;
-  border: 2px solid var(--accent-color);
-  color: var(--accent-color);
-  text-align: center;
-  cursor: pointer;
-  margin: 5px;
-  background-color: var(--bg-color);
-  user-select: none;
-
-  &:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-  }
-
-  sub {
-    font-size: 16px;
-  }
-}
-
+<style scoped>
 .game-info {
   margin-left: 20px;
   top: 0px;
@@ -113,7 +81,9 @@ defineProps<{
   align-items: stretch;
 
   @media screen and (max-width: 600px) {
-    width: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
   }
 }
 
@@ -133,46 +103,6 @@ defineProps<{
   margin: 12px 0;
 }
 
-.btn {
-  box-sizing: border-box;
-  margin: 5px;
-  padding: 0;
-  width: 160px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid;
-  text-align: center;
-  cursor: pointer;
-
-  .btn-text {
-    font-size: 24px;
-    line-height: 50px;
-  }
-}
-
-.next-game {
-  background-color: var(--bg-color);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-  font-weight: bold;
-  &:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-  }
-}
-
-.reset-game {
-  background-color: var(--bg-color);
-  border-color: var(--theme-color);
-  color: var(--theme-color);
-  &:hover {
-    color: var(--bg-color);
-    background-color: var(--theme-color);
-  }
-}
-
 .scores {
   box-sizing: border-box;
   border-top: 2px solid var(--theme-color);
@@ -185,7 +115,8 @@ defineProps<{
   font-weight: bold;
 
   @media screen and (max-width: 600px) {
-    width: 90vw;
+    padding-left: 4px;
+    padding-right: 4px;
     font-size: 16px;
   }
 }

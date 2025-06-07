@@ -1,6 +1,6 @@
 <!--
   QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-    Copyright (C) 2021-2022  Shouhei Uechi
+    Copyright (C) 2021  Shouhei Uechi
     Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
   This file is part of QuantumTicTacToe.
@@ -22,23 +22,23 @@
 import { computed, ref } from 'vue';
 
 import type { MaxLengthArray } from '@@/ts/types/generics';
-import { toOrdinalSafely } from '@@/ts/utils/ordinalNumerals';
+import { getOrdinal } from '@@/ts/utils/getNumeral';
 
 import GameBoard from './GameBoard.vue';
 import GameInfo from './GameInfo.vue';
+import GameFooter from './GameFooter.vue';
 import type { MarkType, SquareType } from '@@/ts/games/QuantumTTT.type';
 import Game from '@@/ts/games/QuantumTTT';
 
 const game = ref(new Game());
-game.value.setStatus('プレイヤーXのターンです');
 const gameCount = ref(1);
 
 const state = ref(game.value.state);
 const message = ref(game.value.state.status);
 
-const choices = computed(() => state.value.collapseSquare !== null
-    ? (state.value.qSquares[state.value.collapseSquare]?.filter((choice) =>
-        state.value.cycleMarks?.includes(choice)
+const choices = computed(() => state.value.collapseSquare !== null && state.value.cycleMarks !== null
+    ? ((state.value.qSquares[state.value.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
+        (choice) => (state.value.cycleMarks as Exclude<typeof state.value.cycleMarks, []>).includes(choice)
       ) as MaxLengthArray<MarkType, 3> | undefined)
     : undefined);
 
@@ -63,12 +63,11 @@ function handleNextGameClick() {
   gameCount.value += 1;
 
   state.value = { ...game.value.state };
-  message.value = `The ${toOrdinalSafely(gameCount)} game!\n${game.value.state.status}`;
+  message.value = `The ${getOrdinal(gameCount.value)} game!\n${game.value.state.status}`;
 }
 
 function handleResetGameClick() {
   game.value = new Game();
-  game.value.setStatus('プレイヤーXのターンです');
   gameCount.value = 1;
 
   state.value = { ...game.value.state };
@@ -96,48 +95,15 @@ function handleResetGameClick() {
       :onResetGameClick="handleResetGameClick"
     />
   </div>
-  <div class="game-footer">
-    <p>
-      <small>
-        <a rel="license" href="https://www.gnu.org/licenses/">GNU Public Licensed</a>
-      </small>
-    </p>
-    <p>
-      <small>
-        QuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-      </small>
-      <br />
-      <small>
-        Copyright &copy; 2021-2022
-        <a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a>. Rights reserved.
-      </small>
-      <br />
-      <small>
-        Copyright &copy; 2017 Rohan Pandit, available at
-        <a href="https://github.com/rohanp/QuantumTicTacToe/tree/master/">his GitHub repository</a>.
-      </small>
-    </p>
-  </div>
+  <GameFooter />
 </template>
 
-<style scoped lang="scss">
-  .game {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 50px;
-  }
-  
-  .game-footer {
-    width: 100%;
-    margin-top: 50px;
-    text-align: center;
-    background-color: var(--theme-color);
-    color: var(--bg-color);
-    a {
-      color: var(--bg-light-color);
-      text-decoration-line: underline;
-    }
-  }
+<style scoped>
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
 </style>
