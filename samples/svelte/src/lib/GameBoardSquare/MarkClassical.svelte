@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
+		Copyright (C) 2021  Shouhei Uechi
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -21,14 +21,15 @@
 <script lang="ts">
 import type { MarkType } from '$ts/games/QuantumTTT.type';
 
-export let cMark: MarkType;
+type GameBoardSquareMarkClassicalProps = { cMark: MarkType };
+const { cMark }: GameBoardSquareMarkClassicalProps = $props();
 </script>
 
 <div class="classical-mark">
 	<span>{cMark[0]}<sub>{cMark[1]}</sub></span>
 </div>
 
-<style lang="scss">
+<style>
 .classical-mark {
 	box-sizing: border-box;
 	margin: 0;

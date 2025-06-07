@@ -5,15 +5,13 @@
 	"main": "index.js",
 	"exports": {
 		".": "./index.js",
-		"./configs": {
-			"all-js": "./configs/all-js.js",
-			"all-ts": "./configs/all-ts.js",
-			"all-md": "./configs/all-md.js",
-			"base": "./configs/base.js",
-			"format-js": "./configs/format-js.js",
-			"format-ts": "./configs/format-ts.js",
-			"format-md": "./configs/format-md.js"
-		}
+		"./configs/all-js": "./configs/all-js.js",
+		"./configs/all-ts": "./configs/all-ts.js",
+		"./configs/all-md": "./configs/all-md.js",
+		"./configs/base": "./configs/base.js",
+		"./configs/format-js": "./configs/format-js.js",
+		"./configs/format-ts": "./configs/format-ts.js",
+		"./configs/format-md": "./configs/format-md.js"
 	},
 	"files": [
 		"index.js",

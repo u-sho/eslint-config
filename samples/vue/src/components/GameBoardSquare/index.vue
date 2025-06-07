@@ -1,6 +1,6 @@
 <!--
   QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-    Copyright (C) 2021-2022  Shouhei Uechi
+    Copyright (C) 2021  Shouhei Uechi
     Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
   This file is part of QuantumTicTacToe.
@@ -19,6 +19,7 @@
   along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script setup lang="ts">
+import {computed} from 'vue';
 import QuantumMarks from './MarksQuantum.vue';
 import ClassicalMark from './MarkClassical.vue';
 import type { StateType } from '@@/ts/games/QuantumTTT.type';
@@ -30,7 +31,10 @@ const props = defineProps<{
   isHighlighted: boolean;
   isBeingCollapsed: boolean;
   onClick: () => void;
+  squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
 }>()
+
+const ariaLabel = computed(() => `${props.cMark ? `Classical ${props.cMark}` : props.qMarks.length > 0 ? `Quantum ${props.qMarks.join(', ')}` : ''} on ${props.squareName}`);
 </script>
 
 <template>
@@ -38,7 +42,14 @@ const props = defineProps<{
     class="square"
     :class="{ 'highlighted': isHighlighted, 'selected': isBeingCollapsed }"
     @click.prevent="(_)=>onClick()"
-    @keypress.prevent="(_) => onClick()"
+    @keypress="(e: KeyboardEvent): void => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      onClick();
+    }"
+    :aria-label="ariaLabel"
+    role="button"
+    tabindex="0"
   >
     <div>
       <span class="border-dashing"><i /></span>
@@ -57,7 +68,7 @@ const props = defineProps<{
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .square {
   background: var(--bg-color);
   border: 2px solid var(--theme-color);
@@ -86,10 +97,18 @@ const props = defineProps<{
     height: 100%;
     position: absolute;
 
-    &:nth-of-type(1) { transform: rotate(0deg); }
-    &:nth-of-type(2) { transform: rotate(90deg); }
-    &:nth-of-type(3) { transform: rotate(180deg); }
-    &:nth-of-type(4) { transform: rotate(270deg); }
+    &:nth-of-type(1) {
+      transform: rotate(0deg);
+    }
+    &:nth-of-type(2) {
+      transform: rotate(90deg);
+    }
+    &:nth-of-type(3) {
+      transform: rotate(180deg);
+    }
+    &:nth-of-type(4) {
+      transform: rotate(270deg);
+    }
 
     i {
       border-bottom: 5px dashed var(--theme-color);

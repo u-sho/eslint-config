@@ -1,6 +1,6 @@
 /*
   QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-    Copyright (C) 2021-2022  Shouhei Uechi
+    Copyright (C) 2021  Shouhei Uechi
     Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
   This file is part of QuantumTicTacToe.
@@ -19,12 +19,46 @@
   along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import type React from 'react';
 import type { MaxLengthArray } from '@@/ts/types/generics';
 import type { MarkType } from '@@/ts/games/QuantumTTT.type';
 
-import './GameInfo.scss';
+import './GameInfo.css';
 
-type Props = {
+
+type GameInfoButtonProps = {
+  buttonClass: 'next-game' | 'reset-game' | 'collapse-choice';
+  choice?: MarkType;
+  onClick: () => void;
+};
+
+const GameInfoButton = ({buttonClass, choice, onClick}: GameInfoButtonProps) => {
+  return (
+    <div
+      className={`btn ${buttonClass}`}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        onClick();
+      }}
+      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        onClick();
+      }}
+      role="button"
+      tabIndex={0}
+    >
+      <span className="btn-text">
+        {buttonClass === 'collapse-choice' && choice ? (<>{choice[0]}<sub>{choice[1]}</sub></>)
+        : buttonClass === 'next-game' ? 'Next'
+        : buttonClass === 'reset-game' ? 'Reset'
+        : ''}
+      </span>
+    </div>
+  );
+};
+
+type GameInfoProps = {
   // Contains marks in selected square if collapse ongoing
   choices: MaxLengthArray<MarkType, 3> | undefined;
 
@@ -44,7 +78,7 @@ type Props = {
   onResetGameClick: () => void;
 };
 
-export default function GameInfo(props: Props) {
+export default function GameInfo(props: GameInfoProps) {
   const {
     choices,
     onChoiceClick,
@@ -57,33 +91,28 @@ export default function GameInfo(props: Props) {
 
   return (
     <div className="game-info">
-      <p className="status">{props.status}</p>
+      <p className="status">{status}</p>
       {choices && (
         <div className="btn-list">
-          {choices.map((choice: MarkType) => (
-            <div className="btn collapse-choice"
-              key={choice}
-              onClick={() => onChoiceClick(choice!)}
-            >
-              <span>{choice![0]}<sub>{choice![1]}</sub></span>
-            </div>
+          {choices.map((choice) => (
+            <GameInfoButton
+              buttonClass='collapse-choice'
+              choice={choice}
+              onClick={() => onChoiceClick(choice)}
+            />
           ))}
         </div>
       )}
       {isGameOver && (
         <div className="btn-list">
-          <div className="btn next-game" onClick={onNextGameClick}>
-            <span className="btn-text">Next</span>
-          </div>
-          <div className="btn reset-game" onClick={onResetGameClick}>
-            <span className="btn-text">Reset</span>
-          </div>
+          <GameInfoButton buttonClass='reset-game' onClick={onResetGameClick} />
+          <GameInfoButton buttonClass='next-game' onClick={onNextGameClick} />
         </div>
       )}
       <div className="scores">
         Current scores:
-        <span>X: {props.scores.X}</span>,
-        <span>Y: {props.scores.Y}</span>
+        <span>X: {scores.X}</span>,
+        <span>Y: {scores.Y}</span>
       </div>
     </div>
   );

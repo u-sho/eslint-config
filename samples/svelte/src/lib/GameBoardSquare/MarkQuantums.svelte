@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
+		Copyright (C) 2021  Shouhei Uechi
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -21,18 +21,23 @@
 <script lang="ts">
 import type { MarkType, StateType } from '$ts/games/QuantumTTT.type';
 
-export let qMarks: StateType['qSquares'][0];
-export let cycleMarks: StateType['cycleMarks'];
-export let isHighlighted: boolean;
-export let isBeingCollapsed: boolean;
+type GameBoardSquareMarksQuantumProps = {
+	qMarks: StateType['qSquares'][0];
+	cycleMarks: StateType['cycleMarks'];
+	isHighlighted: boolean;
+	isBeingCollapsed: boolean;
+};
+const { qMarks, cycleMarks, isHighlighted, isBeingCollapsed }: GameBoardSquareMarksQuantumProps =
+	$props();
 
-function getTextColor(mark: MarkType) {
-	if (cycleMarks?.includes(mark)) {
+const getTextColor = (mark: MarkType): 'white' | 'blue' | 'red' => {
+	if (!cycleMarks?.length) return 'white';
+	if (cycleMarks.includes(mark)) {
 		if (isBeingCollapsed) return 'red';
 		if (isHighlighted) return 'blue';
 	}
 	return 'white';
-}
+};
 </script>
 
 <div class="quantum-marks">
@@ -41,7 +46,7 @@ function getTextColor(mark: MarkType) {
 	{/each}
 </div>
 
-<style lang="scss">
+<style>
 .quantum-marks {
 	box-sizing: border-box;
 	margin: 0;
@@ -65,11 +70,28 @@ function getTextColor(mark: MarkType) {
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 32px;
+
+	@media screen and (max-width: 600px) {
+		width: calc(100% / 3 - 8px);
+		margin: 2px 4px;
+		text-align: center;
+		font-size: 21px;
+		line-height: 28px;
+	}
+
+	@media screen and (max-width: 400px) {
+		font-size: 18px;
+		line-height: 24px;
+	}
 }
 
 .white {
 	color: var(--bg-light-color);
-	text-shadow: 0.125px 1px var(--theme-color);
+	text-shadow: 0.5px 0.5px 5px var(--theme-color);
+
+	@media (prefers-color-scheme: dark) {
+		text-shadow: 0 0 5px var(--bg-light-color);
+	}
 }
 
 .blue {

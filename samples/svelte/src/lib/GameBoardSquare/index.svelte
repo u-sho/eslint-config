@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
+		Copyright (C) 2021  Shouhei Uechi
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -23,24 +23,56 @@ import QuantumMarks from './MarkQuantums.svelte';
 import ClassicalMark from './MarkClassical.svelte';
 import type { StateType } from '$ts/games/QuantumTTT.type';
 
-export let cMark: StateType['cSquares'][0];
-export let qMarks: StateType['qSquares'][0];
-export let cycleMarks: StateType['cycleMarks'];
-export let isHighlighted: boolean;
-export let isBeingCollapsed: boolean;
-export let onClick: () => void;
+type GameBoardSquareProps = {
+	cMark: StateType['cSquares'][0];
+	qMarks: StateType['qSquares'][0];
+	cycleMarks: StateType['cycleMarks'];
+	isHighlighted: boolean;
+	isBeingCollapsed: boolean;
+	onClick: () => void;
+	squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
+};
+const {
+	cMark,
+	qMarks,
+	cycleMarks,
+	isHighlighted,
+	isBeingCollapsed,
+	onClick,
+	squareName
+}: GameBoardSquareProps = $props();
 
-$: squareClass = cMark
-	? 'square'
-	: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
+const squareClass = $derived(
+	cMark
+		? 'square'
+		: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`
+);
+
+const ariaLabel = $derived(
+	`${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`
+);
 </script>
 
-<div class={squareClass} on:click|preventDefault={(_) => onClick()} on:keypress|preventDefault={(_)=> onClick()}>
+<div
+	class={squareClass}
+	onclick={(e: MouseEvent): void => {
+		e.preventDefault();
+		onClick();
+	}}
+	onkeypress={(e: KeyboardEvent): void => {
+		if (e.key !== 'Enter' && e.key !== ' ') return;
+		e.preventDefault();
+		onClick();
+	}}
+	aria-label={ariaLabel}
+	role="button"
+	tabindex="0"
+>
 	<div>
-		<span class="border-dashing"><i /></span>
-		<span class="border-dashing"><i /></span>
-		<span class="border-dashing"><i /></span>
-		<span class="border-dashing"><i /></span>
+		<span class="border-dashing"><i></i></span>
+		<span class="border-dashing"><i></i></span>
+		<span class="border-dashing"><i></i></span>
+		<span class="border-dashing"><i></i></span>
 	</div>
 	{#if cMark}
 		<ClassicalMark {cMark} />
@@ -50,7 +82,7 @@ $: squareClass = cMark
 	{/if}
 </div>
 
-<style lang="scss">
+<style>
 .square {
 	background: var(--bg-color);
 	border: 2px solid var(--theme-color);
