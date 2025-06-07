@@ -18,34 +18,29 @@
   You should have received a copy of the GNU General Public License
   along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 */
-
-import type { MarkType, StateType } from '@@/ts/games/QuantumTTT.type';
-
-import './MarksQuantum.css';
-
-type GameBoardSquareMarksQuantumProps = {
-  qMarks: StateType['qSquares'][0];
-  cycleMarks: StateType['cycleMarks'];
-  isHighlighted: boolean;
-  isBeingCollapsed: boolean;
-};
-
-
-export default function MarksQuantum(props: GameBoardSquareMarksQuantumProps) {
-  function getTextColor(mark: MarkType): 'white' | 'blue' | 'red' {
-    if (!props.cycleMarks?.length) return 'white';
-    if (props.cycleMarks.includes(mark)) {
-      if (props.isBeingCollapsed) return 'red';
-      if (props.isHighlighted) return 'blue';
-    }
-    return 'white';
-  }
-
+export default function GameFooter() {
   return (
-    <div className="quantum-marks">
-      {props.qMarks.map((m: MarkType) => (
-        <span className={getTextColor(m!)} key={m}>{m![0]}<sub>{m![1]}</sub></span>
-      ))}
+    <div className="game-footer">
+      <p>
+        <small>
+          <a rel="license" href="https://www.gnu.org/licenses/">GNU Public Licensed</a>
+        </small>
+      </p>
+      <p>
+        <small>
+          QuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
+        </small>
+        <br />
+        <small>
+          Copyright &copy;2021{' '}
+          <a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a>. Rights reserved.
+        </small>
+        <br />
+        <small>
+          Copyright &copy;2017 Rohan Pandit, available at{' '}
+          <a href="https://github.com/rohanp/QuantumTicTacToe/tree/master/">his GitHub repository</a>.
+        </small>
+      </p>
     </div>
   );
 }
