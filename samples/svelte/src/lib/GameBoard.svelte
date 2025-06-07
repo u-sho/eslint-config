@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
+		Copyright (C) 2021  Shouhei Uechi
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -19,44 +19,63 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import BoardSquare from './GameBoardSquare/index.svelte';
+import GameBoardSquare from './GameBoardSquare/index.svelte';
 import type { SquareType, StateType } from '$ts/games/QuantumTTT.type';
 
-export let cSquares: StateType['cSquares'];
-export let qSquares: StateType['qSquares'];
-export let cycleSquares: StateType['cycleSquares'];
-export let cycleMarks: StateType['cycleMarks'];
-export let collapseSquare: StateType['collapseSquare'];
+type Props = {
+	cSquares: StateType['cSquares'];
+	qSquares: StateType['qSquares'];
+	cycleSquares: StateType['cycleSquares'];
+	cycleMarks: StateType['cycleMarks'];
+	collapseSquare: StateType['collapseSquare'];
+	// Passes index of square that was clicked up to Game.handleSquareClick.
+	onSquareClick: (i: SquareType) => void;
+};
 
-// Passes index of square that was clicked up to Game.handleSquareClick.
-export let onSquareClick: (i: SquareType) => void;
+const { cSquares, qSquares, cycleSquares, cycleMarks, collapseSquare, onSquareClick }: Props =
+	$props();
 
 const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
 
-$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => onSquareClick((row * 3 + column) as SquareType);
-$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
-	!!cycleSquares?.includes((row * 3 + column) as SquareType);
+const onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
+	onSquareClick((row * 3 + column) as SquareType);
+};
+
+const isHighlighted = $derived(
+	(row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
+		!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType)
+);
+
+const currentSquareName = (
+	row: 0 | 1 | 2,
+	column: 0 | 1 | 2
+): `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square` => {
+	const verticalPosition = row === 0 ? 'upper' : row === 1 ? 'middle' : 'lower';
+	const horizontalPosition = column === 0 ? 'left' : column === 1 ? 'center' : 'right';
+	return `${verticalPosition} ${horizontalPosition} square`;
+};
 </script>
 
 <div class="game-board">
-	{#each rows as row}
+	{#each rows as row (row)}
 		<div class="game-board--row">
-			{#each columns as column}
-				<BoardSquare
+			{#each columns as column (column)}
+				<GameBoardSquare
 					cMark={cSquares[row * 3 + column]}
 					qMarks={qSquares[row * 3 + column]}
 					{cycleMarks}
 					isHighlighted={isHighlighted(row, column)}
 					isBeingCollapsed={collapseSquare === row * 3 + column}
-					onClick={() => onClick(row, column)}
+					onClick={onClick(row, column)}
+					squareName={currentSquareName(row, column)}
 				/>
 			{/each}
 		</div>
 	{/each}
 </div>
 
-<style lang="scss">
+<style>
 .game-board {
 	border: 2px solid var(--theme-color);
 	display: flex;

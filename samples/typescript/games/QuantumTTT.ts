@@ -19,7 +19,7 @@
  * along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { ConstArray, ImmutableArray, MaxLengthArray, RequiredAtLeastOne } from '../types/generics';
+import type { ConstArray, MaxLengthArray, RequiredAtLeastOne } from '../types/generics';
 import type {
   MarkType,
   PlayerType,
@@ -32,14 +32,14 @@ import type {
 import Graph from './Graph';
 
 export default class QuantumTTT {
-  g: Graph;
+  protected _g: Graph;
   state: StateType;
   constructor() {
-    this.g = new Graph();
+    this._g = new Graph();
     this.timer = this.timer.bind(this);
     this.state = {
-      cSquares: Array(9).fill(null) as ConstArray<null, 9>,
-      qSquares: Array(9).fill([]) as ConstArray<[], 9>,
+      cSquares: [null, null, null, null, null, null, null, null, null],
+      qSquares: [[], [], [], [], [], [], [], [], []],
       currentTurn: 1,
       currentSubTurn: 0,
       lastMove: null,
@@ -62,9 +62,6 @@ export default class QuantumTTT {
   setLeftTimes(obj: Readonly<RequiredAtLeastOne<StateType['leftTimes']>>): void {
     Object.assign(this.state.leftTimes, obj);
   }
-  setStatus(msg: Readonly<StatusType>): void {
-    this.setState({ status: msg });
-  }
 
   whoseTurn(): PlayerType {
     return this.state.currentSubTurn < 2 ? 'X' : 'Y';
@@ -74,7 +71,7 @@ export default class QuantumTTT {
   }
 
   timer(): void {
-    if (this.whoseTurn() === 'X') {
+    if (this.whoseTurn() === 'X' && !this.state.cycleSquares?.length) {
       if (this.state.leftTimes.X <= 0) {
         this.setState({
           isOver: true,
@@ -85,7 +82,7 @@ export default class QuantumTTT {
       }
     }
 
-    if (this.whoseTurn() === 'Y') {
+    if (this.whoseTurn() === 'Y' && !this.state.cycleSquares?.length) {
       if (this.state.leftTimes.Y <= 0) {
         this.setState({
           isOver: true,
@@ -118,45 +115,48 @@ export default class QuantumTTT {
 
   // adds quantum mark to square that was clicked on then checks if that created a cycle
   private _handleNormalMove(i: SquareType): StatusType {
-    const qSquares: typeof this.state.qSquares = [...this.state.qSquares];
+    const qSquares: StateType['qSquares'] = [...this.state.qSquares];
     const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
-    if (qSquares[i].length >= 1) (qSquares[i] as Array<MarkType>).push(marker);
+    if (qSquares[i].length >= 1) (qSquares[i] as Exclude<(typeof qSquares)[typeof i], []>).push(marker);
     else qSquares[i] = [marker];
 
-    if (!this.g.hasNode(i)) this.g.addNode(i);
-    if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as SquareType, i, marker);
+    if (!this._g.hasNode(i)) this._g.addNode(i);
+    if (this.isSecondMove()) this._g.addEdge(this.state.lastMove as SquareType, i, marker);
 
     // if cycle is not null, there is a cyclic entanglement.
-    const cycle = this.g.getCycle(i);
+    const cycle = this._g.getCycle(i);
+    if (cycle) {
+      const msg =
+        '循環もつれが発生しました！\n' +
+        `プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
+      this.setState({
+        qSquares,
+        cycleSquares: cycle[0] as MaxLengthArray<SquareType, 9>,
+        cycleMarks: cycle[1] as MaxLengthArray<MarkType, 9>,
+        lastMove: i
+      });
+      return msg;
+    }
+
     this.setState({
-      qSquares: qSquares as StateType['qSquares'],
-      cycleSquares: cycle == null ? null : (cycle[0] as MaxLengthArray<SquareType, 9>),
-      cycleMarks: cycle == null ? null : (cycle[1] as MaxLengthArray<MarkType, 9>),
+      qSquares,
       currentTurn: (this.state.currentTurn +
         Number(this.state.currentSubTurn === 3)) as TurnNumType,
       currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType,
       lastMove: i
     });
 
-    if (cycle) {
-      const msg =
-        '循環もつれが発生しました！' +
-        `プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
-      return `${msg}`;
-    }
-
     if (this.isSecondMove())
       return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
 
-    return `プレイヤー${this.whoseTurn()}のターンです! 量子マークをおいてください。`;
+    return `プレイヤー${this.whoseTurn()}のターンです! 量子マークを置いてください。`;
   }
 
   // selects square to be collapse point
   private _handleCyclicEntanglement(i: SquareType): StatusType {
-    // `as` は敗北の証
-    if (!(this.state.cycleSquares as Array<SquareType>)?.includes(i))
-      return '循環もつれに関係してるマスを選択してください！';
+    if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i))
+      return '循環もつれに関係しているマスを選択してください！';
 
     this.setState({ collapseSquare: i });
     return 'このマスに確定させるマークを次から選択します。';
@@ -175,7 +175,10 @@ export default class QuantumTTT {
       this.setState({
         cycleSquares: null,
         cycleMarks: null,
-        collapseSquare: null
+        collapseSquare: null,
+        currentTurn: (this.state.currentTurn +
+          Number(this.state.currentSubTurn === 3)) as TurnNumType,
+        currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType
       });
 
       return `プレイヤー${this.whoseTurn()}のターンです。`;
@@ -199,20 +202,21 @@ export default class QuantumTTT {
     return status;
   }
 
-  private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>) {
-    const cSquares = [...this.state.cSquares] as StateType['cSquares'];
-    const qSquares = [...this.state.qSquares] as StateType['qSquares'];
+  private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>): void {
+    const cSquares: StateType['cSquares'] = [...this.state.cSquares];
+    const qSquares: StateType['qSquares'] = [...this.state.qSquares];
     cSquares[i] = mark;
     qSquares[i] = [];
 
     this.setState({ cSquares, qSquares });
 
-    for (const edge of this.g.getNode(i).edges) {
+    for (const edge of this._g.getNode(i).edges) {
       if (!visited.has(edge.key)) {
         visited.add(edge.key);
         this._handleCollapseHelper(edge.key, edge.end.id, visited);
       }
     }
+    return;
   }
 
   isSecondMove(): boolean {
@@ -221,30 +225,9 @@ export default class QuantumTTT {
 }
 
 // pure functions to help with game logic in index.js
-function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
-  const winner = scores.X > scores.Y ? 'X' : 'Y';
-  const loser = winner === 'X' ? 'Y' : 'X';
-
-  if (scores.X + scores.Y === 1)
-    return `${winner}の勝利です！！\n ${winner}は1.0ポイント \n ${loser}は0ポイント`;
-
-  if (scores.X === 1.5 || scores.Y === 1.5)
-    return (
-      `${winner} 同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント \n ` +
-      `${loser} は 0ポイント`
-    );
-
-  if (scores.X + scores.Y === 1.5)
-    return (
-      `両プレイヤーが同時に1列を完成させました。しかし、${winner} が先に並べました！` +
-      ` ${winner}は 1.0ポイント` +
-      `\n ${loser}は 0.5ポイント`
-    );
-
-  return 'どのプレイヤーも列を完成できていません';
-}
-
-type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
+type LineType = ConstArray<SquareType, 3>;
+type WinnerType = [TurnNumType, PlayerType, LineType];
+type WinnersType = WinnerType[];
 function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
   const lines = [
     [0, 1, 2],
@@ -255,7 +238,7 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6]
-  ] satisfies Array<ImmutableArray<SquareType, 3>>;
+  ] satisfies ConstArray<LineType, 8>;
 
   const winners: WinnersType = [];
 
@@ -270,25 +253,46 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
   return winners;
 }
 
-function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
+type OneGameScoresType = Record<PlayerType, 0 | 0.5 | 1 | 1.5>;
+function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>): null | OneGameScoresType {
   const winners = _calculateWinners(squares);
 
   if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
 
-  winners.sort((line1, line2) => {
+  winners.sort((line1: Readonly<WinnerType>, line2: Readonly<WinnerType>): -1 | 0 | 1 => {
     if (line1[0] < line2[0]) return 1;
     if (line1[0] > line2[0]) return -1;
     if (line1[1] === 'X') return -1;
     return 0;
   });
-  const scores = { X: 0, Y: 0 };
+  const scores: OneGameScoresType = { X: 0, Y: 0 };
 
   if (winners.length >= 1) scores[winners[0][1]] = 1;
   if (winners.length >= 2) scores[winners[1][1]] += 0.5;
   if (winners.length === 3) scores[winners[2][1]] += 0.5;
 
-  return scores as {
-    X: 0 | 0.5 | 1 | 1.5;
-    Y: 0 | 0.5 | 1 | 1.5;
-  };
+  return scores;
+}
+
+function _getWinnerMsg(scores: Readonly<OneGameScoresType>): StatusType {
+  const winner = scores.X > scores.Y ? 'X' : 'Y';
+  const loser = winner === 'X' ? 'Y' : 'X';
+
+  if (scores.X + scores.Y === 1)
+    return `${winner}の勝利です！！\n ${winner}は1.0ポイント \n ${loser}は0ポイント`;
+
+  if (scores.X === 1.5 || scores.Y === 1.5)
+    return (
+      `${winner}が同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント\n` +
+      `${loser}は 0ポイント`
+    );
+
+  if (scores.X + scores.Y === 1.5)
+    return (
+      `両プレイヤーが同時に1列を完成させました。しかし、${winner}が先に並べました！` +
+      ` ${winner}は 1.0ポイント` +
+      `\n ${loser}は 0.5ポイント`
+    );
+
+  return 'どのプレイヤーも列を完成できていません';
 }

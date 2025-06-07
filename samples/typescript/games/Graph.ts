@@ -32,7 +32,7 @@ type EdgesType = {
 };
 
 class Node {
-  id: NodeIdType;
+  readonly id: NodeIdType;
   edges: Edge[];
   constructor(id: Readonly<NodeIdType>) {
     this.id = id;
@@ -44,9 +44,9 @@ class Node {
  * edges between them, whose uniqueness needs to be accounted for.
  */
 class Edge {
-  start: Node;
-  end: Node;
-  key: EdgeKeyType;
+  readonly start: Node;
+  readonly end: Node;
+  readonly key: EdgeKeyType;
   constructor(node1: Node, node2: Node, key: Readonly<EdgeKeyType>) {
     this.start = node1;
     this.end = node2;
@@ -100,29 +100,27 @@ export default class Graph {
 
     // case two: cycle of len 2
     const start = this.getNode(startId);
-    const visited: Set<Node> = new Set();
-    const endToEdge: Map<Node, Edge> = new Map();
+    const endToEdge = new Map<Node, Edge>();
 
     for (const edge of start.edges) {
-      if (visited.has(edge.end)) {
+      if (endToEdge.has(edge.end)) {
         return [
           [edge.start.id, edge.end.id],
-          [edge.key, endToEdge.get(edge.end)?.key as EdgeKeyType]
+          [edge.key, (endToEdge.get(edge.end) as Edge).key]
         ];
       }
 
-      visited.add(edge.end);
       endToEdge.set(edge.end, edge);
     }
 
     // case three: cycle of len > 2
     const q = [start];
-    const layers: Map<Node, number> = new Map(); // maps node to layer
-    const prev: Map<Node, Edge | null> = new Map(); // maps node to its associated edge
+    const layers = new Map<Node, number>(); // maps node to layer
+    const prev = new Map<Node, Edge | null>(); // maps node to its associated edge
     layers.set(start, 0);
     prev.set(start, null);
 
-    while (q !== undefined && q.length > 0) {
+    while (q.length > 0) {
       const curr = q.shift() as Node;
       const layer = layers.get(curr) as number;
 

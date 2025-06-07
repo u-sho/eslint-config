@@ -1,6 +1,6 @@
 /*
   QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-    Copyright (C) 2021-2022  Shouhei Uechi
+    Copyright (C) 2021  Shouhei Uechi
     Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
   This file is part of QuantumTicTacToe.
@@ -19,40 +19,55 @@
   along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import type React from 'react';
 import QuantumMarks from './MarksQuantum';
 import ClassicalMark from './MarkClassical';
 import type { StateType } from '@@/ts/games/QuantumTTT.type';
 
-import './index.scss';
+import './index.css';
 
-type Props = {
+type GameBoardSquareProps = {
   cMark: StateType['cSquares'][0];
   qMarks: StateType['qSquares'][0];
   cycleMarks: StateType['cycleMarks'];
   isHighlighted: boolean;
   isBeingCollapsed: boolean;
   onClick: () => void;
+  squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
 };
 
-export default function GameBoardSquare(props: Props) {
+export default function GameBoardSquare(props: GameBoardSquareProps) {
   const {
     cMark,
     qMarks,
     cycleMarks,
     isHighlighted,
     isBeingCollapsed,
-    onClick
+    onClick,
+    squareName,
   } = props;
 
-  let className = 'square';
-  if (isHighlighted) className += ' highlighted';
-  if (isBeingCollapsed) className += ' selected';
+  const squareClass = cMark
+		? 'square'
+		: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
+
+  const ariaLabel = `${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`;
 
   return (
     <div
-      className={className}
-      onClick={() => onClick()}
-      onKeyDown={() => onClick()}
+      className={squareClass}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        onClick();
+      }}
+      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        onClick();
+      }}
+      aria-label={ariaLabel}
+      role="button"
+      tabIndex={0}
     >
     <div>
       <span className="border-dashing"><i /></span>

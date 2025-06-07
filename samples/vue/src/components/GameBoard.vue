@@ -1,6 +1,6 @@
 <!--
   QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-    Copyright (C) 2021-2022  Shouhei Uechi
+    Copyright (C) 2021  Shouhei Uechi
     Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
   This file is part of QuantumTicTacToe.
@@ -35,19 +35,22 @@ const props = defineProps<{
 
 const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
-type RowType = typeof rows[number];
-type ColumnType = typeof columns[number];
 
-function squareIndex(row: RowType, column: ColumnType): SquareType {
-  return row * columns.length + column as SquareType;
+function onClick(row: 0 | 1 | 2, column: 0 | 1 | 2): void {
+  return props.onSquareClick((row * 3 + column) as SquareType);
 }
 
-function onClick(row: RowType, column: ColumnType): void {
-  props.onSquareClick(squareIndex(row, column));
+function isHighlighted(row: 0 | 1 | 2, column: 0 | 1 | 2): boolean {
+  return !!props.cycleSquares?.length && props.cycleSquares.includes((row * 3 + column) as SquareType);
 }
 
-function isHighlighted(row: RowType, column: ColumnType): boolean {
-  return !!props.cycleSquares?.includes(squareIndex(row, column));
+function currentSquareName(
+  row: 0 | 1 | 2,
+  column: 0 | 1 | 2
+): `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square` {
+  const verticalPosition = row === 0 ? 'upper' : row === 1 ? 'middle' : 'lower';
+  const horizontalPosition = column === 0 ? 'left' : column === 1 ? 'center' : 'right';
+  return `${verticalPosition} ${horizontalPosition} square`;
 }
 </script>
 
@@ -57,12 +60,13 @@ function isHighlighted(row: RowType, column: ColumnType): boolean {
       <div class="game-board--row">
         <template v-for="column in columns" :key="column">
           <BoardSquare
-            :cMark="cSquares[squareIndex(row, column)]!"
-            :qMarks="qSquares[squareIndex(row, column)]!"
-            :cycleMarks="cycleMarks!"
+            :cMark="cSquares[row * 3 + column]"
+            :qMarks="qSquares[row * 3 + column]"
+            :cycleMarks="cycleMarks"
             :isHighlighted="isHighlighted(row, column)"
-            :isBeingCollapsed="collapseSquare === squareIndex(row, column)"
+            :isBeingCollapsed="collapseSquare === row * 3 + column"
             :onClick="()=>onClick(row, column)"
+            :squareName="currentSquareName(row, column)"
           />
         </template>
       </div>
@@ -70,7 +74,7 @@ function isHighlighted(row: RowType, column: ColumnType): boolean {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .game-board {
   border: 2px solid var(--theme-color);
   display: flex;

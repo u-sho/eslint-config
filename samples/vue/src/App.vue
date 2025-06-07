@@ -9,7 +9,7 @@ import ViewOfflineApp from "@/components/TheQuantumTTTOffline.vue";
   </main>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .main {
   width: 100%;
   height: 100%;

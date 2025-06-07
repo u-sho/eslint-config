@@ -1,6 +1,6 @@
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		Copyright (C) 2021  Shouhei Uechi, available at <https://github.com/u-sho/quantum-game-arena/tree/main/src/lib/games/quantum-tictactoe>
+		Copyright (C) 2021  Shouhei Uechi
 		Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>
 
 	This file is part of QuantumTicTacToe.
@@ -23,53 +23,81 @@ import type { MaxLengthArray } from '$ts/types/generics';
 
 import type { MarkType } from '$ts/games/QuantumTTT.type';
 
-// Contains marks in selected square if collapse ongoing
-export let choices: MaxLengthArray<MarkType, 3> | undefined;
+type GameInfoProps = {
+	// Contains marks in selected square if collapse ongoing
+	choices: MaxLengthArray<MarkType, 3> | undefined;
+	// Passes selected choice of mark up to Game.handleCollapse
+	onChoiceClick: (choice: MarkType) => void;
+	// Conveys player information about the state of the game
+	status: string;
+	isGameOver: boolean;
+	scores: { X: number; Y: number };
+	// Go to next game with scores
+	onNextGameClick: () => void;
+	// Reset scores & Go to new game
+	onResetGameClick: () => void;
+};
+const {
+	choices,
+	onChoiceClick,
+	status,
+	isGameOver,
+	scores,
+	onNextGameClick,
+	onResetGameClick
+}: GameInfoProps = $props();
 
-// Passes selected choice of mark up to Game.handleCollapse
-export let onChoiceClick: (choice: MarkType) => void;
-
-// Conveys player information about the state of the game
-export let status: string;
-
-export let isGameOver: boolean;
-export let scores: { X: number; Y: number };
-
-// Go to next game with scores
-export let onNextGameClick: () => void;
-
-// Reset scores & Go to new game
-export let onResetGameClick: () => void;
+type GameInfoButtonProps = {
+	buttonClass: 'next-game' | 'reset-game' | 'collapse-choice';
+	choice?: MarkType;
+	onClick: () => void;
+};
 </script>
+
+{#snippet gameInfoButton({ buttonClass, choice, onClick }: GameInfoButtonProps)}
+	<div
+		class="btn {buttonClass}"
+		onclick={(e: MouseEvent): void => {
+			e.preventDefault();
+			onClick();
+		}}
+		onkeypress={(e: KeyboardEvent): void => {
+			if (e.key !== 'Enter' && e.key !== ' ') return;
+			e.preventDefault();
+			onClick();
+		}}
+		role="button"
+		tabindex="0"
+	>
+		<span class="btn-text">
+			{#if buttonClass === 'collapse-choice' && choice}
+				{choice[0]}<sub>{choice[1]}</sub>
+			{:else if buttonClass === 'next-game'}
+				Next
+			{:else if buttonClass === 'reset-game'}
+				Reset
+			{/if}
+		</span>
+	</div>
+{/snippet}
 
 <div class="game-info">
 	<p class="status">{status}</p>
 	{#if choices}
 		<div class="btn-list">
 			{#each choices as choice (choice)}
-				<div class="btn collapse-choice"
-					on:click|preventDefault={(_) => onChoiceClick(choice)}
-					on:keypress|preventDefault={(_) => onChoiceClick(choice)}
-				>
-					<span>{choice[0]}<sub>{choice[1]}</sub></span>
-				</div>
+				{@render gameInfoButton({
+					buttonClass: 'collapse-choice',
+					choice,
+					onClick: (): void => onChoiceClick(choice)
+				})}
 			{/each}
 		</div>
 	{/if}
 	{#if isGameOver}
 		<div class="btn-list">
-			<div class="btn next-game"
-				on:click|preventDefault={onNextGameClick}
-				on:keypress|preventDefault={onNextGameClick}
-			>
-				<span class="btn-text">Next</span>
-			</div>
-			<div class="btn reset-game"
-				on:click|preventDefault={onResetGameClick}
-				on:keypress|preventDefault={onResetGameClick}
-			>
-				<span class="btn-text">Reset</span>
-			</div>
+			{@render gameInfoButton({ buttonClass: 'reset-game', onClick: onResetGameClick })}
+			{@render gameInfoButton({ buttonClass: 'next-game', onClick: onNextGameClick })}
 		</div>
 	{/if}
 	<div class="scores">
@@ -79,30 +107,7 @@ export let onResetGameClick: () => void;
 	</div>
 </div>
 
-<style lang="scss">
-.collapse-choice {
-	width: 50px;
-	height: 50px;
-	font-size: 24px;
-	font-family: inherit;
-	border: 2px solid var(--accent-color);
-	color: var(--accent-color);
-	text-align: center;
-	cursor: pointer;
-	margin: 5px;
-	background-color: var(--bg-color);
-	user-select: none;
-
-	&:hover {
-		background-color: var(--accent-color);
-		color: var(--bg-color);
-	}
-
-	sub {
-		font-size: 16px;
-	}
-}
-
+<style>
 .game-info {
 	margin-left: 20px;
 	top: 0px;
@@ -113,7 +118,9 @@ export let onResetGameClick: () => void;
 	align-items: stretch;
 
 	@media screen and (max-width: 600px) {
-		width: 95vw;
+		margin-left: auto;
+		margin-right: auto;
+		width: 90vw;
 	}
 }
 
@@ -152,21 +159,40 @@ export let onResetGameClick: () => void;
 	}
 }
 
-.next-game {
+.collapse-choice {
 	background-color: var(--bg-color);
 	border-color: var(--accent-color);
 	color: var(--accent-color);
 	font-weight: bold;
+	padding-left: 4px;
+	user-select: none;
+
+	&:hover {
+		background-color: var(--accent-color);
+		color: var(--bg-color);
+	}
+
+	sub {
+		font-size: 16px;
+		line-height: 16px;
+	}
+}
+
+.reset-game {
+	background-color: var(--bg-color);
+	border-color: var(--accent-color);
+	color: var(--accent-color);
 	&:hover {
 		background-color: var(--accent-color);
 		color: var(--bg-color);
 	}
 }
 
-.reset-game {
+.next-game {
 	background-color: var(--bg-color);
 	border-color: var(--theme-color);
 	color: var(--theme-color);
+	font-weight: bold;
 	&:hover {
 		color: var(--bg-color);
 		background-color: var(--theme-color);
@@ -185,7 +211,8 @@ export let onResetGameClick: () => void;
 	font-weight: bold;
 
 	@media screen and (max-width: 600px) {
-		width: 90vw;
+		padding-left: 4px;
+		padding-right: 4px;
 		font-size: 16px;
 	}
 }
