@@ -68,12 +68,15 @@ export default function TheQuantumTTTOffline() {
   }
 
   function handleNextGameClick() {
-    setGame(new Game());
-    game.setState({ scores: { ...state.scores } });
-    setGameCount(gameCount + 1);
+    const newGame = new Game();
+    newGame.setState({ scores: { ...state.scores } });
+    setGame(newGame);
 
-    setState({ ...game.state });
-    setMessage(`The ${getOrdinal(gameCount)} game!\n${game.state.status}`);
+    const newGameCount = gameCount + 1;
+    setGameCount(newGameCount);
+
+    setState({ ...newGame.state });
+    setMessage(`The ${getOrdinal(newGameCount)} game!\n${newGame.state.status}`);
   }
 
   function handleResetGameClick() {
