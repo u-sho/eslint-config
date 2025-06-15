@@ -11,9 +11,34 @@ import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
 
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {import('./base.js').JsConfigOptions & {readonly isJsFile?: boolean}} [option={}]
- * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default: `'warn'`
+ * @param {Omit<import('./all-ts.js').TsConfigOptions, 'nodePluginName'>} [options={}] 	default:
+ * ```js
+ * { complexityDepth: Infinity
+ * , printWidth     : 100
+ * , tabWidth       : 3
+ * , short          : false
+ * , arrowParens    : false
+ * , blockSpacing   : true
+ * , braceStyle     : '1tbs'
+ * , commaDangle    : 'never'
+ * , indent         : 'tab'
+ * , jsx            : false
+ * , quoteProps     : 'consistent-as-needed'
+ * , quotes         : 'single'
+ * , semi           : true
+ *
+ * , isJsFile       : false
+ *
+ * , eslintCommentsPluginName: '@eslint-community/eslint-comments'
+ * ,        promisePluginName: 'promise'
+ * ,          reactPluginName: 'react'
+ * ,      stylisticPluginName: '@stylistic'
+ * ,             tsPluginName: '@typescript-eslint'
+ * }
+ * ```
+ *
+ * @returns {import('./all-ts.js').ConfigTsAll}
  */
 export const getConfigTsFormat = (
 	formatLogLevel = 'warn',
@@ -94,14 +119,15 @@ export const getConfigTsFormat = (
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
-		},
-		settings: {
-			...configJs.settings,
-			...configTs.settings,
-			...configPromise.settings,
-			...configStylistic.settings,
-			...configEslintComments.settings
 		}
+
+		// Settings: {
+		// 	/* ...configJs.settings,
+		// 	   ...configTs.settings, */
+		// 	/* ...configPromise.settings,
+		// 	   ...configStylistic.settings,
+		// 	   ...configEslintComments.settings */
+		// }
 	};
 };
 

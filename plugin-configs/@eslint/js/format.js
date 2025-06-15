@@ -24,13 +24,9 @@ const isModule = null != packageJson
                  && 'module' === packageJson.type;
 
 /**
- * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
- *
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
- * @param {Readonly<
- * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
- * >} [options={}] default:`{semi:true, jsx:false, complexityDepth:Infinity}`
- * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
+ * @param {import('./all.js').JsConfigOptions} [options={}] - default:`{semi:true, jsx:false, complexityDepth:Infinity}`
+ * @returns {import('./all.js').JsConfig}
  */
 export default (
 	formatLogLevel = 'warn',

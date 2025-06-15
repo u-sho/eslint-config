@@ -39,7 +39,7 @@ import stylisticDefaultRules from './rules/default.js';
  * 	reactPluginName: 'react'
  * }
  * ```
- * @returns {import('eslint').Linter.Config}
+ * @returns {Required<Pick<import('eslint').Linter.Config, 'plugins'|'rules'>>}
  */
 export default (
 	formatLogLevel = 'warn',

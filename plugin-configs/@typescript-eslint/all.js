@@ -29,9 +29,15 @@ const isModule = null != packageJson
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
  * @param {Readonly<{pluginName?: string, short?: boolean, javascript?: boolean}>} [options={}] - default:
  * 	`{short: false, javascript: false, pluginName: '@typescript-eslint'}`
- * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
+ *
+ * @typedef {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config} Config
+ * @returns {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>}
  */
-export default (logLevel = 'error', formatLogLevel = 'warn', {short = false, javascript = false, pluginName = '@typescript-eslint'} = {}) => {
+export default (
+	logLevel = 'error',
+	formatLogLevel = 'warn',
+	{short = false, javascript = false, pluginName = '@typescript-eslint'} = {}
+) => {
 	if (!isModule)
 		throw new Error('This config is for ESM only. Set `type: "module"` in package.json.');
 

@@ -12,37 +12,42 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
 
 
 /**
+ * @typedef {import('./base.js').JsConfigOptions & {readonly isJsFile?: boolean}} TsConfigOptions
+ *
  * @typedef {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config} Config
- * @returns {Omit<Config, 'files'> & {files: string[]}}
+ * @typedef {Required<Pick<Config,'languageOptions'|'plugins'|'rules'>> & {files: string[]}} ConfigTsAll
+ */
+
+/**
+ * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] - default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
+ * @param {TsConfigOptions} [option={}] - default:
+ * ```js
+ * { complexityDepth: Infinity
+ * , printWidth     : 100
+ * , tabWidth       : 3
+ * , short          : false
+ * , arrowParens    : false
+ * , blockSpacing   : true
+ * , braceStyle     : '1tbs'
+ * , commaDangle    : 'never'
+ * , indent         : 'tab'
+ * , jsx            : false
+ * , quoteProps     : 'consistent-as-needed'
+ * , quotes         : 'single'
+ * , semi           : true
  *
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {import('./base.js').JsConfigOptions & {readonly isJsFile?: boolean}} [option={}] default:
- * ```ts
- * {
- *   complexityDepth: Infinity,
- *   printWidth     : 100,
- *   tabWidth       : 3,
- *   short          : false,
- *   arrowParens    : false,
- *   blockSpacing   : true,
- *   braceStyle     : '1tbs',
- *   commaDangle    : 'never',
- *   indent         : 'tab',
- *   jsx            : false,
- *   quoteProps     : 'consistent-as-needed',
- *   quotes         : 'single',
- *   semi           : true,
- *   isJsFile       : false,
+ * , isJsFile       : false
  *
- *   eslintCommentsPluginName: '@eslint-community/eslint-comments',
- *             nodePluginName: 'n',
- *          promisePluginName: 'promise',
- *            reactPluginName: 'react',
- *        stylisticPluginName: '@stylistic',
- *               tsPluginName: '@typescript-eslint'
+ * , eslintCommentsPluginName: '@eslint-community/eslint-comments'
+ * ,           nodePluginName: 'n'
+ * ,        promisePluginName: 'promise'
+ * ,          reactPluginName: 'react'
+ * ,      stylisticPluginName: '@stylistic'
+ * ,             tsPluginName: '@typescript-eslint'
  * }
  * ```
+ * @returns {ConfigTsAll}
  */
 export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
 	      logLevel = 'error',
@@ -133,17 +138,18 @@ export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
-		},
-		settings: {
-			...configJs.settings,
-			...configTs.settings,
-
-			// ...configImport.settings,
-			...configNode.settings,
-			...configPromise.settings,
-			...configStylistic.settings,
-			...configEslintComments.settings
 		}
+
+		// Settings: {
+		// 	/* ...configJs.settings,
+		// 	   ...configTs.settings, */
+
+		// 	//  ...configImport.settings,
+		// 	/* ...configNode.settings,
+		// 	   ...configPromise.settings,
+		// 	   ...configStylistic.settings,
+		// 	   ...configEslintComments.settings */
+		// }
 	};
 };
 
