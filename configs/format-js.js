@@ -14,7 +14,7 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
  * @param {Omit<import('./base.js').JsConfigOptions, 'nodePluginName'>} [option={}]
- * @returns {import('eslint').Linter.Config}
+ * @returns {import('./all-js.js').ConfigJsAll}
  */
 export const getConfigJsFormat = (
 	formatLogLevel = 'warn',
@@ -80,13 +80,14 @@ export const getConfigJsFormat = (
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
-		},
-		settings: {
-			...configJs.settings,
-			...configPromise.settings,
-			...configStylistic.settings,
-			...configEslintComments.settings
 		}
+
+		// Settings: {
+		// 	// ...configJs.settings,
+		// 	/* ...configPromise.settings,
+		// 	   ...configStylistic.settings,
+		// 	   ...configEslintComments.settings */
+		// }
 	};
 };
 

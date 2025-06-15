@@ -25,13 +25,19 @@ const isModule = null != packageJson
 
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
+ * @typedef {Readonly<
+ * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
+ * >} JsConfigOptions
  *
+ * @typedef {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>} Config
+ * @typedef {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>} JsConfig
+ */
+
+/**
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default:`'warn'`
- * @param {Readonly<
- * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
- * >} [options={}] default:`{semi: true, jsx: false, complexityDepth: Infinity}`
- * @returns {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>}
+ * @param {JsConfigOptions} [options={}] default:`{semi: true, jsx: false, complexityDepth: Infinity}`
+ * @returns {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>}
  */
 export default (
 	logLevel = 'error',
