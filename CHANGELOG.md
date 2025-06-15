@@ -1,3 +1,21 @@
+## [0.1.2](https://github.com/u-sho/eslint-config/compare/v0.1.1...v0.1.2) (2025-06-15)
+
+### Dependencies
+
+- bump `brace-expansion` from 1.1.11 to 1.1.12 ([#25](https://github.com/u-sho/eslint-config/pull/25))
+
+### Fix
+
+- more strict types ([#27](https://github.com/u-sho/eslint-config/pull/27))
+
+
+## [0.1.1](https://github.com/u-sho/eslint-config/compare/v0.1.0...v0.1.1) (2025-06-07)
+
+### Fix
+
+- fix `exports` paths ([#24](https://github.com/u-sho/eslint-config/pull/24))
+
+
 ## [0.1.0](https://github.com/u-sho/eslint-config/compare/v0.0.2...v0.1.0) (2025-06-06)
 
 ### Features
