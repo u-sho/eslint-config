@@ -26,7 +26,7 @@ const isModule = null != packageJson
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {Readonly<{short?: boolean; pluginName?: string}>} [options={}] - default:
  * 	`{short: false, pluginName: 'n'}`
- * @returns {import('eslint').Linter.Config}
+ * @returns {Required<Pick<import('eslint').Linter.Config, 'languageOptions'|'plugins'|'rules'>>}
  */
 export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
 	if ('' === pluginName)

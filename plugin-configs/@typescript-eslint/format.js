@@ -27,7 +27,9 @@ const isModule = null != packageJson
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
  * @param {Readonly<{pluginName?: string, short?: boolean, javascript?: boolean}>} [options={}] - default:
  * 	`{pluginName: '@typescript-eslint', short: false, javascript: false}`
- * @returns {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config}
+ *
+ * @typedef {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config} Config
+ * @returns {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>}
  */
 export default (formatLogLevel = 'warn', {short = false, javascript = false, pluginName = '@typescript-eslint'} = {}) => {
 	if (!isModule)

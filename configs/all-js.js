@@ -12,10 +12,38 @@ import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
 
 
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {import('./base.js').JsConfigOptions} [option={}]
- * @returns {import('eslint').Linter.Config}
+ * @typedef {import('eslint').Linter.Config} Config
+ * @typedef {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>> & {files: string[]}} ConfigJsAll
+ */
+
+/**
+ * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] - default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] - default:`'warn'`
+ * @param {import('./base.js').JsConfigOptions} [option={}] - default:
+ * ```js
+ * { complexityDepth: Infinity
+ * , printWidth     : 100
+ * , tabWidth       : 3
+ * , short          : false
+ * , arrowParens    : false
+ * , blockSpacing   : true
+ * , braceStyle     : '1tbs'
+ * , commaDangle    : 'never'
+ * , indent         : 'tab'
+ * , jsx            : false
+ * , quoteProps     : 'consistent-as-needed'
+ * , quotes         : 'single'
+ * , semi           : true
+ *
+ * , eslintCommentsPluginName: '@eslint-community/eslint-comments'
+ * ,           nodePluginName: 'n'
+ * ,        promisePluginName: 'promise'
+ * ,          reactPluginName: 'react'
+ * ,      stylisticPluginName: '@stylistic'
+ * ,             tsPluginName: '@typescript-eslint'
+ * }
+ * ```
+ * @returns {ConfigJsAll}
  */
 export const getConfigJsAll = (
 	logLevel = 'error',
@@ -94,16 +122,17 @@ export const getConfigJsAll = (
 			...configPromise.rules,
 			...configStylistic.rules,
 			...configEslintComments.rules
-		},
-		settings: {
-			...configJs.settings,
-			...configNode.settings,
-
-			// ...configImport.settings,
-			...configPromise.settings,
-			...configStylistic.settings,
-			...configEslintComments.settings
 		}
+
+		// Settings: {
+		// 	/* ...configJs.settings,
+		// 	   ...configNode.settings, */
+
+		// 	// ...configImport.settings,
+		// 	/* ...configPromise.settings,
+		// 	   ...configStylistic.settings,
+		// 	   ...configEslintComments.settings */
+		// }
 	};
 };
 
