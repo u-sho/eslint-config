@@ -36,9 +36,16 @@ export default tseslint.config([
 	{linterOptions},
 	configMarkdown,
 	{
+		files: ['CHANGELOG.md'],
+		rules: {
+			...configMarkdown.rules,
+			'markdown/no-duplicate-headings': OFF
+		{
+	},
+	{
 		...configJs,
 		settings: {
-			...configJs.settings,
+			// ...configJs.settings,
 			tsconfigPath: './jsconfig.json',
 			tryExtensions: ['.js', '.ts']
 		}
