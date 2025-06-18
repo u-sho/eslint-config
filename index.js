@@ -45,6 +45,11 @@ const configTsFormat = getConfigTsFormat('warn', {
 
 export default {
 	configs: {
+		base: defineConfig({ignores}, {linterOptions}, {languageOptions}),
+		ignores,
+		linterOptions,
+		languageOptions,
+
 		javascript: defineConfig(...baseOptions, configJsAll),
 		typescript: config(...baseOptions, configTsAll),
 		markdown  : defineConfig({ignores}, {linterOptions}, configMarkdownAll)
