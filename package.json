@@ -1,17 +1,10 @@
 {
 	"name": "@u-sho/eslint-config",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "Rules of ESLint as a formatter by u-sho",
 	"main": "index.js",
 	"exports": {
-		".": "./index.js",
-		"./configs/all-js": "./configs/all-js.js",
-		"./configs/all-ts": "./configs/all-ts.js",
-		"./configs/all-md": "./configs/all-md.js",
-		"./configs/base": "./configs/base.js",
-		"./configs/format-js": "./configs/format-js.js",
-		"./configs/format-ts": "./configs/format-ts.js",
-		"./configs/format-md": "./configs/format-md.js"
+		".": "./index.js"
 	},
 	"files": [
 		"index.js",
@@ -21,6 +14,7 @@
 		"lib"
 	],
 	"scripts": {
+		"analyze": "TIMING=20 eslint",
 		"format": "eslint --config eslint.format.config.mjs",
 		"format:fix": "eslint --config eslint.format.config.mjs --fix",
 		"lint": "eslint",
@@ -45,8 +39,7 @@
 		"node": "^20.19.0 || 22.x || 24.x"
 	},
 	"peerDependencies": {
-		"eslint": "^9.28.0",
-		"typescript": "~5.8.3"
+		"eslint": "^9.28.0"
 	},
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "~4.5.0",
@@ -66,7 +59,8 @@
 		"eslint-plugin-import-x": "^4.11.0",
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^5.2.0",
-		"typescript-eslint": "^8.33.1"
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.34.0"
 	},
 	"devDependencies": {
 		"@eslint/markdown": "^6.5.0",
@@ -75,8 +69,7 @@
 		"eslint-plugin-import": "~2.31.0",
 		"eslint-plugin-import-x": "^4.11.0",
 		"type-fest": "^4.41.0",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.33.1"
+		"typescript": "^5.8.3"
 	},
 	"type": "module"
 }

@@ -40,9 +40,16 @@ export default tseslint.config([
 	},
 	configMarkdownFormat,
 	{
+		files: ['CHANGELOG.md'],
+		rules: {
+			...configMarkdownFormat.rules,
+			'markdown/no-duplicate-headings': OFF
+		}
+	},
+	{
 		...configJs,
 		settings: {
-			...configJs.settings,
+			// ...configJs.settings,
 			tsconfigPath: './jsconfig.json'
 		}
 	},

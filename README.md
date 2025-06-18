@@ -25,14 +25,12 @@ or
 
 ```js
 // eslint.config.js
-import {baseOptions} from '@u-sho/eslint-config/configs/base';
-import {getConfigJsAll} from '@u-sho/eslint-config/configs/all-js';
-import configMarkdown from '@u-sho/eslint-config/configs/all-md';
+import {configs, getConfigJsAll} from '@u-sho/eslint-config';
 
 export default [
-  ...baseOptions,
+  ...configs.base,
   getConfigJsAll('error', 'warn', {indent: 2, tsPluginName: ''}),
-  configMarkdown,
+  configs.markdown
 ];
 ```
 
@@ -43,10 +41,19 @@ For example, using alias `@c/` as `src/components`, write like below.
 
 ```js
 // eslint.config.js
-import u_shoFormatConfig from '@u-sho/eslint-config';
+import u_sho from '@u-sho/eslint-config';
 
 export default [
-  ...u_shoFormatConfig,
+  ...u_sho.configs.typescript,
+  ...u_sho.configs.markdown,,
+  {
+    files: ["**/*.js", "**/*.ts"],
+    rules: {
+      "n/no-restricted-import": ["error", [
+        { name: "src/components/*", message: "Use @c/* instead." }
+      ]]
+    }
+  }
   {
     files: ["**/*.js", "**/*.ts"],
     rules  : {

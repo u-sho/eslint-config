@@ -67,7 +67,7 @@ export const getConfigTsFormat = (
 	} = {}
 ) => {
 	const configJs = getConfigJs(formatLogLevel, {complexityDepth, jsx, semi});
-	const configTs = getConfigTs(formatLogLevel, {short, javascript: isJsFile, pluginName: tsPluginName});
+	const configTs = getConfigTs(formatLogLevel, {short, javascript: isJsFile, tsx: jsx, pluginName: tsPluginName});
 
 	const configPromise = getConfigPromise(formatLogLevel, {pluginName: promisePluginName});
 
