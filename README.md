@@ -14,10 +14,11 @@ Once the `@u-sho/eslint-config` package is installed, you can use it like the be
 
 ```js
 // eslint.config.js
-import u_shoConfig from '@u-sho/eslint-config';
+import u_sho from '@u-sho/eslint-config';
 
 export default [
-  ...u_shoConfig
+  ...u_sho.configs.javascript,
+  ...u_sho.configs.markdown
 ];
 ```
 
