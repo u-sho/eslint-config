@@ -29,15 +29,19 @@ const isModule = null != packageJson
  * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
  * >} JsConfigOptions
  *
- * @typedef {import('eslint').Linter.Config<import('eslint/rules').ESLintRules>} Config
- * @typedef {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>} JsConfig
+ * @typedef {Required<Pick<import('eslint').Linter.ParserOptions, 'ecmaFeatures'>>} ParserOptions
+ * @typedef {Required<Pick<import('eslint').Linter.LanguageOptions, 'globals'|'sourceType'>>} LO
+ * @typedef {{parserOptions: ParserOptions, ecmaVersion: 'latest'} & LO} JsLanguageOptions
+ * @typedef {Required<import('eslint').Linter.Config<import('eslint/rules').ESLintRules>>} Config
+ * @typedef {Pick<Config, 'plugins'|'rules'> & {languageOptions: JsLanguageOptions}} JsConfig
  */
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel='error'] default:`'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']  default:`'warn'`
  * @param {JsConfigOptions} [options={}] default:`{semi: true, jsx: false, complexityDepth: Infinity}`
- * @returns {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>}
+ *
+ * @returns {JsConfig}
  */
 export default (
 	logLevel = 'error',
@@ -45,7 +49,12 @@ export default (
 	{semi = true, jsx = false, complexityDepth = Infinity} = {}
 ) => ({
 	languageOptions: {
-		...jsx ? {parserOptions: {ecmaFeatures: {jsx: true}}} : {},
+		parserOptions: {
+			ecmaFeatures: {
+				impliedStrict: true,
+				jsx
+			}
+		},
 
 		ecmaVersion: 'latest',
 

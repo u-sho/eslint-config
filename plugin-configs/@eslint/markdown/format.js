@@ -11,12 +11,9 @@ import markdownRulesRecommended from './rules/recommended.js';
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
- * @param {Readonly<{
- * 	language   ?: 'commonmark' | 'gfm';
- * 	frontMatter?: false | 'yaml' | 'toml';
- * 	pluginName ?: string;
- * }>} options default:`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
- * @returns {import('eslint').Linter.Config}
+ * @param {import('./all.js').MdConfigOptions} options default:
+ * 	`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
+ * @returns {import('./all.js').MdConfig}
  */
 export default (
 	formatLogLevel = 'warn',
@@ -37,10 +34,10 @@ export default (
 	}
 
 	return {
-		files   : ['*.md', '**/*.md'],
-		plugins : {[pluginName]: markdownPlugin},
-		language: `${pluginName}/${language}`,
-		...'string' === typeof frontMatter ? {languageOptions: {frontMatter}} : {},
+		files          : ['*.md', '**/*.md'],
+		plugins        : {[pluginName]: markdownPlugin},
+		language       : `${pluginName}/${language}`,
+		languageOptions: {frontMatter},
 		rules
 	};
 };

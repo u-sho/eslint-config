@@ -22,11 +22,19 @@ const isModule = null != packageJson
 	&& 'type' in packageJson
 	&& 'module' === packageJson.type;
 
+
+/**
+ * @typedef {Required<import('eslint').Linter.LanguageOptions>} LanguageOptions
+ * @typedef {{languageOptions: Pick<LanguageOptions, 'globals'|'sourceType'>}} NodeLanguageOptions
+ * @typedef {Required<import('eslint').Linter.Config>} Config
+ * @typedef {NodeLanguageOptions & Pick<Config, 'plugins'|'rules'>} NodeConfig
+ */
+
 /**
  * @param {import('eslint').Linter.RuleSeverity} [logLevel='error']
  * @param {Readonly<{short?: boolean; pluginName?: string}>} [options={}] - default:
  * 	`{short: false, pluginName: 'n'}`
- * @returns {Required<Pick<import('eslint').Linter.Config, 'languageOptions'|'plugins'|'rules'>>}
+ * @returns {NodeConfig}
  */
 export default (logLevel = 'error', {short = false, pluginName = 'n'} = {}) => {
 	if ('' === pluginName)
