@@ -70,7 +70,7 @@ export default (
 	return {
 		languageOptions: {
 			sourceType : 'module',
-			ecmaVarsion: 'latest',
+			ecmaVersion: 'latest',
 			globals    : {
 				...globals.browser,
 				...globals.node,

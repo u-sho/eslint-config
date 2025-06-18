@@ -40,7 +40,7 @@ export default tseslint.config([
 		rules: {
 			...configMarkdown.rules,
 			'markdown/no-duplicate-headings': OFF
-		{
+		}
 	},
 	{
 		...configJs,
