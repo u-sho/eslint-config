@@ -25,13 +25,16 @@ const isModule = null != packageJson
 
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
- * @param {Readonly<{pluginName?: string, short?: boolean, javascript?: boolean}>} [options={}] - default:
- * 	`{pluginName: '@typescript-eslint', short: false, javascript: false}`
+ * @param {import('./all.js').TsConfigOptions} [options={}] - default:
+ * 	`{pluginName: '@typescript-eslint', short: false, javascript: false, tsx: false}`
  *
  * @typedef {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config} Config
  * @returns {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>>}
  */
-export default (formatLogLevel = 'warn', {short = false, javascript = false, pluginName = '@typescript-eslint'} = {}) => {
+export default (
+	formatLogLevel = 'warn',
+	{short = false, javascript = false, tsx = false, pluginName = '@typescript-eslint'} = {}
+) => {
 	if (!isModule)
 		throw new Error('This config is for ESM only. Set `type: "module"` in package.json.');
 
@@ -55,13 +58,19 @@ export default (formatLogLevel = 'warn', {short = false, javascript = false, plu
 
 	return {
 		languageOptions: {
-			sourceType: 'module',
-			globals   : {
+			sourceType : 'module',
+			ecmaVersion: 'latest',
+			globals    : {
+				...globals.browser,
 				...globals.node,
 				...globals.es2021
 			},
 			parser       : tsPlugin.parser,
 			parserOptions: {
+				ecmaFeatures: {
+					impliedStrict: true,
+					jsx          : tsx
+				},
 				projectService: true
 			}
 

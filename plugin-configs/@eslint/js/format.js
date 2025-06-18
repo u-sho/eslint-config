@@ -33,7 +33,12 @@ export default (
 	{semi = true, jsx = false, complexityDepth = Infinity} = {}
 ) => ({
 	languageOptions: {
-		...jsx ? {parserOptions: {ecmaFeatures: {jsx: true}}} : {},
+		parserOptions: {
+			ecmaFeatures: {
+				impliedStrict: true,
+				jsx
+			}
+		},
 
 		ecmaVersion: 'latest',
 

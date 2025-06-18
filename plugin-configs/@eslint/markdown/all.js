@@ -11,15 +11,24 @@ import markdownPlugin from '@eslint/markdown';
 import markdownRulesNoRecommended from './rules/no-recommended.js';
 import markdownRulesRecommended from './rules/recommended.js';
 
+
 /**
- * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
- * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
- * @param {Readonly<{
+ * @typedef {Readonly<{
  * 	language   ?: 'commonmark' | 'gfm';
  * 	frontMatter?: false | 'yaml' | 'toml';
  * 	pluginName ?: string;
- * }>} options default:`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
- * @returns {import('eslint').Linter.Config}
+ * }>} MdConfigOptions
+ *
+ * @typedef {Required<import('eslint').Linter.Config>} Config
+ * @typedef {import('@eslint/markdown').MarkdownLanguageContext} MdLanguageOptions
+ * @typedef {Pick<Config, 'plugins'|'language'|'rules'> & {files: string[]} & MdLanguageOptions} MdConfig
+ */
+
+/**
+ * @param {import('eslint').Linter.RuleSeverity} [logLevel='error'] default:`'error'`
+ * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn'] default:`'warn'`
+ * @param {MdConfigOptions} options default:`{language:'gfm',frontMatter:false, pluginName:'markdown'}`
+ * @returns {MdConfig}
  */
 export default (
 	logLevel = 'error',
@@ -44,10 +53,10 @@ export default (
 	}
 
 	return {
-		files   : ['*.md', '**/*.md'],
-		plugins : {[pluginName]: markdownPlugin},
-		language: `${pluginName}/${language}`,
-		...'string' === typeof frontMatter ? {languageOptions: {frontMatter}} : {},
+		files          : ['*.md', '**/*.md'],
+		plugins        : {[pluginName]: markdownPlugin},
+		language       : `${pluginName}/${language}`,
+		languageOptions: {frontMatter},
 		rules
 	};
 };
