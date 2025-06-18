@@ -21,6 +21,7 @@
 		"lib"
 	],
 	"scripts": {
+		"analyze": "TIMING=20 eslint",
 		"format": "eslint --config eslint.format.config.mjs",
 		"format:fix": "eslint --config eslint.format.config.mjs --fix",
 		"lint": "eslint",
