@@ -45,8 +45,7 @@
 		"node": "^20.19.0 || 22.x || 24.x"
 	},
 	"peerDependencies": {
-		"eslint": "^9.28.0",
-		"typescript": "~5.8.3"
+		"eslint": "^9.28.0"
 	},
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "~4.5.0",
@@ -66,7 +65,8 @@
 		"eslint-plugin-import-x": "^4.11.0",
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^5.2.0",
-		"typescript-eslint": "^8.33.1"
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.34.0"
 	},
 	"devDependencies": {
 		"@eslint/markdown": "^6.5.0",
@@ -75,8 +75,7 @@
 		"eslint-plugin-import": "~2.31.0",
 		"eslint-plugin-import-x": "^4.11.0",
 		"type-fest": "^4.41.0",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.33.1"
+		"typescript": "^5.8.3"
 	},
 	"type": "module"
 }
