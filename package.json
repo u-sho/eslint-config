@@ -1,17 +1,10 @@
 {
 	"name": "@u-sho/eslint-config",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "Rules of ESLint as a formatter by u-sho",
 	"main": "index.js",
 	"exports": {
-		".": "./index.js",
-		"./configs/all-js": "./configs/all-js.js",
-		"./configs/all-ts": "./configs/all-ts.js",
-		"./configs/all-md": "./configs/all-md.js",
-		"./configs/base": "./configs/base.js",
-		"./configs/format-js": "./configs/format-js.js",
-		"./configs/format-ts": "./configs/format-ts.js",
-		"./configs/format-md": "./configs/format-md.js"
+		".": "./index.js"
 	},
 	"files": [
 		"index.js",
