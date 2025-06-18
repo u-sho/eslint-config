@@ -78,7 +78,9 @@ export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
 	} = {} /* eslint-enable @stylistic/indent */
 ) => {
 	const configJs = getConfigJs(logLevel, formatLogLevel, {complexityDepth, jsx, semi});
-	const configTs = getConfigTs(logLevel, formatLogLevel, {short, javascript: isJsFile, pluginName: tsPluginName});
+	const configTs = getConfigTs(
+		logLevel, formatLogLevel, {short, javascript: isJsFile, tsx: jsx, pluginName: tsPluginName}
+	);
 
 	// Const configImport = getConfigImport(logLevel, formatLogLevel, {jsx, pluginName: 'import'});
 	const configNode = getConfigNode(logLevel, {short, pluginName: nodePluginName});
