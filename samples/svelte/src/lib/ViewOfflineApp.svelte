@@ -33,17 +33,17 @@
 	let game = new Game();
 	let gameCount = 1;
 
-	let state = game.state;
+	let { state } = game;
 	let message = state.status;
 
-	$: choices =
-		state.collapseSquare !== null && state.cycleMarks !== null
+	$: choices
+		= null !== state.collapseSquare && null !== state.cycleMarks
 			? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
-					(choice) => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
+					choice => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
 				) as MaxLengthArray<MarkType, 3> | undefined)
 			: undefined;
 
-	function handleSquareClick(i: SquareType) {
+	function handleSquareClick(i: SquareType){
 		const status = game.handleSquareClick(i);
 		console.table(game.state);
 
@@ -51,14 +51,14 @@
 		message = status;
 	}
 
-	function handleCollapse(mark: MarkType) {
+	function handleCollapse(mark: MarkType){
 		const status = game.handleCollapse(mark);
 
 		state = { ...game.state };
 		message = status;
 	}
 
-	function handleNextGameClick() {
+	function handleNextGameClick(){
 		game = new Game();
 		game.setState({ scores: { ...state.scores } });
 		gameCount += 1;
@@ -67,7 +67,7 @@
 		message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
 	}
 
-	function handleResetGameClick() {
+	function handleResetGameClick(){
 		game = new Game();
 		gameCount = 1;
 

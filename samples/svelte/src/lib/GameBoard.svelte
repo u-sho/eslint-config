@@ -20,20 +20,22 @@
 -->
 <script lang="ts">
 import GameBoardSquare from './GameBoardSquare/index.svelte';
+
 import type { SquareType, StateType } from '$ts/games/QuantumTTT.type';
 
 type Props = {
-	cSquares: StateType['cSquares'];
-	qSquares: StateType['qSquares'];
-	cycleSquares: StateType['cycleSquares'];
-	cycleMarks: StateType['cycleMarks'];
+	cSquares      : StateType['cSquares'];
+	qSquares      : StateType['qSquares'];
+	cycleSquares  : StateType['cycleSquares'];
+	cycleMarks    : StateType['cycleMarks'];
 	collapseSquare: StateType['collapseSquare'];
+
 	// Passes index of square that was clicked up to Game.handleSquareClick.
 	onSquareClick: (i: SquareType) => void;
 };
 
-const { cSquares, qSquares, cycleSquares, cycleMarks, collapseSquare, onSquareClick }: Props =
-	$props();
+const { cSquares, qSquares, cycleSquares, cycleMarks, collapseSquare, onSquareClick }: Props
+	= $props();
 
 const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
@@ -43,16 +45,16 @@ const onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
 };
 
 const isHighlighted = $derived(
-	(row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
-		!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType)
+	(row: 0 | 1 | 2, column: 0 | 1 | 2): boolean => !!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType)
 );
 
 const currentSquareName = (
 	row: 0 | 1 | 2,
 	column: 0 | 1 | 2
 ): `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square` => {
-	const verticalPosition = row === 0 ? 'upper' : row === 1 ? 'middle' : 'lower';
-	const horizontalPosition = column === 0 ? 'left' : column === 1 ? 'center' : 'right';
+	const verticalPosition = 0 === row ? 'upper' : 1 === row ? 'middle' : 'lower';
+	const horizontalPosition = 0 === column ? 'left' : 1 === column ? 'center' : 'right';
+
 	return `${verticalPosition} ${horizontalPosition} square`;
 };
 </script>

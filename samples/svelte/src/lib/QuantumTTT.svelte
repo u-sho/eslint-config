@@ -1,5 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: can't migrate `let state = game.state;` to `$state` because there's a variable named state.
-     Rename the variable and try again or migrate by hand. -->
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
 	  Copyright (C) 2021  Shouhei Uechi
@@ -21,29 +19,29 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
+import type { MarkType, SquareType } from '$ts/games/QuantumTTT.type';
 import type { MaxLengthArray } from '$ts/types/generics';
 import { getOrdinal } from '$ts/utils/getNumeral';
+import Game from '$ts/games/QuantumTTT';
 
 import GameBoard from './GameBoard.svelte';
-import GameInfo from './GameInfo.svelte';
 import GameFooter from './GameFooter.svelte';
-import type { MarkType, SquareType } from '$ts/games/QuantumTTT.type';
-import Game from '$ts/games/QuantumTTT';
+import GameInfo from './GameInfo.svelte';
 
 let game = new Game();
 let gameCount = 1;
 
-let state = game.state;
+let { state } = game;
 let message = state.status;
 
-$: choices =
-	state.collapseSquare !== null && state.cycleMarks !== null
+$: choices
+	= (null !== state.collapseSquare && null !== state.cycleMarks)
 		? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
-				(choice) => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
+				choice => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
 			) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
-function handleSquareClick(i: SquareType) {
+function handleSquareClick(i: SquareType){
 	const status = game.handleSquareClick(i);
 	if (import.meta.env.DEV) console.table(game.state);
 
@@ -51,14 +49,14 @@ function handleSquareClick(i: SquareType) {
 	message = status;
 }
 
-function handleCollapse(mark: MarkType) {
+function handleCollapse(mark: MarkType){
 	const status = game.handleCollapse(mark);
 
 	state = { ...game.state };
 	message = status;
 }
 
-function handleNextGameClick() {
+function handleNextGameClick(){
 	game = new Game();
 	game.setState({ scores: { ...state.scores } });
 	gameCount += 1;
@@ -67,7 +65,7 @@ function handleNextGameClick() {
 	message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
 }
 
-function handleResetGameClick() {
+function handleResetGameClick(){
 	game = new Game();
 	gameCount = 1;
 

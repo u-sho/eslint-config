@@ -19,18 +19,18 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import QuantumMarks from './MarkQuantums.svelte';
 import ClassicalMark from './MarkClassical.svelte';
+import QuantumMarks from './MarkQuantums.svelte';
 import type { StateType } from '$ts/games/QuantumTTT.type';
 
 type GameBoardSquareProps = {
-	cMark: StateType['cSquares'][0];
-	qMarks: StateType['qSquares'][0];
-	cycleMarks: StateType['cycleMarks'];
-	isHighlighted: boolean;
+	cMark           : StateType['cSquares'][0];
+	qMarks          : StateType['qSquares'][0];
+	cycleMarks      : StateType['cycleMarks'];
+	isHighlighted   : boolean;
 	isBeingCollapsed: boolean;
-	onClick: () => void;
-	squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
+	onClick         : () => void;
+	squareName      : `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
 };
 const {
 	cMark,
@@ -49,7 +49,7 @@ const squareClass = $derived(
 );
 
 const ariaLabel = $derived(
-	`${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`
+	`${cMark ? `Classical ${cMark}` : 0 < qMarks.length ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`
 );
 </script>
 
@@ -60,7 +60,7 @@ const ariaLabel = $derived(
 		onClick();
 	}}
 	onkeypress={(e: KeyboardEvent): void => {
-		if (e.key !== 'Enter' && e.key !== ' ') return;
+		if ('Enter' !== e.key && ' ' !== e.key) return;
 		e.preventDefault();
 		onClick();
 	}}

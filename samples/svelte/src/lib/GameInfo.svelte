@@ -24,16 +24,21 @@ import type { MaxLengthArray } from '$ts/types/generics';
 import type { MarkType } from '$ts/games/QuantumTTT.type';
 
 type GameInfoProps = {
+
 	// Contains marks in selected square if collapse ongoing
 	choices: MaxLengthArray<MarkType, 3> | undefined;
+
 	// Passes selected choice of mark up to Game.handleCollapse
 	onChoiceClick: (choice: MarkType) => void;
+
 	// Conveys player information about the state of the game
-	status: string;
+	status    : string;
 	isGameOver: boolean;
-	scores: { X: number; Y: number };
+	scores    : { X: number; Y: number; };
+
 	// Go to next game with scores
 	onNextGameClick: () => void;
+
 	// Reset scores & Go to new game
 	onResetGameClick: () => void;
 };
@@ -49,8 +54,8 @@ const {
 
 type GameInfoButtonProps = {
 	buttonClass: 'next-game' | 'reset-game' | 'collapse-choice';
-	choice?: MarkType;
-	onClick: () => void;
+	choice    ?: MarkType;
+	onClick    : () => void;
 };
 </script>
 
@@ -62,7 +67,7 @@ type GameInfoButtonProps = {
 			onClick();
 		}}
 		onkeypress={(e: KeyboardEvent): void => {
-			if (e.key !== 'Enter' && e.key !== ' ') return;
+			if ('Enter' !== e.key && ' ' !== e.key) return;
 			e.preventDefault();
 			onClick();
 		}}
@@ -70,11 +75,11 @@ type GameInfoButtonProps = {
 		tabindex="0"
 	>
 		<span class="btn-text">
-			{#if buttonClass === 'collapse-choice' && choice}
+			{#if 'collapse-choice' === buttonClass && choice}
 				{choice[0]}<sub>{choice[1]}</sub>
-			{:else if buttonClass === 'next-game'}
+			{:else if 'next-game' === buttonClass}
 				Next
-			{:else if buttonClass === 'reset-game'}
+			{:else if 'reset-game' === buttonClass}
 				Reset
 			{/if}
 		</span>
@@ -89,7 +94,7 @@ type GameInfoButtonProps = {
 				{@render gameInfoButton({
 					buttonClass: 'collapse-choice',
 					choice,
-					onClick: (): void => onChoiceClick(choice)
+					onClick    : (): void => onChoiceClick(choice)
 				})}
 			{/each}
 		</div>

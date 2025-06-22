@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ViewOfflineApp from "$lib/ViewOfflineApp.svelte";
+	import ViewOfflineApp from '$lib/ViewOfflineApp.svelte';
 </script>
 
 <main class="main">
