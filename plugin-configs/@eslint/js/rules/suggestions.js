@@ -84,7 +84,7 @@ export default (
 
 	// Enforce minimum and maximum identifier lengths
 	'id-length': [formatLogLevel, {
-		min       : 4,
+		min       : 3,
 		max       : 26,
 		properties: 'never',
 		exceptions: ['i']
