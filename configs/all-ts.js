@@ -115,7 +115,7 @@ export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
 		...filesTs,
 		...jsx ? filesTsx : [],
 		...isJsFile ? filesJs : [],
-		...isJsFile && jsx ? filesJsx : []
+		...(isJsFile && jsx) ? filesJsx : []
 	];
 
 	return {

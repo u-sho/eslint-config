@@ -100,7 +100,7 @@ export const getConfigTsFormat = (
 		...filesTs,
 		...jsx ? filesTsx : [],
 		...isJsFile ? filesJs : [],
-		...isJsFile && jsx ? filesJsx : []
+		...(isJsFile && jsx) ? filesJsx : []
 	];
 
 	return {
