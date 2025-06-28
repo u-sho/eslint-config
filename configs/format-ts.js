@@ -38,7 +38,7 @@ import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
  * }
  * ```
  *
- * @returns {import('./all-ts.js').ConfigTsAll}
+ * @returns {import('./all-ts.js').TsConfig}
  */
 export const getConfigTsFormat = (
 	formatLogLevel = 'warn',
