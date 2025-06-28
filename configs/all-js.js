@@ -13,7 +13,7 @@ import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
 
 /**
  * @typedef {import('eslint').Linter.Config} Config
- * @typedef {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>> & {files: string[]}} ConfigJsAll
+ * @typedef {Required<Pick<Config, 'languageOptions'|'plugins'|'rules'>> & {files: string[]}} JsConfig
  */
 
 /**
@@ -43,7 +43,7 @@ import getConfigStylistic      from '../plugin-configs/@stylistic/format.js';
  * ,             tsPluginName: '@typescript-eslint'
  * }
  * ```
- * @returns {ConfigJsAll}
+ * @returns {JsConfig}
  */
 export const getConfigJsAll = (
 	logLevel = 'error',

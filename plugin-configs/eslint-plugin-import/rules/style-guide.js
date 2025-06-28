@@ -38,7 +38,7 @@ export default (
 		js : 'never',
 		jsx: jsx ? 'never' : 'always',
 		ts : typescript ? 'never' : 'always',
-		tsx: typescript && jsx ? 'never' : 'always'
+		tsx: (typescript && jsx) ? 'never' : 'always'
 	}],
 
 	// Ensure all imports appear before other statements.

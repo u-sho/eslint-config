@@ -128,7 +128,6 @@ For more information about rules, see below documents.
 ## TODO
 
 - `'@stylistic/lines-between-class-members'`, `'@stylistic/ts/lines-between-class-members'`
-- `'@stylistic/no-mixed-operators'` in `short` option
 - `'@eslint-community/eslint-comments/no-restricted-disable'`
 - `'html/id-naming-convention'`
 - `'@typescript-eslint/no-empty-function'`

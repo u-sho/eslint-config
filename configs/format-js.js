@@ -14,7 +14,7 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
 /**
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel='warn']
  * @param {Omit<import('./base.js').JsConfigOptions, 'nodePluginName'>} [option={}]
- * @returns {import('./all-js.js').ConfigJsAll}
+ * @returns {import('./all-js.js').JsConfig}
  */
 export const getConfigJsFormat = (
 	formatLogLevel = 'warn',

@@ -15,7 +15,7 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
  * @typedef {import('./base.js').JsConfigOptions & {readonly isJsFile?: boolean}} TsConfigOptions
  *
  * @typedef {import('@typescript-eslint/utils/ts-eslint').FlatConfig.Config} Config
- * @typedef {Required<Pick<Config,'languageOptions'|'plugins'|'rules'>> & {files: string[]}} ConfigTsAll
+ * @typedef {Required<Pick<Config,'languageOptions'|'plugins'|'rules'>> & {files: string[]}} TsConfig
  */
 
 /**
@@ -47,7 +47,7 @@ import getConfigStylistic from '../plugin-configs/@stylistic/format.js';
  * ,             tsPluginName: '@typescript-eslint'
  * }
  * ```
- * @returns {ConfigTsAll}
+ * @returns {TsConfig}
  */
 export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
 	      logLevel = 'error',
@@ -115,7 +115,7 @@ export const getConfigTsAll = (/* eslint-disable @stylistic/indent */
 		...filesTs,
 		...jsx ? filesTsx : [],
 		...isJsFile ? filesJs : [],
-		...isJsFile && jsx ? filesJsx : []
+		...(isJsFile && jsx) ? filesJsx : []
 	];
 
 	return {
