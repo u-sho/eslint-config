@@ -129,7 +129,7 @@ export default makeConfig([
 		}
 	},
 	{
-		files: ['eslint.config.js', '**/GameBoard.svelte', '**/GameInfo.svelte'],
+		files: ['eslint.config.js', '*.svelte', '**/*.svelte'],
 		rules: {
 			'typescript/no-magic-numbers': [
 				'warn',
