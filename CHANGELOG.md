@@ -1,3 +1,18 @@
+## [0.2.0](https://github.com/u-sho/eslint-config/compare/v0.1.2...v0.2.0) (2025-06-19)
+
+### Breaking Changes
+
+- `min` of `id-length` is changed from `4` to `3` ([#30](https://github.com/u-sho/eslint-config/pull/30))
+- `memberSyntaxOrder` of `sort-imports` is changed from `['all', 'multiple', 'single', 'none']` to `['all', 'single', 'multiple', 'none']` ([#30](https://github.com/u-sho/eslint-config/pull/30))
+- `@stylistic/no-mixed-operators` rule is remove on `short` option ([#30](https://github.com/u-sho/eslint-config/pull/30))
+- `@typescript-eslint/method-signature-style` rule is changed from `method` to `property` on NON `short` option ([#30](https://github.com/u-sho/eslint-config/pull/30))
+
+### Features
+
+- add `index.d.ts` for module declaration ([#30](https://github.com/u-sho/eslint-config/pull/30))
+
+
+
 ## [0.1.2](https://github.com/u-sho/eslint-config/compare/v0.1.1...v0.1.2) (2025-06-15)
 
 ### Dependencies

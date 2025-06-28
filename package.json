@@ -1,6 +1,6 @@
 {
 	"name": "@u-sho/eslint-config",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Rules of ESLint as a formatter by u-sho",
 	"main": "index.js",
 	"exports": {
