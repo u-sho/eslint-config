@@ -84,7 +84,7 @@ export default (
 
 	// Enforce minimum and maximum identifier lengths
 	'id-length': [formatLogLevel, {
-		min       : 4,
+		min       : 3,
 		max       : 26,
 		properties: 'never',
 		exceptions: ['i']
@@ -450,7 +450,7 @@ export default (
 	// Enforce sorted import declarations within modules
 	'sort-imports': [formatLogLevel, /* eslint-disable @stylistic/indent */
 	                 {allowSeparatedGroups : true,
-	                  memberSyntaxSortOrder: ['all', 'multiple', 'single', 'none']}],
+	                  memberSyntaxSortOrder: ['all', 'single', 'multiple', 'none']}],
 	                 /* eslint-enable @stylistic/indent */
 
 	// Require object keys to be sorted

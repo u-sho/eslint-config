@@ -317,7 +317,16 @@ export default (
 
 		// Disallow mixed binary operators
 		'no-mixed-operators'           : 0,
-		'@stylistic/no-mixed-operators': [formatLogLevel, {allowSamePrecedence: true}],
+		'@stylistic/no-mixed-operators': short
+			? 0
+			: [formatLogLevel, /* eslint-disable @stylistic/indent */
+			   {allowSamePrecedence: true,
+			    groups             : [['+', '-'],
+			                          ['*', '/', '%', '**'],
+			                          ['&', '|', '^', '~', '<<', '>>', '>>>'],
+			                          ['==', '!=', '===', '!==', '>', '>=', '<', '<='],
+			                          ['&&', '||', '??', '?:'],
+			                          ['in', 'instanceof']]}], /* eslint-enable @stylistic/indent */
 
 		// Disallow mixed spaces and tabs for indentation
 		'no-mixed-spaces-and-tabs'           : 0,

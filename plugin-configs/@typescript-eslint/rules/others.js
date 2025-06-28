@@ -67,8 +67,9 @@ export default (
 	// Require a consistent member declaration order
 	'@typescript-eslint/member-ordering': formatLogLevel,
 
-	// Enforce using a particular method signature syntax
-	'@typescript-eslint/method-signature-style': [formatLogLevel, 'method'], // Use `strictFunctionTypes` on tsconfig.json
+	/* Enforce using a particular method signature syntax
+	   Use `strictFunctionTypes` on tsconfig.json */
+	'@typescript-eslint/method-signature-style': [formatLogLevel, short ? 'method' : 'property'],
 
 	// Enforce naming conventions for everything across a codebase
 	'camelcase'                           : 0,
