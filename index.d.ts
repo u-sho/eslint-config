@@ -4,7 +4,7 @@
 declare module '@u-sho/eslint-config' {
 	import type {Linter} from 'eslint';
 
-	type RuleSeverity = Linter.Severity;
+	type RuleSeverity = Linter.RuleSeverity;
 	type RequiredConfig = Required<Linter.Config>;
 
 
