@@ -1,6 +1,6 @@
 {
 	"name": "@u-sho/eslint-config",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Rules of ESLint as a formatter by u-sho",
 	"main": "index.js",
 	"exports": {
@@ -31,7 +31,7 @@
 		"eslintconfig"
 	],
 	"author": "u-sho <shouhei.uechi@gmail.com> (https://github.com/u-sho)",
-	"license": "./LICENSE",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/u-sho/eslint-config/issues"
 	},
