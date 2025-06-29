@@ -1,4 +1,4 @@
-## [0.2.0](https://github.com/u-sho/eslint-config/compare/v0.1.2...v0.2.0) (2025-06-19)
+## [0.3.0](https://github.com/u-sho/eslint-config/compare/v0.2.0...v0.3.0) Add Module Type (2025-06-28)
 
 ### Breaking Changes
 
@@ -12,8 +12,28 @@
 - add `index.d.ts` for module declaration ([#30](https://github.com/u-sho/eslint-config/pull/30))
 
 
+## [0.2.0](https://github.com/u-sho/eslint-config/compare/v0.1.2...v0.2.0) Better Package Interface (2025-06-19)
 
-## [0.1.2](https://github.com/u-sho/eslint-config/compare/v0.1.1...v0.1.2) (2025-06-15)
+### Breaking Changes
+
+- `exports` way ([#28](https://github.com/u-sho/eslint-config/pull/28))
+
+### Features
+
+- add `isJsFile` option to `getConfigTsAll` ([#28](https://github.com/u-sho/eslint-config/pull/28))
+- 
+
+### Dependencies
+
+- chore: update typescript-eslint ([#28](https://github.com/u-sho/eslint-config/pull/28))
+
+### Fixes
+
+- add `globals.browser` to typescript config ([#28](https://github.com/u-sho/eslint-config/pull/28))
+- `languageOptions` of markdown and js
+
+
+## [0.1.2](https://github.com/u-sho/eslint-config/compare/v0.1.1...v0.1.2) More Strict Types (2025-06-15)
 
 ### Dependencies
 
@@ -24,14 +44,14 @@
 - more strict types ([#27](https://github.com/u-sho/eslint-config/pull/27))
 
 
-## [0.1.1](https://github.com/u-sho/eslint-config/compare/v0.1.0...v0.1.1) (2025-06-07)
+## [0.1.1](https://github.com/u-sho/eslint-config/compare/v0.1.0...v0.1.1) Fix `exports` Paths (2025-06-07)
 
 ### Fix
 
 - fix `exports` paths ([#24](https://github.com/u-sho/eslint-config/pull/24))
 
 
-## [0.1.0](https://github.com/u-sho/eslint-config/compare/v0.0.2...v0.1.0) (2025-06-06)
+## [0.1.0](https://github.com/u-sho/eslint-config/compare/v0.0.2...v0.1.0) TypeScript Support (2025-06-06)
 
 ### Features
 
