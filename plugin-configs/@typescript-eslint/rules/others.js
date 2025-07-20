@@ -140,7 +140,7 @@ export default (
 	'prefer-destructuring'                   : 0,
 	'@typescript-eslint/prefer-destructuring': [logLevel,
 	/* eslint-disable @stylistic/indent      */ {array: false, object: true},
-	                                            {enforceForRenamedProperties            : true,
+	                                            {enforceForRenamedProperties            : short,
 	/* eslint-enable @stylistic/indent        */ enforceForDeclarationWithTypeAnnotation: true}],
 
 	// Require each `enum` member value to be explicitly initialized

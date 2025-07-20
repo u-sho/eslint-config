@@ -26,7 +26,7 @@ const isModule = null != packageJson
 /**
  * @typedef {import('@stylistic/eslint-plugin').StylisticCustomizeOptions} StylisticCustomizeOptions
  * @typedef {Readonly<
- * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number}
+ * 	Pick<StylisticCustomizeOptions, 'semi'|'jsx'> & {complexityDepth?: number, short?: boolean}
  * >} JsConfigOptions
  *
  * @typedef {Required<Pick<import('eslint').Linter.ParserOptions, 'ecmaFeatures'>>} ParserOptions
@@ -46,7 +46,7 @@ const isModule = null != packageJson
 export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{semi = true, jsx = false, complexityDepth = Infinity} = {}
+	{semi = true, jsx = false, complexityDepth = Infinity, short = false} = {}
 ) => ({
 	languageOptions: {
 		parserOptions: {
@@ -74,7 +74,7 @@ export default (
 	rules  : {
 		...eslintPossibleProblems(logLevel, formatLogLevel, {semi}),
 		...eslintLayoutAndFormatting(formatLogLevel),
-		...eslintSuggestions(logLevel, formatLogLevel, {complexityDepth}),
+		...eslintSuggestions(logLevel, formatLogLevel, {complexityDepth, short}),
 		...eslintDeprecated()
 	}
 });

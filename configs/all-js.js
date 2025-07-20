@@ -72,7 +72,7 @@ export const getConfigJsAll = (
 		            tsPluginName = '@typescript-eslint' /* eslint-enable @stylistic/indent */
 	} = {}
 ) => {
-	const configJs = getConfigJs(logLevel, formatLogLevel, {complexityDepth, jsx, semi});
+	const configJs = getConfigJs(logLevel, formatLogLevel, {complexityDepth, jsx, semi, short});
 	const configNode = getConfigNode(logLevel, {short, pluginName: nodePluginName});
 
 	// Const configImport = getConfigImport(logLevel, formatLogLevel, {jsx, pluginName: 'import'});
