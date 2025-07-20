@@ -1,0 +1,35 @@
+{
+   "eslint.enable": true,
+   "eslint.onIgnoredFiles": "off",
+   "eslint.run": "onSave",
+   "eslint.validate": [
+      "javascript",
+      "typescript",
+      "svelte",
+      "markdown"
+   ],
+   "eslint.workingDirectories": ["."],
+   "files.insertFinalNewline": false,
+
+   "[javascript]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+      "editor.codeActionsOnSave": {
+         "source.fixAll.eslint": "explicit",
+         "source.organizeImports": "never"
+      }
+   },
+   "[typescript]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+      "editor.codeActionsOnSave": {
+         "source.fixAll.eslint": "explicit",
+         "source.organizeImports": "never"
+      }
+   },
+   "[svelte]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+      "editor.codeActionsOnSave": {
+         "source.fixAll.eslint": "explicit",
+         "source.organizeImports": "never"
+      }
+   }
+}

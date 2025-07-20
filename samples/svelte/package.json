@@ -14,13 +14,16 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "lint:analyze": "TIMING=20 eslint"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.1.0",
     "@tsconfig/svelte": "^5.0.4",
     "@types/node": "^22.15.31",
-    "@u-sho/eslint-config": "^0.2.0",
+    "@u-sho/eslint-config": "^0.3.1",
     "better-typescript-lib": "^2.11.0",
     "eslint": "^9.29.0",
     "eslint-plugin-svelte": "^3.9.3",

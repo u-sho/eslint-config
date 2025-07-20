@@ -48,9 +48,12 @@ const squareClass = $derived(
 		: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`
 );
 
-const ariaLabel = $derived(
-	`${cMark ? `Classical ${cMark}` : 0 < qMarks.length ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`
-);
+const ariaLabel = $derived.by(() => {
+	if (cMark) return `Classical ${cMark} on ${squareName}`;
+	if (qMarks.length) return `Quantum ${qMarks.join(', ')} on ${squareName}`;
+
+	return `No marks on ${squareName}`;
+});
 </script>
 
 <div

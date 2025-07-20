@@ -41,12 +41,20 @@ const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
 
 const onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
+	/* eslint-disable-next-line typescript/consistent-type-assertions,
+	                            typescript/no-unsafe-type-assertion -- TS is weak */
 	onSquareClick((row * 3 + column) as SquareType);
 };
 
-const isHighlighted = $derived(
-	(row: 0 | 1 | 2, column: 0 | 1 | 2): boolean => !!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType)
-);
+
+const isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean => {
+	if (null === cycleSquares) return false;
+	if (0 === cycleSquares.length) return false;
+
+	/* eslint-disable-next-line typescript/consistent-type-assertions,
+	                            typescript/no-unsafe-type-assertion -- TS is weak */
+	return cycleSquares.includes((row * 3 + column) as SquareType);
+};
 
 const currentSquareName = (
 	row: 0 | 1 | 2,

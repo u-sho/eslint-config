@@ -19,10 +19,11 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import type { MarkType, SquareType } from '$ts/games/QuantumTTT.type';
 import type { MaxLengthArray } from '$ts/types/generics';
 import { getOrdinal } from '$ts/utils/getNumeral';
+
 import Game from '$ts/games/QuantumTTT';
+import type { MarkType, SquareType, StateType } from '$ts/games/QuantumTTT.type';
 
 import GameBoard from './GameBoard.svelte';
 import GameFooter from './GameFooter.svelte';
@@ -34,26 +35,30 @@ let gameCount = 1;
 let { state } = game;
 let message = state.status;
 
-$: choices
-	= (null !== state.collapseSquare && null !== state.cycleMarks)
-		? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
-				choice => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
-			) as MaxLengthArray<MarkType, 3> | undefined)
-		: undefined;
+
+/* eslint-disable typescript/consistent-type-assertions,
+                  typescript/no-unsafe-type-assertion -- TS is weak */
+$: choices = (null !== state.collapseSquare && null !== state.cycleMarks)
+	? (state.qSquares[state.collapseSquare].filter(
+			choice => (state.cycleMarks as Exclude<StateType['cycleMarks'], null | []>).includes(choice)
+		) as MaxLengthArray<MarkType, 3>)
+	: [] as const satisfies MaxLengthArray<MarkType, 0>;
+/* eslint-enable typescript/consistent-type-assertions,
+                 typescript/no-unsafe-type-assertion -- TS is weak */
 
 function handleSquareClick(i: SquareType){
-	const status = game.handleSquareClick(i);
+	const statusMessage = game.handleSquareClick(i);
 	if (import.meta.env.DEV) console.table(game.state);
 
 	state = { ...game.state };
-	message = status;
+	message = statusMessage;
 }
 
 function handleCollapse(mark: MarkType){
-	const status = game.handleCollapse(mark);
+	const statusMessage = game.handleCollapse(mark);
 
 	state = { ...game.state };
-	message = status;
+	message = statusMessage;
 }
 
 function handleNextGameClick(){

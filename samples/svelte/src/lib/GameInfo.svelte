@@ -23,10 +23,10 @@ import type { MaxLengthArray } from '$ts/types/generics';
 
 import type { MarkType } from '$ts/games/QuantumTTT.type';
 
-type GameInfoProps = {
+type GameInfoProps = Readonly<{
 
 	// Contains marks in selected square if collapse ongoing
-	choices: MaxLengthArray<MarkType, 3> | undefined;
+	choices: MaxLengthArray<MarkType, 3>;
 
 	// Passes selected choice of mark up to Game.handleCollapse
 	onChoiceClick: (choice: MarkType) => void;
@@ -41,22 +41,22 @@ type GameInfoProps = {
 
 	// Reset scores & Go to new game
 	onResetGameClick: () => void;
-};
+}>;
 const {
 	choices,
 	onChoiceClick,
-	status,
+	status: statusMessage,
 	isGameOver,
 	scores,
 	onNextGameClick,
 	onResetGameClick
 }: GameInfoProps = $props();
 
-type GameInfoButtonProps = {
+type GameInfoButtonProps = Readonly<{
 	buttonClass: 'next-game' | 'reset-game' | 'collapse-choice';
 	choice    ?: MarkType;
 	onClick    : () => void;
-};
+}>;
 </script>
 
 {#snippet gameInfoButton({ buttonClass, choice, onClick }: GameInfoButtonProps)}
@@ -87,14 +87,14 @@ type GameInfoButtonProps = {
 {/snippet}
 
 <div class="game-info">
-	<p class="status">{status}</p>
+	<p class="status">{statusMessage}</p>
 	{#if choices}
 		<div class="btn-list">
 			{#each choices as choice (choice)}
 				{@render gameInfoButton({
 					buttonClass: 'collapse-choice',
 					choice,
-					onClick    : (): void => onChoiceClick(choice)
+					onClick    : () => onChoiceClick(choice)
 				})}
 			{/each}
 		</div>

@@ -31,6 +31,7 @@ const { qMarks, cycleMarks, isHighlighted, isBeingCollapsed }: GameBoardSquareMa
 	= $props();
 
 const getTextColor = (mark: MarkType): 'white' | 'blue' | 'red' => {
+	// eslint-disable-next-line typescript/strict-boolean-expressions -- useful
 	if (!cycleMarks?.length) return 'white';
 	if (cycleMarks.includes(mark)) {
 		if (isBeingCollapsed) return 'red';
