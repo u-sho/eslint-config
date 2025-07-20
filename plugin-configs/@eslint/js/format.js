@@ -30,7 +30,7 @@ const isModule = null != packageJson
  */
 export default (
 	formatLogLevel = 'warn',
-	{semi = true, jsx = false, complexityDepth = Infinity} = {}
+	{semi = true, jsx = false, complexityDepth = Infinity, short = false} = {}
 ) => ({
 	languageOptions: {
 		parserOptions: {
@@ -58,7 +58,7 @@ export default (
 	rules  : {
 		...eslintPossibleProblems(0, formatLogLevel, {semi}),
 		...eslintLayoutAndFormatting(formatLogLevel),
-		...eslintSuggestions(0, formatLogLevel, {complexityDepth}),
+		...eslintSuggestions(0, formatLogLevel, {complexityDepth, short}),
 		...eslintDeprecated()
 	}
 });

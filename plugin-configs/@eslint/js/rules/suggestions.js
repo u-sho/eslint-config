@@ -9,13 +9,14 @@
 /**
  * @param {import('eslint').Linter.RuleSeverity} [      logLevel = 'error'] default: `'error'`
  * @param {import('eslint').Linter.RuleSeverity} [formatLogLevel = 'warn']  default: `'warn'`
- * @param {{readonly complexityDepth?: number}} options default: `{complexityDepth: Infinity}`
+ * @param {Readonly<{complexityDepth?: number, short?: boolean}>} options   default:
+ * 	`{complexityDepth: Infinity, short: false}`
  * @returns {Partial<import('eslint/rules').ESLintRules>}
  */
 export default (
 	logLevel = 'error',
 	formatLogLevel = 'warn',
-	{complexityDepth = Infinity} = {}
+	{complexityDepth = Infinity, short = false} = {}
 ) => ({
 	// Enforce getter and setter pairs in objects and classes
 	'accessor-pairs': 0, // Rel. `@typescript-eslint/related-getter-setter-pairs`
@@ -321,7 +322,7 @@ export default (
 	'no-shadow-restricted-names': logLevel,
 
 	// Disallow ternary operators
-	'no-ternary': 0,
+	'no-ternary': 0, // Ternary operators are useful in many cases
 
 	// Disallow throwing literals as exceptions
 	'no-throw-literal': logLevel, // `@typescript-eslint/only-throw-error` rule is used
@@ -400,7 +401,7 @@ export default (
 	// Require destructuring from arrays and/or objects
 	'prefer-destructuring': [logLevel, /* eslint-disable @stylistic/indent */
 	                         {array: false, object: true},
-	                         {enforceForRenamedProperties: true}],
+	                         {enforceForRenamedProperties: short}],
 	/* eslint-enable @stylistic/indent */ // `@typescript-eslint/prefer-destructuring` rule is used
 
 	// Disallow the use of Math.pow in favor of the ** operator

@@ -40,7 +40,7 @@ export const getConfigJsFormat = (
 		tsPluginName             = '@typescript-eslint'
 	} = {}
 ) => {
-	const configJs = getConfigJs(formatLogLevel, {complexityDepth, jsx, semi});
+	const configJs = getConfigJs(formatLogLevel, {complexityDepth, short, jsx, semi});
 	const configPromise = getConfigPromise(formatLogLevel, {pluginName: promisePluginName});
 	const configStylistic = getConfigStylistic(formatLogLevel, {
 		printWidth,
