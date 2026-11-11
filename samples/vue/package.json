@@ -15,7 +15,7 @@
     "check": "vue-tsc -b"
   },
   "dependencies": {
-    "vue": "^3.5.16"
+    "vue": "^3.5.45"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
